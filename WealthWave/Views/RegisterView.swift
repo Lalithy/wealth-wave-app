@@ -9,6 +9,8 @@ import SwiftUI
 
 struct RegisterView: View {
     
+    @StateObject var registerVM : RegisterViewModel = RegisterViewModel()
+    
     @State private var email = ""
     @State private var password = ""
     @State private var passwordConfirm = ""

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9212FA542AAE103F00490868 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9212FA532AAE103F00490868 /* RegisterView.swift */; };
+		9212FA592AAE27AC00490868 /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9212FA582AAE27AC00490868 /* RegisterViewModel.swift */; };
 		9225F3822AADD3240009AA5C /* Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9225F3812AADD3240009AA5C /* Preview.swift */; };
 		9228FDB72AADC24600CE8E8D /* WealthWaveApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9228FDB62AADC24600CE8E8D /* WealthWaveApp.swift */; };
 		9228FDB92AADC24600CE8E8D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9228FDB82AADC24600CE8E8D /* ContentView.swift */; };
@@ -18,6 +19,7 @@
 
 /* Begin PBXFileReference section */
 		9212FA532AAE103F00490868 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
+		9212FA582AAE27AC00490868 /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
 		9225F3812AADD3240009AA5C /* Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preview.swift; sourceTree = "<group>"; };
 		9228FDB32AADC24600CE8E8D /* WealthWave.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WealthWave.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9228FDB62AADC24600CE8E8D /* WealthWaveApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WealthWaveApp.swift; sourceTree = "<group>"; };
@@ -38,6 +40,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9212FA572AAE274700490868 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				9212FA582AAE27AC00490868 /* RegisterViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		9225F37C2AADD2110009AA5C /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -67,6 +77,7 @@
 		9228FDB52AADC24600CE8E8D /* WealthWave */ = {
 			isa = PBXGroup;
 			children = (
+				9212FA572AAE274700490868 /* ViewModel */,
 				9225F37C2AADD2110009AA5C /* Views */,
 				9228FDB62AADC24600CE8E8D /* WealthWaveApp.swift */,
 				9228FDB82AADC24600CE8E8D /* ContentView.swift */,
@@ -155,6 +166,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9228FDB92AADC24600CE8E8D /* ContentView.swift in Sources */,
+				9212FA592AAE27AC00490868 /* RegisterViewModel.swift in Sources */,
 				9212FA542AAE103F00490868 /* RegisterView.swift in Sources */,
 				9225F3822AADD3240009AA5C /* Preview.swift in Sources */,
 				92C22A6F2AADDC0A0099AB39 /* LoginView.swift in Sources */,
