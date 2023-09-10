@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9212FA542AAE103F00490868 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9212FA532AAE103F00490868 /* RegisterView.swift */; };
 		9225F3822AADD3240009AA5C /* Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9225F3812AADD3240009AA5C /* Preview.swift */; };
 		9228FDB72AADC24600CE8E8D /* WealthWaveApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9228FDB62AADC24600CE8E8D /* WealthWaveApp.swift */; };
 		9228FDB92AADC24600CE8E8D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9228FDB82AADC24600CE8E8D /* ContentView.swift */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9212FA532AAE103F00490868 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		9225F3812AADD3240009AA5C /* Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preview.swift; sourceTree = "<group>"; };
 		9228FDB32AADC24600CE8E8D /* WealthWave.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WealthWave.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9228FDB62AADC24600CE8E8D /* WealthWaveApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WealthWaveApp.swift; sourceTree = "<group>"; };
@@ -41,6 +43,7 @@
 			children = (
 				9225F3812AADD3240009AA5C /* Preview.swift */,
 				92C22A6E2AADDC0A0099AB39 /* LoginView.swift */,
+				9212FA532AAE103F00490868 /* RegisterView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -152,6 +155,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9228FDB92AADC24600CE8E8D /* ContentView.swift in Sources */,
+				9212FA542AAE103F00490868 /* RegisterView.swift in Sources */,
 				9225F3822AADD3240009AA5C /* Preview.swift in Sources */,
 				92C22A6F2AADDC0A0099AB39 /* LoginView.swift in Sources */,
 				9228FDB72AADC24600CE8E8D /* WealthWaveApp.swift in Sources */,

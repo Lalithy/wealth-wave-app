@@ -8,57 +8,76 @@
 import SwiftUI
 
 struct LoginView: View {
-    @State private var username = ""
+    
+    @State private var email = ""
     @State private var password = ""
     
-    let gradient = Gradient(colors: [Color("ButtonColourTop"), Color("ButtonColourMiddle"), Color("ButtonColourEnd")])
+    let gradientButton = Gradient(colors: [Color("ButtonColourTop"), Color("ButtonColourMiddle"), Color("ButtonColourEnd")])
+    let gradientBackground = Gradient(colors: [Color("BackgroundTop"), Color("BackgroundMiddle"), Color("BackgroundEnd")])
     
     var body: some View {
-  
+       
+            
             VStack{
-                            HStack {
-                                Spacer()
-                                Image("LOGO")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 70, height: 70)
-                                    .padding(.top, 20)
-                                Spacer()
-                            }
-                Spacer().frame(height:40)
+                HStack {
+                    Spacer()
+                    Image("LOGO")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 70, height: 70)
+                        .padding(.top, 20)
+                    Spacer()
+                }
                 HStack{
+                    
                     Text("Sign up with your email address")
                         .bold()
-                }
+                }.padding(.top, 20)
+                    .padding(.bottom,40)
                 
-               Spacer().frame(height:40)
-               TextField("Username", text: $username)
+                
+                TextField("Enter Email", text: $email)
                     .padding()
                     .frame(width: 300)
-                    .background(Color.black.opacity(0.05))
+                    .background(Color.black.opacity(0.1))
                     .cornerRadius(15)
                 
-                Spacer().frame(height:20)
-                TextField("Password", text: $password)
-                     .padding()
-                     .frame(width: 300)
-                     .background(Color.black.opacity(0.05))
-                     .cornerRadius(15)
+                TextField("Enter Password", text: $password)
+                    .padding()
+                    .frame(width: 300)
+                    .background(Color.black.opacity(0.1))
+                    .cornerRadius(15)
+                    .padding()
+                    .padding(.bottom, 20)
                 
-                Spacer().frame(height:50)
+                
                 Button("Login"){
                     
                 }
                 .foregroundColor(.white)
                 .frame(width: 300, height: 50)
                 .bold()
-                .background(LinearGradient(gradient: gradient, startPoint: .leading, endPoint: .trailing))
+                .background(LinearGradient(gradient: gradientButton, startPoint: .leading, endPoint: .trailing))
                 .cornerRadius(10)
+                .padding(.bottom, 40)
+                
+                
+                HStack{
+                                Text("Don't have an account?")
+                                NavigationLink(
+                                    destination: RegisterView(),
+                                    label: {
+                                        Text("Register")
+                                            .foregroundColor(.gray)
+                                            .bold()
+                                            .underline(true, color: .gray)
+                                    }
+                                )
+                            }
                 
                 Spacer()
                 
-            }
-        
+            }.background(LinearGradient(gradient: gradientBackground, startPoint: .top, endPoint: .bottom))
         
     }
 }
