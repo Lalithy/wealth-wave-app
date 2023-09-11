@@ -10,10 +10,9 @@ import SwiftUI
 struct RegisterView: View {
     
     @StateObject var registerVM : RegisterViewModel = RegisterViewModel()
+    @State private var showSuccessMessage = false
+    @FocusState var focus
     
-    @State private var email = ""
-    @State private var password = ""
-    @State private var passwordConfirm = ""
     
     let gradientButton = Gradient(colors: [Color("ButtonColourTop"), Color("ButtonColourMiddle"), Color("ButtonColourEnd")])
     let gradientBackground = Gradient(colors: [Color("BackgroundTop"), Color("BackgroundMiddle"), Color("BackgroundEnd")])
@@ -31,29 +30,36 @@ struct RegisterView: View {
             }
             .padding(.bottom, 50)
             
-            TextField("Enter Email", text: $email)
+            TextField("Enter Email", text: $registerVM.email)
                 .padding()
                 .frame(width: 300)
                 .background(Color.black.opacity(0.1))
                 .cornerRadius(15)
+                .focused($focus)
             
-            TextField("Enter Password", text: $password)
+            TextField("Enter Password", text: $registerVM.password)
                 .padding()
                 .frame(width: 300)
                 .background(Color.black.opacity(0.1))
                 .cornerRadius(15)
                 .padding()
+                .focused($focus)
             
-            TextField("Confirm Password", text: $passwordConfirm)
+            TextField("Confirm Password", text: $registerVM.confirmPassword)
                 .padding()
                 .frame(width: 300)
                 .background(Color.black.opacity(0.1))
                 .cornerRadius(15)
                 .padding(.bottom, 50)
+                .focused($focus)
             
             
             Button("Login"){
-                
+                registerVM.registrationSuccessCallback = {
+                            
+                            self.showSuccessMessage = true
+                        }
+                registerVM.registerUser()
             }
             .foregroundColor(.white)
             .frame(width: 300, height: 50)
@@ -61,7 +67,15 @@ struct RegisterView: View {
             .background(LinearGradient(gradient: gradientButton, startPoint: .leading, endPoint: .trailing))
             .cornerRadius(10)
             .padding(.bottom, 40)
-            
+            .alert(isPresented: $showSuccessMessage) {
+                    Alert(
+                        title: Text("Registration Successful"),
+                        message: Text("User created successfully!"),
+                        dismissButton: .default(Text("OK")) {
+                           
+                        }
+                    )
+                }
             
             Spacer()
             
