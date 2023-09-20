@@ -9,11 +9,20 @@ import SwiftUI
 
 struct ListOfExpensesView: View {
     
-    let gradientButton = Gradient(colors: [Color("ButtonColourTop"), Color("ButtonColourMiddle"), Color("ButtonColourEnd")])
+    @State private var foodSelected = false
+    @State private var healthcareSelected = false
+    @State private var housingSelected = false
+    @State private var insuranceSelected = false
+    @State private var transportationSelected = false
+    @State private var utilitiesSelected = false
+    @State private var personalSpendingSelected = false
+    @State private var otherSelected = false
+    
+
     let gradientScreen = Gradient(colors: [Color("ScreenColorTop"), Color("ScreenColorMiddle"), Color("ScreenColorEnd")])
     
     var body: some View {
-        
+        ScrollView {
             VStack {
                 ZStack{
                     Rectangle()
@@ -33,40 +42,26 @@ struct ListOfExpensesView: View {
                     }
                 }
                 
-                HStack{
-                    Image("Food")
-                        .resizable()
-                        .frame(width: 50, height: 50)
-                        .padding(.trailing, 20)
-                        .padding(.leading, 30)
-                        .padding(.top, 30)
-                        
-                    Button("Food"){
-                    }
-                    .font(.system(size: 25))
-                    .padding(.top, 30)
-                    Spacer()
-                }
+                ExpenseItemView(isSelected: $foodSelected, image: "Food", buttonText: "Food")
                 
-                HStack{
-                    Image("Transportation")
-                        .resizable()
-                        .frame(width: 50, height: 50)
-                        .padding(.trailing, 20)
-                        .padding(.leading, 30)
-                        .padding(.top, 30)
-                        
-                    Button("Transportation"){
-                    }
-                    .font(.system(size: 25))
-                    .padding(.top, 30)
-                    Spacer()
-                }
+                ExpenseItemView(isSelected: $healthcareSelected, image: "Healthcare", buttonText: "Healthcare")
                 
+                ExpenseItemView(isSelected: $housingSelected, image: "Housing", buttonText: "Housing")
+                
+                ExpenseItemView(isSelected: $insuranceSelected, image: "Insurance", buttonText: "Insurance")
+                
+                ExpenseItemView(isSelected: $transportationSelected, image: "Transportation", buttonText: "Transportation")
+                
+                ExpenseItemView(isSelected: $utilitiesSelected, image: "Utilities", buttonText: "Utilities")
+                
+                ExpenseItemView(isSelected: $personalSpendingSelected, image: "Personal Spending", buttonText: "Personal Spending")
+                
+                ExpenseItemView(isSelected: $otherSelected, image: "Other", buttonText: "Other")
                 
                 Spacer()
             }
-        
+            .padding()
+        }
         .background(LinearGradient(gradient: gradientScreen, startPoint: .top, endPoint: .bottom))
     }
 }
@@ -74,5 +69,35 @@ struct ListOfExpensesView: View {
 struct ListOfExpensesView_Previews: PreviewProvider {
     static var previews: some View {
         ListOfExpensesView()
+    }
+}
+
+struct ExpenseItemView: View {
+    @Binding var isSelected: Bool
+    var image: String
+    var buttonText: String
+    
+    var body: some View {
+        HStack {
+            Image(image)
+                .resizable()
+                .frame(width: 50, height: 50)
+                .padding(.trailing, 20)
+                .padding(.leading, 30)
+                .padding(.top, 30)
+            
+            NavigationLink(destination: AddExpensesView(itemName: buttonText), isActive: $isSelected) {
+                Button(action: {
+                    isSelected = true
+                }) {
+                    Text(buttonText)
+                        .font(.system(size: 25))
+                        .foregroundColor(.black)
+                        .padding(.top, 30)
+                }
+            }
+            
+            Spacer()
+        }
     }
 }
