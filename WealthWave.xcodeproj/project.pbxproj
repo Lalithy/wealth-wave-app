@@ -14,6 +14,10 @@
 		9228FDB92AADC24600CE8E8D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9228FDB82AADC24600CE8E8D /* ContentView.swift */; };
 		9228FDBB2AADC24700CE8E8D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9228FDBA2AADC24700CE8E8D /* Assets.xcassets */; };
 		9228FDBE2AADC24700CE8E8D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9228FDBD2AADC24700CE8E8D /* Preview Assets.xcassets */; };
+		92716E3E2AB9B9D200B9A468 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92716E3D2AB9B9D200B9A468 /* DashboardView.swift */; };
+		92B2F8752ABAD1080035656F /* AddItemsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B2F8742ABAD1080035656F /* AddItemsView.swift */; };
+		92B2F8772ABAE3DB0035656F /* ListOfExpensesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B2F8762ABAE3DB0035656F /* ListOfExpensesView.swift */; };
+		92B2F8792ABAFD8A0035656F /* AddExpensesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B2F8782ABAFD8A0035656F /* AddExpensesView.swift */; };
 		92C22A6F2AADDC0A0099AB39 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C22A6E2AADDC0A0099AB39 /* LoginView.swift */; };
 /* End PBXBuildFile section */
 
@@ -26,7 +30,12 @@
 		9228FDB82AADC24600CE8E8D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		9228FDBA2AADC24700CE8E8D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9228FDBD2AADC24700CE8E8D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		92716E3D2AB9B9D200B9A468 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
+		92B2F8742ABAD1080035656F /* AddItemsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItemsView.swift; sourceTree = "<group>"; };
+		92B2F8762ABAE3DB0035656F /* ListOfExpensesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfExpensesView.swift; sourceTree = "<group>"; };
+		92B2F8782ABAFD8A0035656F /* AddExpensesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExpensesView.swift; sourceTree = "<group>"; };
 		92C22A6E2AADDC0A0099AB39 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		92F8769B2AB033800063AD2A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +63,10 @@
 				9225F3812AADD3240009AA5C /* Preview.swift */,
 				92C22A6E2AADDC0A0099AB39 /* LoginView.swift */,
 				9212FA532AAE103F00490868 /* RegisterView.swift */,
+				92716E3D2AB9B9D200B9A468 /* DashboardView.swift */,
+				92B2F8742ABAD1080035656F /* AddItemsView.swift */,
+				92B2F8762ABAE3DB0035656F /* ListOfExpensesView.swift */,
+				92B2F8782ABAFD8A0035656F /* AddExpensesView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -77,6 +90,7 @@
 		9228FDB52AADC24600CE8E8D /* WealthWave */ = {
 			isa = PBXGroup;
 			children = (
+				92F8769B2AB033800063AD2A /* Info.plist */,
 				9212FA572AAE274700490868 /* ViewModel */,
 				9225F37C2AADD2110009AA5C /* Views */,
 				9228FDB62AADC24600CE8E8D /* WealthWaveApp.swift */,
@@ -167,8 +181,12 @@
 			files = (
 				9228FDB92AADC24600CE8E8D /* ContentView.swift in Sources */,
 				9212FA592AAE27AC00490868 /* RegisterViewModel.swift in Sources */,
+				92B2F8772ABAE3DB0035656F /* ListOfExpensesView.swift in Sources */,
 				9212FA542AAE103F00490868 /* RegisterView.swift in Sources */,
+				92B2F8752ABAD1080035656F /* AddItemsView.swift in Sources */,
+				92716E3E2AB9B9D200B9A468 /* DashboardView.swift in Sources */,
 				9225F3822AADD3240009AA5C /* Preview.swift in Sources */,
+				92B2F8792ABAFD8A0035656F /* AddExpensesView.swift in Sources */,
 				92C22A6F2AADDC0A0099AB39 /* LoginView.swift in Sources */,
 				9228FDB72AADC24600CE8E8D /* WealthWaveApp.swift in Sources */,
 			);
@@ -301,6 +319,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"WealthWave/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = WealthWave/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -329,6 +348,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"WealthWave/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = WealthWave/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

@@ -1,4 +1,3 @@
-//
 //  RegisterView.swift
 //  WealthWave
 //
@@ -56,10 +55,11 @@ struct RegisterView: View {
             
             Button("Login"){
                 registerVM.registrationSuccessCallback = {
-                            
                             self.showSuccessMessage = true
                         }
+                
                 registerVM.registerUser()
+                
             }
             .foregroundColor(.white)
             .frame(width: 300, height: 50)
@@ -69,10 +69,10 @@ struct RegisterView: View {
             .padding(.bottom, 40)
             .alert(isPresented: $showSuccessMessage) {
                     Alert(
-                        title: Text("Registration Successful"),
+                        title: Text("Successful"),
                         message: Text("User created successfully!"),
                         dismissButton: .default(Text("OK")) {
-                           
+
                         }
                     )
                 }
@@ -80,6 +80,7 @@ struct RegisterView: View {
             Spacer()
             
         }.background(LinearGradient(gradient: gradientBackground, startPoint: .top, endPoint: .bottom))
+        
             
     }
 }
