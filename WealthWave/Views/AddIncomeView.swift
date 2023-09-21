@@ -9,7 +9,7 @@ import SwiftUI
 
 struct AddIncomeView: View {
     
-    @State private var date = ""
+ 
     @State private var selectedDate = Date()
     @State private var amount = ""
     @State private var description = ""

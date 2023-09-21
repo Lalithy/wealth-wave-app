@@ -1,20 +1,22 @@
 //
-//  AddSavingView.swift
+//  AddBudgetView.swift
 //  WealthWave
 //
-//  Created by Lali.. on 21/09/2023.
+//  Created by Lali.. on 22/09/2023.
 //
 
 import SwiftUI
 
-struct AddSavingView: View {
+struct AddBudgetView: View {
     
-    @State private var selectedDate = Date()
+    @State private var selectedCategory = ""
     @State private var amount = ""
     @State private var description = ""
     @State private var isCalculatorExpanded = false
     
     let gradientButton = Gradient(colors: [Color("ButtonColourTop"), Color("ButtonColourMiddle"), Color("ButtonColourEnd")])
+    
+    var categories = ["Food", "Healthcare", "Housing", "Insurance", "Transportation", "Utilities", "Personal Spending", "Other"]
     
     var body: some View {
         
@@ -22,28 +24,35 @@ struct AddSavingView: View {
             ZStack{
                 HStack {
                     Spacer()
-                    Text("Add Savings")
+                    Text("Add Budget")
                         .font(.system(size: 25))
                         .bold()
                     Spacer()
                 }
             }
             
-            Image(systemName: "dollarsign.circle")
+            Image(systemName: "bag.circle")
                 .resizable()
                 .frame(width: 50, height: 50)
                 .padding(.trailing, 20)
                 .foregroundColor(.blue)
                 .padding(.bottom, 20)
             
-            
             VStack{
-                DatePicker("Choose Date", selection: $selectedDate, in: ...Date(), displayedComponents: .date)
-                    .padding()
-                    .frame(width: 320)
-                    .background(Color.black.opacity(0.1))
-                    .cornerRadius(15)
-                    .padding(.horizontal, 100)
+                Picker("Category", selection: $selectedCategory) {
+                    ForEach(categories, id: \.self) {
+                        Text($0)
+                        .foregroundColor(Color.black)
+                    }
+                }
+                .padding()
+                .frame(height: 50)
+                .clipped()
+                .frame(width: 320)
+                .background(Color.black.opacity(0.1))
+                .cornerRadius(15)
+                .padding(.bottom, 20)
+                .foregroundColor(Color.black)
                 
                 TextField("Amount", text: $amount)
                     .padding()
@@ -51,16 +60,15 @@ struct AddSavingView: View {
                     .background(Color.black.opacity(0.1))
                     .cornerRadius(15)
                     .disabled(true)
+                    .padding(.bottom, 50)
                 
-                TextField("Description", text: $description)
-                    .padding()
-                    .frame(width: 320)
-                    .background(Color.black.opacity(0.1))
-                    .cornerRadius(15)
-                    .padding(.bottom,20)
+                Text("Period for current month")
+                    .padding(.bottom, 20)
+                    .foregroundColor(.blue)
+                    .bold()
                 
-                Button("SAVE"){
-                   
+                Button("SAVE") {
+                    
                 }
                 .foregroundColor(.white)
                 .frame(width: 320, height: 50)
@@ -95,12 +103,12 @@ struct AddSavingView: View {
                 }
             )
         }
-        
     }
 }
 
-struct AddSavingView_Previews: PreviewProvider {
+
+struct AddBudgetView_Previews: PreviewProvider {
     static var previews: some View {
-        AddSavingView()
+        AddBudgetView()
     }
 }

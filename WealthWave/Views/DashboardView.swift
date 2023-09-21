@@ -43,13 +43,13 @@ struct BottomControllers: View {
                     Text("Add Items")
                 }
            
-            Text("Trello View")
+            BudgetView()
                 .tabItem {
                     Image(systemName: "chart.bar.doc.horizontal")
                     Text("Budget")
                 }
             
-            Text("File Plus View")
+            ReportView()
                 .tabItem {
                     Image(systemName: "list.bullet.clipboard.fill")
                     Text("Report")
