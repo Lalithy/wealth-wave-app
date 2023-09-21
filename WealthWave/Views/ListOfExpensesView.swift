@@ -18,28 +18,20 @@ struct ListOfExpensesView: View {
     @State private var personalSpendingSelected = false
     @State private var otherSelected = false
     
-
+    
     let gradientScreen = Gradient(colors: [Color("ScreenColorTop"), Color("ScreenColorMiddle"), Color("ScreenColorEnd")])
     
     var body: some View {
         ScrollView {
+            
             VStack {
-                ZStack{
-                    Rectangle()
-                        .fill(Color.white)
-                        .cornerRadius(10)
-                        .frame(width: 350, height: 60)
-                        .padding(.top, 10)
-                    
-                    HStack {
-                        Spacer()
-                        Text("EXPENSES")
-                            .font(.system(size: 25))
-                            .foregroundColor(.indigo)
-                            .padding(.top, 10)
-                            .bold()
-                        Spacer()
-                    }
+                HStack {
+                    Spacer()
+                    Text("EXPENSES")
+                        .font(.system(size: 25))
+                        .foregroundColor(.red)
+                        .bold()
+                    Spacer()
                 }
                 
                 ExpenseItemView(isSelected: $foodSelected, image: "Food", buttonText: "Food")
@@ -84,7 +76,7 @@ struct ExpenseItemView: View {
                 .frame(width: 50, height: 50)
                 .padding(.trailing, 20)
                 .padding(.leading, 30)
-                .padding(.top, 30)
+            
             
             NavigationLink(destination: AddExpensesView(itemName: buttonText), isActive: $isSelected) {
                 Button(action: {
@@ -93,7 +85,7 @@ struct ExpenseItemView: View {
                     Text(buttonText)
                         .font(.system(size: 25))
                         .foregroundColor(.black)
-                        .padding(.top, 30)
+                        
                 }
             }
             

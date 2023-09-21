@@ -1,29 +1,27 @@
 //
-//  AddExpensesView.swift
+//  EditExpensesView.swift
 //  WealthWave
 //
-//  Created by Lali.. on 20/09/2023.
+//  Created by Lali.. on 21/09/2023.
 //
 
 import SwiftUI
 
-struct AddExpensesView: View {
+struct EditExpensesView: View {
     
     var itemName: String 
-    
     var body: some View {
         
         VStack {
             ZStack{
                 HStack {
                     Spacer()
-                    Text("Add Expenses")
+                    Text("Edit Expenses")
                         .font(.system(size: 25))
                         .bold()
                     Spacer()
                 }
             }
-            
             
             Image(itemName)
                 .resizable()
@@ -38,21 +36,23 @@ struct AddExpensesView: View {
                 .padding(.top, 10)
                 .disabled(true)
 
-            FiledInputView()
  
+            EditInputView()
+            
             Spacer()
         }
+        
+        
     }
 }
 
-struct AddExpensesView_Previews: PreviewProvider {
+struct EditExpensesView_Previews: PreviewProvider {
     static var previews: some View {
-        AddExpensesView(itemName: "Food")
+        EditExpensesView(itemName: "Food")
     }
 }
 
-
-struct CalculatorNumberPadView: View {
+struct CalculatorNumberView: View {
     @Binding var amount: String
     
     let buttonRows = [
@@ -91,9 +91,7 @@ struct CalculatorNumberPadView: View {
 }
 
 
-
-
-struct FiledInputView: View {
+struct EditInputView: View {
     
     let gradientButton = Gradient(colors: [Color("ButtonColourTop"), Color("ButtonColourMiddle"), Color("ButtonColourEnd")])
     
@@ -153,7 +151,7 @@ struct FiledInputView: View {
                 VStack{
                     Spacer()
                     if isCalculatorExpanded {
-                        CalculatorNumberPadView(amount: $amount)
+                        CalculatorNumberView(amount: $amount)
                             .transition(.move(edge: .bottom))
                     }
                     
@@ -172,7 +170,5 @@ struct FiledInputView: View {
         )
     }
 }
-
-
 
 
