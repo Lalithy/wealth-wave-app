@@ -8,57 +8,50 @@
 import SwiftUI
 
 struct ListOfExpensesView: View {
-    
-    @State private var foodSelected = false
-    @State private var healthcareSelected = false
-    @State private var housingSelected = false
-    @State private var insuranceSelected = false
-    @State private var transportationSelected = false
-    @State private var utilitiesSelected = false
-    @State private var personalSpendingSelected = false
-    @State private var otherSelected = false
-    
+    @StateObject var listOfExpensesVM: ListOfExpensesViewModel = ListOfExpensesViewModel()
+
+
+//    @State private var foodSelected = false
+//    @State private var healthcareSelected = false
+//    @State private var housingSelected = false
+//    @State private var insuranceSelected = false
+//    @State private var transportationSelected = false
+//    @State private var utilitiesSelected = false
+//    @State private var personalSpendingSelected = false
+//    @State private var otherSelected = false
     
     let gradientScreen = Gradient(colors: [Color("ScreenColorTop"), Color("ScreenColorMiddle"), Color("ScreenColorEnd")])
     
     var body: some View {
-       
-            
         VStack {
-                HStack {
-                    Spacer()
-                    Text("EXPENSES")
-                        .font(.system(size: 25))
-                        .bold()
-                    Spacer()
-                }
-                
+            HStack {
+                Spacer()
+                Text("EXPENSES")
+                    .font(.system(size: 25))
+                    .bold()
+                Spacer()
+            }
+            
+            if listOfExpensesVM.isLoading {
+                ProgressView()
+            } else {
                 ScrollView {
-                    ExpenseItemView(isSelected: $foodSelected, image: "Food", buttonText: "Food")
-                    
-                    ExpenseItemView(isSelected: $healthcareSelected, image: "Healthcare", buttonText: "Healthcare")
-                    
-                    ExpenseItemView(isSelected: $housingSelected, image: "Housing", buttonText: "Housing")
-                    
-                    ExpenseItemView(isSelected: $insuranceSelected, image: "Insurance", buttonText: "Insurance")
-                    
-                    ExpenseItemView(isSelected: $transportationSelected, image: "Transportation", buttonText: "Transportation")
-                    
-                    ExpenseItemView(isSelected: $utilitiesSelected, image: "Utilities", buttonText: "Utilities")
-                    
-                    ExpenseItemView(isSelected: $personalSpendingSelected, image: "Personal Spending", buttonText: "Personal Spending")
-                    
-                    ExpenseItemView(isSelected: $otherSelected, image: "Other", buttonText: "Other")
-                    
-                    
+                    ForEach(listOfExpensesVM.budgetCategories, id: \.budgetCategoryId) { category in
+                        ExpenseItemView(image: category.budgetCategoryName, buttonText: category.budgetCategoryName)
+                    }
                     Spacer()
                 }
             }
-            .padding()
-        
+        }
+        .padding()
         .background(LinearGradient(gradient: gradientScreen, startPoint: .top, endPoint: .bottom))
+        .onAppear {
+            // Trigger the data loading when the view appears
+            listOfExpensesVM.fetchBudgetCategories()
+        }
     }
 }
+
 
 struct ListOfExpensesView_Previews: PreviewProvider {
     static var previews: some View {
@@ -67,7 +60,7 @@ struct ListOfExpensesView_Previews: PreviewProvider {
 }
 
 struct ExpenseItemView: View {
-    @Binding var isSelected: Bool
+    @State private var isSelected = false
     var image: String
     var buttonText: String
     
@@ -79,15 +72,13 @@ struct ExpenseItemView: View {
                 .padding(.trailing, 10)
                 .padding(.leading, 10)
             
-            
             NavigationLink(destination: AddExpensesView(itemName: buttonText), isActive: $isSelected) {
                 Button(action: {
-                    isSelected = true
+                    isSelected.toggle()
                 }) {
                     Text(buttonText)
                         .font(.system(size: 20))
-                        .foregroundColor(.black)
-                        
+                        .foregroundColor(isSelected ? .blue : .black) 
                 }
             }
             
@@ -95,3 +86,36 @@ struct ExpenseItemView: View {
         }
     }
 }
+
+
+//struct ExpenseItemView: View {
+//    @Binding var isSelected: Bool
+//    var image: String
+//    var buttonText: String
+//
+//    var body: some View {
+//        HStack {
+//            Image(image)
+//                .resizable()
+//                .frame(width: 50, height: 50)
+//                .padding(.trailing, 10)
+//                .padding(.leading, 10)
+//
+//
+//            NavigationLink(destination: AddExpensesView(itemName: buttonText), isActive: $isSelected) {
+//                Button(action: {
+//                    isSelected = true
+//                }) {
+//                    Text(buttonText)
+//                        .font(.system(size: 20))
+//                        .foregroundColor(.black)
+//
+//                }
+//            }
+//
+//            Spacer()
+//        }
+//    }
+//}
+
+

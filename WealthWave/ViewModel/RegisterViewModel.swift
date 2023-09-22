@@ -15,7 +15,6 @@ class RegisterViewModel : ObservableObject {
     @Published var confirmPassword : String = ""
     @Published var showSignInView: Bool = false
     
-
     
    var registrationSuccessCallback: (() -> Void)?
     
