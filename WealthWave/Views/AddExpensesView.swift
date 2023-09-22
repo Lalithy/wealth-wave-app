@@ -9,7 +9,9 @@ import SwiftUI
 
 struct AddExpensesView: View {
     
-    var itemName: String 
+    var itemName: String
+    
+    var budgetCategoryId: Int
     
     var body: some View {
         
@@ -38,7 +40,7 @@ struct AddExpensesView: View {
                 .padding(.top, 10)
                 .disabled(true)
 
-            FiledInputView()
+            FiledInputView(budgetCategoryId: budgetCategoryId)
  
             Spacer()
         }
@@ -47,7 +49,7 @@ struct AddExpensesView: View {
 
 struct AddExpensesView_Previews: PreviewProvider {
     static var previews: some View {
-        AddExpensesView(itemName: "Food")
+        AddExpensesView(itemName: "Food", budgetCategoryId: 1)
     }
 }
 
@@ -90,31 +92,34 @@ struct CalculatorNumberPadView: View {
     }
 }
 
-
-
-
 struct FiledInputView: View {
+    
+    @ObservedObject var addExpensesVM = AddExpensesViewModel()
     
     let gradientButton = Gradient(colors: [Color("ButtonColourTop"), Color("ButtonColourMiddle"), Color("ButtonColourEnd")])
     
-    @State private var date = ""
-    @State private var selectedDate = Date()
-    @State private var amount = ""
+    var budgetCategoryId: Int
+    
+    @State private var expenseDate = Date()
+    @State private var expenseAmount = ""
     @State private var location = ""
-    @State private var description = ""
+    @State private var expenseDetails = ""
     @State private var calculatorHeight: CGFloat = 0
     @State private var isCalculatorExpanded = false
     
+    @State private var isShowingAlert = false
+    @State private var alertMessage = ""
+    
     var body: some View {
         VStack {
-            DatePicker("Choose Date", selection: $selectedDate, in: ...Date(), displayedComponents: .date)
+            DatePicker("Choose Date", selection: $expenseDate, in: ...Date(), displayedComponents: .date)
                 .padding()
                 .frame(width: 320)
                 .background(Color.black.opacity(0.1))
                 .cornerRadius(15)
                 .padding(.horizontal, 100)
             
-            TextField("Amount", text: $amount)
+            TextField("Amount", text: $expenseAmount)
                 .padding()
                 .frame(width: 320)
                 .background(Color.black.opacity(0.1))
@@ -127,7 +132,7 @@ struct FiledInputView: View {
                 .background(Color.black.opacity(0.1))
                 .cornerRadius(15)
             
-            TextField("Description", text: $description)
+            TextField("Description", text: $expenseDetails)
                 .padding()
                 .frame(width: 320)
                 .background(Color.black.opacity(0.1))
@@ -135,15 +140,46 @@ struct FiledInputView: View {
                 .padding(.bottom, 20)
             
             Button("SAVE"){
-               
+                addExpensesVM.saveExpense(
+                                expenseDetails: expenseDetails,
+                                expenseAmount: Double(expenseAmount) ?? 0.0,
+                                expenseDate: expenseDate,
+                                location: location,
+                                budgetCategoryId: budgetCategoryId,
+                                userId: 1                             )
+                
+                print("Expenses : \(addExpensesVM.statusCode)")
             }
             .foregroundColor(.white)
             .frame(width: 320, height: 50)
             .bold()
             .background(LinearGradient(gradient: gradientButton, startPoint: .leading, endPoint: .trailing))
             .cornerRadius(10)
+            .onTapGesture {
+                print("Button tapped") 
+                print("Expenses : \(addExpensesVM.statusCode)")
+
+                
+                alertMessage = addExpensesVM.responseMessage
+                isShowingAlert = true
+
+               
+                if addExpensesVM.statusCode == 200 {
+                    
+                    expenseDetails = ""
+                    expenseAmount = ""
+                    location = ""
+                   
+                }
+            }
+            .alert(isPresented: $isShowingAlert) {
+                Alert(title: Text("Response"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
+            }
+
             
             Spacer()
+            
+            Text(addExpensesVM.responseMessage)
         }
         
         .background(
@@ -153,7 +189,7 @@ struct FiledInputView: View {
                 VStack{
                     Spacer()
                     if isCalculatorExpanded {
-                        CalculatorNumberPadView(amount: $amount)
+                        CalculatorNumberPadView(amount: $expenseAmount)
                             .transition(.move(edge: .bottom))
                     }
                     

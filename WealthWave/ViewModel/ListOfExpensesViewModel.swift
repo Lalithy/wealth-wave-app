@@ -18,7 +18,7 @@ class ListOfExpensesViewModel: ObservableObject {
     }
 
     func fetchBudgetCategories() {
-        guard let url = URL(string: "http://wealth-wave-service-env.eba-cc4bdc5e.us-west-1.elasticbeanstalk.com/api/fhms/budget/all") else {
+        guard let url = URL(string: "http://wealth-wave-service-env.eba-cc4bdc5e.us-west-1.elasticbeanstalk.com/api/fhms/budget-category/all") else {
             return
         }
 

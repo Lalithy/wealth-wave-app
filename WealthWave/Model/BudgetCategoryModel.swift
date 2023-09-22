@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 struct BudgetCategory: Codable {
     let budgetCategoryName: String
     let budgetCategoryId: Int
@@ -19,4 +18,5 @@ struct BudgetCategoryResponse: Codable {
     let status: String
     let timestamp: String
 }
+
 
