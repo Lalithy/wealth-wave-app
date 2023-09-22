@@ -81,6 +81,9 @@ struct ExpensesView: View {
             
             UserExpensesListView(isSelected: $healthcareSelected, iconName: "minus.circle.fill",image: "Healthcare", itemName: "Healthcare",  editIcon: "square.and.pencil")
             
+            
+            UserExpensesListView(isSelected: $healthcareSelected, iconName: "minus.circle.fill",image: "Personal Spending", itemName: "Personal Spending",  editIcon: "square.and.pencil")
+            
             Spacer()
             
             NavigationLink(
@@ -132,7 +135,7 @@ struct UserExpensesListView: View {
                     .scaledToFit()
                 
                 Text(itemName)
-                    .font(.system(size: 25))
+                    .font(.system(size: 20))
                     .padding(.leading, 10)
                 Spacer()
                 
@@ -157,7 +160,7 @@ struct UserExpensesListView: View {
             }
             
         }
-        .padding(.top, 20)
+        .padding(.top, 10)
 
     }
 }
@@ -169,6 +172,7 @@ struct IncomeItem: Identifiable {
     let description: String
     let amount: Double
 }
+
 
 struct IncomeView: View {
     
@@ -205,6 +209,7 @@ struct IncomeView: View {
                 Text("Total: ")
                     .font(.system(size: 25))
                     .bold()
+                    .padding(.top, 10)
                 Spacer()
             }
 
@@ -240,7 +245,7 @@ struct IncomeView: View {
                     }
                 }
             }
-            .frame(maxHeight: 700)
+            //.frame(maxHeight: 700)
             
             
             Spacer()
@@ -268,6 +273,7 @@ struct IncomeView: View {
     }
 }
 
+
 struct SavingView: View {
     
     @State private var isSavingVisible = false
@@ -278,7 +284,7 @@ struct SavingView: View {
                 HStack {
                     Button(action: {}) {
                         Image(systemName: "minus.circle.fill")
-                            .font(.system(size: 30))
+                            .font(.system(size: 20))
                             .foregroundColor(.red)
                             .scaledToFit()
                     }
@@ -293,7 +299,9 @@ struct SavingView: View {
                         .font(.system(size: 25))
                         .padding(.leading, 80)
                     
-                }.padding(.bottom, 500)
+                }//.padding(.bottom, 300)
+                .padding(.top, 10)
+                
             
             Spacer()
             NavigationLink(

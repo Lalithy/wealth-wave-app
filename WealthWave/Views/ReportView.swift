@@ -54,17 +54,17 @@ struct ReportView: View {
             HStack {
                 Text("Date")
                     .font(.headline)
-                    .padding(.trailing, 30)
+                    
                 Text("Category")
                     .font(.headline)
-                    .padding(.trailing, 30)
+                   
                 Text("Description")
                     .font(.headline)
-                    .padding(.trailing, 30)
+                    
                 Text("Amount")
                     .font(.headline)
                     
-            }
+            }.padding(.leading, 10)
             .padding(.top, 10)
 
             ScrollView {
@@ -75,21 +75,20 @@ struct ReportView: View {
                             HStack {
                         
                                 Text(item.date, style: .date)
-                                    .padding(.trailing, 30)
+                                    
                                 Text(item.category)
-                                    .padding(.trailing, 30)
+                                    
                                 Text(item.description)
-                                    .padding(.trailing, 30)
+                                   
                                 Text(String(format: "%.2f", item.amount))
-                                    .padding(.leading, 10)
+                                    
                             }
                         }
                         
                     }
                 }
             }
-            .frame(maxHeight: 700)
-            
+            //.frame(maxHeight: 700)
             
             Spacer()
             

@@ -22,38 +22,40 @@ struct ListOfExpensesView: View {
     let gradientScreen = Gradient(colors: [Color("ScreenColorTop"), Color("ScreenColorMiddle"), Color("ScreenColorEnd")])
     
     var body: some View {
-        ScrollView {
+       
             
-            VStack {
+        VStack {
                 HStack {
                     Spacer()
                     Text("EXPENSES")
                         .font(.system(size: 25))
-                        .foregroundColor(.red)
                         .bold()
                     Spacer()
                 }
                 
-                ExpenseItemView(isSelected: $foodSelected, image: "Food", buttonText: "Food")
-                
-                ExpenseItemView(isSelected: $healthcareSelected, image: "Healthcare", buttonText: "Healthcare")
-                
-                ExpenseItemView(isSelected: $housingSelected, image: "Housing", buttonText: "Housing")
-                
-                ExpenseItemView(isSelected: $insuranceSelected, image: "Insurance", buttonText: "Insurance")
-                
-                ExpenseItemView(isSelected: $transportationSelected, image: "Transportation", buttonText: "Transportation")
-                
-                ExpenseItemView(isSelected: $utilitiesSelected, image: "Utilities", buttonText: "Utilities")
-                
-                ExpenseItemView(isSelected: $personalSpendingSelected, image: "Personal Spending", buttonText: "Personal Spending")
-                
-                ExpenseItemView(isSelected: $otherSelected, image: "Other", buttonText: "Other")
-                
-                Spacer()
+                ScrollView {
+                    ExpenseItemView(isSelected: $foodSelected, image: "Food", buttonText: "Food")
+                    
+                    ExpenseItemView(isSelected: $healthcareSelected, image: "Healthcare", buttonText: "Healthcare")
+                    
+                    ExpenseItemView(isSelected: $housingSelected, image: "Housing", buttonText: "Housing")
+                    
+                    ExpenseItemView(isSelected: $insuranceSelected, image: "Insurance", buttonText: "Insurance")
+                    
+                    ExpenseItemView(isSelected: $transportationSelected, image: "Transportation", buttonText: "Transportation")
+                    
+                    ExpenseItemView(isSelected: $utilitiesSelected, image: "Utilities", buttonText: "Utilities")
+                    
+                    ExpenseItemView(isSelected: $personalSpendingSelected, image: "Personal Spending", buttonText: "Personal Spending")
+                    
+                    ExpenseItemView(isSelected: $otherSelected, image: "Other", buttonText: "Other")
+                    
+                    
+                    Spacer()
+                }
             }
             .padding()
-        }
+        
         .background(LinearGradient(gradient: gradientScreen, startPoint: .top, endPoint: .bottom))
     }
 }
@@ -74,8 +76,8 @@ struct ExpenseItemView: View {
             Image(image)
                 .resizable()
                 .frame(width: 50, height: 50)
-                .padding(.trailing, 20)
-                .padding(.leading, 30)
+                .padding(.trailing, 10)
+                .padding(.leading, 10)
             
             
             NavigationLink(destination: AddExpensesView(itemName: buttonText), isActive: $isSelected) {
@@ -83,7 +85,7 @@ struct ExpenseItemView: View {
                     isSelected = true
                 }) {
                     Text(buttonText)
-                        .font(.system(size: 25))
+                        .font(.system(size: 20))
                         .foregroundColor(.black)
                         
                 }
