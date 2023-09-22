@@ -31,7 +31,7 @@ struct AddExpensesView: View {
                 .resizable()
                 .frame(width: 50, height: 50)
                 .padding(.trailing, 20)
-              
+            
             TextField("", text: .constant(itemName))
                 .padding()
                 .frame(width: 320)
@@ -39,9 +39,9 @@ struct AddExpensesView: View {
                 .cornerRadius(15)
                 .padding(.top, 10)
                 .disabled(true)
-
+            
             FiledInputView(budgetCategoryId: budgetCategoryId)
- 
+            
             Spacer()
         }
     }
@@ -107,8 +107,10 @@ struct FiledInputView: View {
     @State private var calculatorHeight: CGFloat = 0
     @State private var isCalculatorExpanded = false
     
-    @State private var isShowingAlert = false
+    //@State private var isShowingAlert = false
     @State private var alertMessage = ""
+    
+    @State private var showAlert = false
     
     var body: some View {
         VStack {
@@ -141,45 +143,87 @@ struct FiledInputView: View {
             
             Button("SAVE"){
                 addExpensesVM.saveExpense(
-                                expenseDetails: expenseDetails,
-                                expenseAmount: Double(expenseAmount) ?? 0.0,
-                                expenseDate: expenseDate,
-                                location: location,
-                                budgetCategoryId: budgetCategoryId,
-                                userId: 1                             )
+                    expenseDetails: expenseDetails,
+                    expenseAmount: Double(expenseAmount) ?? 0.0,
+                    expenseDate: expenseDate,
+                    location: location,
+                    budgetCategoryId: budgetCategoryId,
+                    userId: 1                             )
                 
-                print("Expenses : \(addExpensesVM.statusCode)")
+                //showAlert = addExpensesVM.statusCode == 200
+                
+                alertMessage = addExpensesVM.responseMessage
+                showAlert = true
+                
+                if addExpensesVM.statusCode == 200 {
+                    
+                    expenseDetails = ""
+                    expenseAmount = ""
+                    location = ""
+                    
+                }
+                
+                print("Expenses msg : \(alertMessage)")
+                print("Expenses code 1 : \(addExpensesVM.statusCode)")
+                
             }
             .foregroundColor(.white)
             .frame(width: 320, height: 50)
             .bold()
             .background(LinearGradient(gradient: gradientButton, startPoint: .leading, endPoint: .trailing))
             .cornerRadius(10)
-            .onTapGesture {
-                print("Button tapped") 
-                print("Expenses : \(addExpensesVM.statusCode)")
-
-                
-                alertMessage = addExpensesVM.responseMessage
-                isShowingAlert = true
-
-               
-                if addExpensesVM.statusCode == 200 {
-                    
-                    expenseDetails = ""
-                    expenseAmount = ""
-                    location = ""
-                   
-                }
-            }
-            .alert(isPresented: $isShowingAlert) {
+            .alert(isPresented: $showAlert) {
                 Alert(title: Text("Response"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
             }
-
+            
+            
+            //            .alert(isPresented: $showAlert) {
+            //                            if addExpensesVM.statusCode == 200 {
+            //
+            ////                                expenseDetails = ""
+            ////                                expenseAmount = ""
+            ////                                location = ""
+            //                                return Alert(
+            //                                    title: Text("Success"),
+            //                                    message: Text("Expense saved successfully."),
+            //                                    dismissButton: .default(Text("OK"))
+            //                                )
+            //                            } else {
+            //
+            //                                return Alert(
+            //                                    title: Text("Error"),
+            //                                    message: Text(addExpensesVM.responseMessage),
+            //                                    dismissButton: .default(Text("OK"))
+            //                                )
+            //                            }
+            //                        }
+            //            .onTapGesture{
+            //
+            //                print("Button tapped")
+            //                print("Expenses : \(addExpensesVM.statusCode)")
+            //
+            //
+            //                alertMessage = addExpensesVM.responseMessage
+            //                isShowingAlert = true
+            //
+            //
+            //                if addExpensesVM.statusCode == 200 {
+            //
+            //                    expenseDetails = ""
+            //                    expenseAmount = ""
+            //                    location = ""
+            //
+            //                }
+            //            }
+            //            .alert(isPresented: $isShowingAlert) {
+            //                Alert(title: Text("Response"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
+            //            }
+            
             
             Spacer()
             
             Text(addExpensesVM.responseMessage)
+            Text("\(addExpensesVM.statusCode)")
         }
         
         .background(

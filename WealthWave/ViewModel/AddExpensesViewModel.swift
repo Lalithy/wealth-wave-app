@@ -48,7 +48,9 @@ class AddExpensesViewModel: ObservableObject {
                 
                 if let data = data {
                     if let httpResponse = response as? HTTPURLResponse {
+                        
                         self.statusCode = httpResponse.statusCode
+                        
                         if httpResponse.statusCode == 200 {
                             if let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
                                let message = json["message"] as? String {
