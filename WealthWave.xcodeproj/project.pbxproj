@@ -29,6 +29,9 @@
 		92B2F8792ABAFD8A0035656F /* AddExpensesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B2F8782ABAFD8A0035656F /* AddExpensesView.swift */; };
 		92B3E47F2ABDEDC700CC2BC0 /* BudgetCategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B3E47E2ABDEDC700CC2BC0 /* BudgetCategoryModel.swift */; };
 		92C22A6F2AADDC0A0099AB39 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C22A6E2AADDC0A0099AB39 /* LoginView.swift */; };
+		92DF58132ABF55C10060E428 /* UserIdViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DF58122ABF55C10060E428 /* UserIdViewModel.swift */; };
+		92DF58152ABF57030060E428 /* GetSavingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DF58142ABF57030060E428 /* GetSavingViewModel.swift */; };
+		92DF58172ABF5AED0060E428 /* SavingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DF58162ABF5AED0060E428 /* SavingModel.swift */; };
 		92FE090C2ABEDE6700C8CCA6 /* AddIncomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FE090B2ABEDE6700C8CCA6 /* AddIncomeViewModel.swift */; };
 		92FE090E2ABEE5A000C8CCA6 /* AddSavingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FE090D2ABEE5A000C8CCA6 /* AddSavingViewModel.swift */; };
 		92FE09102ABEFBA800C8CCA6 /* AddBudgetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FE090F2ABEFBA800C8CCA6 /* AddBudgetViewModel.swift */; };
@@ -58,6 +61,9 @@
 		92B2F8782ABAFD8A0035656F /* AddExpensesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExpensesView.swift; sourceTree = "<group>"; tabWidth = 3; };
 		92B3E47E2ABDEDC700CC2BC0 /* BudgetCategoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetCategoryModel.swift; sourceTree = "<group>"; };
 		92C22A6E2AADDC0A0099AB39 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		92DF58122ABF55C10060E428 /* UserIdViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserIdViewModel.swift; sourceTree = "<group>"; };
+		92DF58142ABF57030060E428 /* GetSavingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetSavingViewModel.swift; sourceTree = "<group>"; };
+		92DF58162ABF5AED0060E428 /* SavingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavingModel.swift; sourceTree = "<group>"; };
 		92F8769B2AB033800063AD2A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		92FE090B2ABEDE6700C8CCA6 /* AddIncomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddIncomeViewModel.swift; sourceTree = "<group>"; };
 		92FE090D2ABEE5A000C8CCA6 /* AddSavingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSavingViewModel.swift; sourceTree = "<group>"; };
@@ -85,6 +91,8 @@
 				92FE090D2ABEE5A000C8CCA6 /* AddSavingViewModel.swift */,
 				92FE090F2ABEFBA800C8CCA6 /* AddBudgetViewModel.swift */,
 				928CB34A2ABF1700002226B8 /* LoginViewModel.swift */,
+				92DF58122ABF55C10060E428 /* UserIdViewModel.swift */,
+				92DF58142ABF57030060E428 /* GetSavingViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -152,6 +160,7 @@
 			isa = PBXGroup;
 			children = (
 				92B3E47E2ABDEDC700CC2BC0 /* BudgetCategoryModel.swift */,
+				92DF58162ABF5AED0060E428 /* SavingModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -229,11 +238,13 @@
 				928CB34B2ABF1700002226B8 /* LoginViewModel.swift in Sources */,
 				9228FDB92AADC24600CE8E8D /* ContentView.swift in Sources */,
 				9295CD532ABCC10F00259DB8 /* AddSavingView.swift in Sources */,
+				92DF58152ABF57030060E428 /* GetSavingViewModel.swift in Sources */,
 				9295CD592ABCCCC200259DB8 /* ReportView.swift in Sources */,
 				92AADDF72ABDDA6C00597610 /* AddExpensesViewModel.swift in Sources */,
 				9212FA592AAE27AC00490868 /* RegisterViewModel.swift in Sources */,
 				92FE09102ABEFBA800C8CCA6 /* AddBudgetViewModel.swift in Sources */,
 				92B2F8772ABAE3DB0035656F /* ListOfExpensesView.swift in Sources */,
+				92DF58132ABF55C10060E428 /* UserIdViewModel.swift in Sources */,
 				9212FA542AAE103F00490868 /* RegisterView.swift in Sources */,
 				9295CD572ABCC6A500259DB8 /* AddBudgetView.swift in Sources */,
 				923DC2EA2ABC0A6A00809F30 /* EditExpensesView.swift in Sources */,
@@ -249,6 +260,7 @@
 				9295CD552ABCC4FA00259DB8 /* BudgetView.swift in Sources */,
 				92C22A6F2AADDC0A0099AB39 /* LoginView.swift in Sources */,
 				9228FDB72AADC24600CE8E8D /* WealthWaveApp.swift in Sources */,
+				92DF58172ABF5AED0060E428 /* SavingModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

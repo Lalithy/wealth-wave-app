@@ -9,11 +9,16 @@ import SwiftUI
 
 @main
 struct WealthWaveApp: App {
+    
+    
     var body: some Scene {
         WindowGroup {
-//            ContentView()
+         // ContentView()
             NavigationView(){
                 Preview()
+                  
+                              
+                
             }
         }
     }

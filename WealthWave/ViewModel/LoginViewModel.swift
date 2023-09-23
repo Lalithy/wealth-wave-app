@@ -10,6 +10,7 @@ import Foundation
 class LoginViewModel: ObservableObject {
     @Published var responseMessage: String = ""
     @Published var statusCode: Int = 0
+    @Published var userId: Int = 0
     
     var loginSuccessCallback: (() -> Void)?
 
@@ -49,6 +50,13 @@ class LoginViewModel: ObservableObject {
                             if let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
                                let message = json["message"] as? String {
                                 self.responseMessage = message
+                                
+                                if let details = json["details"] as? [String: Any],
+                                               let userId = details["userId"] as? Int {
+                                                self.userId = userId
+                                  
+                                            }
+                                
                                 self.loginSuccessCallback?()
                             }
                         } else if httpResponse.statusCode == 400 {

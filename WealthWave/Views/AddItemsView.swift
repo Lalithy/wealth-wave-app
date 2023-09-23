@@ -276,8 +276,11 @@ struct IncomeView: View {
 
 struct SavingView: View {
     
-    @State private var isSavingVisible = false
+        
+    @StateObject var getSavingViewModel: GetSavingViewModel = GetSavingViewModel()
     
+       @State private var isSavingVisible = false
+
     var body: some View {
         VStack{
            
@@ -295,7 +298,7 @@ struct SavingView: View {
                         .font(.system(size: 25))
                         .padding(.leading, 10)
                     
-                    Text("100000.00")
+                    Text(String(format: "%.2f", getSavingViewModel.sumOfSavingsAmount))
                         .font(.system(size: 25))
                         .padding(.leading, 80)
                     

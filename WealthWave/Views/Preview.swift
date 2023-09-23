@@ -38,8 +38,10 @@ struct Preview: View {
 }
 
 struct Preview_Previews: PreviewProvider {
+    
     static var previews: some View {
         Preview()
+           
     }
 }
 

@@ -10,6 +10,10 @@ import SwiftUI
 struct LoginView: View {
     
     @StateObject var addLoginVM : LoginViewModel = LoginViewModel()
+    //@ObservedObject private var getSavingVM = GetSavingViewModel()
+    
+    @StateObject var getSavingVM = GetSavingViewModel()
+      
     
     @State private var email = ""
     @State private var password = ""
@@ -17,6 +21,7 @@ struct LoginView: View {
     @State private var alertMessage = ""
     @State private var showAlert = false
     @State private var isStatusCode = false
+    @State private var userId: Int = 0
     
     @FocusState private var focusedField: Field?
     
@@ -93,8 +98,16 @@ struct LoginView: View {
                     if addLoginVM.statusCode == 200 {
                         isStatusCode = true
                         
+                        userId = addLoginVM.userId
+                        getSavingVM.userId = userId
+                        
+                        print("data user id 2:  \(userId)")
                         email = ""
                         password = ""
+                        
+                       getSavingVM.fetchSavingsData()
+                        
+                        
                         
                     }else {
                         showAlert = true
@@ -150,5 +163,6 @@ struct LoginView: View {
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
         LoginView()
+        
     }
 }
