@@ -9,10 +9,22 @@ import SwiftUI
 
 struct AddSavingView: View {
     
-    @State private var selectedDate = Date()
-    @State private var amount = ""
-    @State private var description = ""
-    @State private var isCalculatorExpanded = false
+    @StateObject var addSavingVM : AddSavingViewModel = AddSavingViewModel()
+    
+    @State private var savingsDate = Date()
+    @State private var savingsAmount = ""
+    @State private var savingsDetails = ""
+    @State private var isCalculatorExpanded = true
+    
+    @State private var alertMessage = ""
+    @State private var showAlert = false
+    
+    @FocusState private var focusedField: Field?
+    
+    enum Field {
+        case savingsDetails
+    }
+    
     
     let gradientButton = Gradient(colors: [Color("ButtonColourTop"), Color("ButtonColourMiddle"), Color("ButtonColourEnd")])
     
@@ -38,28 +50,44 @@ struct AddSavingView: View {
             
             
             VStack{
-                DatePicker("Choose Date", selection: $selectedDate, in: ...Date(), displayedComponents: .date)
+                DatePicker("Choose Date", selection: $savingsDate, in: ...Date(), displayedComponents: .date)
                     .padding()
                     .frame(width: 320)
                     .background(Color.black.opacity(0.1))
                     .cornerRadius(15)
                     .padding(.horizontal, 100)
                 
-                TextField("Amount", text: $amount)
+                TextField("Amount", text: $savingsAmount)
                     .padding()
+                    .multilineTextAlignment(.trailing)
                     .frame(width: 320)
                     .background(Color.black.opacity(0.1))
                     .cornerRadius(15)
                     .disabled(true)
-                
-                TextField("Description", text: $description)
-                    .padding()
-                    .frame(width: 320)
-                    .background(Color.black.opacity(0.1))
-                    .cornerRadius(15)
                     .padding(.bottom,20)
                 
+//                TextField("Description", text: $savingsDetails)
+//                    .padding()
+//                    .focused($focusedField, equals: .savingsDetails)
+//                    .autocapitalization(.none)
+//                    .frame(width: 320)
+//                    .background(Color.black.opacity(0.1))
+//                    .cornerRadius(15)
+//                    .padding(.bottom,20)
+                
                 Button("SAVE"){
+                    
+                    addSavingVM.saveSaving(
+                        savingsDetails: "Savings",
+                        savingsAmount: Double(savingsAmount) ?? 0.0,
+                        savingsDate: savingsDate,
+                        userId: 1)
+                    
+                    
+                    addSavingVM.saveSuccessCallback = {
+                        alertMessage = addSavingVM.responseMessage
+                        showAlert  = true
+                    }
                    
                 }
                 .foregroundColor(.white)
@@ -67,6 +95,19 @@ struct AddSavingView: View {
                 .bold()
                 .background(LinearGradient(gradient: gradientButton, startPoint: .leading, endPoint: .trailing))
                 .cornerRadius(10)
+                .alert(alertMessage, isPresented: $showAlert) {
+                    Button("OK", role: .cancel) {
+                        
+                        if addSavingVM.statusCode == 200 {
+                            
+                            savingsDetails = ""
+                            savingsAmount = ""
+                            
+                            
+                        }
+                        
+                    }
+                }
                 
                 Spacer()
             }
@@ -77,7 +118,7 @@ struct AddSavingView: View {
                     VStack{
                         Spacer()
                         if isCalculatorExpanded {
-                            CalculatorNumberView(amount: $amount)
+                            CalculatorNumberView(amount: $savingsAmount)
                                 .transition(.move(edge: .bottom))
                         }
                         
@@ -94,6 +135,11 @@ struct AddSavingView: View {
                     
                 }
             )
+//            .onAppear {
+//                DispatchQueue.main.async {
+//                    focusedField = .savingsDetails
+//                }
+//            }
         }
         
     }

@@ -1,34 +1,31 @@
 //
-//  AddExpensesViewModel.swift
+//  AddIncomeViewModel.swift
 //  WealthWave
 //
-//  Created by Lali.. on 22/09/2023.
+//  Created by Lali.. on 23/09/2023.
 //
 
 import Foundation
 
-
-class AddExpensesViewModel: ObservableObject {
+class AddIncomeViewModel: ObservableObject {
     @Published var responseMessage: String = ""
     @Published var statusCode: Int = 0
     
-    var expensesSuccessCallback: (() -> Void)?
+    var incomeSuccessCallback: (() -> Void)?
 
-    func saveExpense(expenseDetails: String, expenseAmount: Double, expenseDate: Date, location: String, budgetCategoryId: Int, userId: Int) {
-        guard let url = URL(string: "http://wealth-wave-service-env.eba-cc4bdc5e.us-west-1.elasticbeanstalk.com/api/fhms/expense/add") else {
+    func saveIncome(incomeDetails: String, incomeAmount: Double, incomeDate: Date, userId: Int) {
+        guard let url = URL(string: "http://wealth-wave-service-env.eba-cc4bdc5e.us-west-1.elasticbeanstalk.com/api/fhms/income/add") else {
             return
         }
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        let expenseDateStr = dateFormatter.string(from: expenseDate)
+        let incomeDateStr = dateFormatter.string(from: incomeDate)
 
         let requestData: [String: Any] = [
-            "expenseDetails": expenseDetails,
-            "expenseAmount": expenseAmount,
-            "expenseDate": expenseDateStr,
-            "location": location,
-            "budgetCategoryId": budgetCategoryId,
+            "incomeDetails": incomeDetails,
+            "incomeAmount": incomeAmount,
+            "incomeDate": incomeDateStr,
             "userId": userId
         ]
         
@@ -57,16 +54,16 @@ class AddExpensesViewModel: ObservableObject {
                             if let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
                                let message = json["message"] as? String {
                                 self.responseMessage = message
-                                //print("Expenses code: \(self.statusCode)")
+                                print("income code: \(self.statusCode)")
                                 
-                                self.expensesSuccessCallback?()
+                                self.incomeSuccessCallback?()
                             }
                         } else if httpResponse.statusCode == 400 {
                             if let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
                                let message = json["message"] as? String {
                                 self.responseMessage = message
-                               // print("Expenses code: \(self.statusCode)")
-                                self.expensesSuccessCallback?()
+                                print("income code: \(self.statusCode)")
+                                self.incomeSuccessCallback?()
                             }
                         }
                     }
@@ -78,8 +75,3 @@ class AddExpensesViewModel: ObservableObject {
         }
     }
 }
-
-
-
-
-  

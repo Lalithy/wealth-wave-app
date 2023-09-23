@@ -28,6 +28,9 @@
 		92B2F8792ABAFD8A0035656F /* AddExpensesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B2F8782ABAFD8A0035656F /* AddExpensesView.swift */; };
 		92B3E47F2ABDEDC700CC2BC0 /* BudgetCategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B3E47E2ABDEDC700CC2BC0 /* BudgetCategoryModel.swift */; };
 		92C22A6F2AADDC0A0099AB39 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C22A6E2AADDC0A0099AB39 /* LoginView.swift */; };
+		92FE090C2ABEDE6700C8CCA6 /* AddIncomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FE090B2ABEDE6700C8CCA6 /* AddIncomeViewModel.swift */; };
+		92FE090E2ABEE5A000C8CCA6 /* AddSavingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FE090D2ABEE5A000C8CCA6 /* AddSavingViewModel.swift */; };
+		92FE09102ABEFBA800C8CCA6 /* AddBudgetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FE090F2ABEFBA800C8CCA6 /* AddBudgetViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +57,9 @@
 		92B3E47E2ABDEDC700CC2BC0 /* BudgetCategoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetCategoryModel.swift; sourceTree = "<group>"; };
 		92C22A6E2AADDC0A0099AB39 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		92F8769B2AB033800063AD2A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		92FE090B2ABEDE6700C8CCA6 /* AddIncomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddIncomeViewModel.swift; sourceTree = "<group>"; };
+		92FE090D2ABEE5A000C8CCA6 /* AddSavingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSavingViewModel.swift; sourceTree = "<group>"; };
+		92FE090F2ABEFBA800C8CCA6 /* AddBudgetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBudgetViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +79,9 @@
 				9212FA582AAE27AC00490868 /* RegisterViewModel.swift */,
 				92AADDF22ABDA57A00597610 /* ListOfExpensesViewModel.swift */,
 				92AADDF62ABDDA6C00597610 /* AddExpensesViewModel.swift */,
+				92FE090B2ABEDE6700C8CCA6 /* AddIncomeViewModel.swift */,
+				92FE090D2ABEE5A000C8CCA6 /* AddSavingViewModel.swift */,
+				92FE090F2ABEFBA800C8CCA6 /* AddBudgetViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -219,12 +228,15 @@
 				9295CD592ABCCCC200259DB8 /* ReportView.swift in Sources */,
 				92AADDF72ABDDA6C00597610 /* AddExpensesViewModel.swift in Sources */,
 				9212FA592AAE27AC00490868 /* RegisterViewModel.swift in Sources */,
+				92FE09102ABEFBA800C8CCA6 /* AddBudgetViewModel.swift in Sources */,
 				92B2F8772ABAE3DB0035656F /* ListOfExpensesView.swift in Sources */,
 				9212FA542AAE103F00490868 /* RegisterView.swift in Sources */,
 				9295CD572ABCC6A500259DB8 /* AddBudgetView.swift in Sources */,
 				923DC2EA2ABC0A6A00809F30 /* EditExpensesView.swift in Sources */,
 				92B2F8752ABAD1080035656F /* AddItemsView.swift in Sources */,
+				92FE090E2ABEE5A000C8CCA6 /* AddSavingViewModel.swift in Sources */,
 				92716E3E2AB9B9D200B9A468 /* DashboardView.swift in Sources */,
+				92FE090C2ABEDE6700C8CCA6 /* AddIncomeViewModel.swift in Sources */,
 				9225F3822AADD3240009AA5C /* Preview.swift in Sources */,
 				92B2F8792ABAFD8A0035656F /* AddExpensesView.swift in Sources */,
 				92B3E47F2ABDEDC700CC2BC0 /* BudgetCategoryModel.swift in Sources */,

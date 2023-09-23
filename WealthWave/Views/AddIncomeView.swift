@@ -9,11 +9,22 @@ import SwiftUI
 
 struct AddIncomeView: View {
     
- 
-    @State private var selectedDate = Date()
-    @State private var amount = ""
-    @State private var description = ""
-    @State private var isCalculatorExpanded = false
+    @StateObject var addIncomeVM : AddIncomeViewModel = AddIncomeViewModel()
+    
+    @State private var incomeDate = Date()
+    @State private var incomeAmount = ""
+    @State private var incomeDetails = ""
+    @State private var isCalculatorExpanded = true
+    
+    @State private var alertMessage = ""
+    @State private var showAlert = false
+    
+    @FocusState private var focusedField: Field?
+    
+    enum Field {
+        case incomeDetails
+    }
+    
     
     let gradientButton = Gradient(colors: [Color("ButtonColourTop"), Color("ButtonColourMiddle"), Color("ButtonColourEnd")])
     
@@ -39,35 +50,66 @@ struct AddIncomeView: View {
             
             
             VStack{
-                DatePicker("Choose Date", selection: $selectedDate, in: ...Date(), displayedComponents: .date)
+                DatePicker("Choose Date", selection: $incomeDate, in: ...Date(), displayedComponents: .date)
                     .padding()
                     .frame(width: 320)
                     .background(Color.black.opacity(0.1))
                     .cornerRadius(15)
                     .padding(.horizontal, 100)
                 
-                TextField("Amount", text: $amount)
+                
+                TextField("Amount", text: $incomeAmount)
                     .padding()
+                    .multilineTextAlignment(.trailing)
                     .frame(width: 320)
                     .background(Color.black.opacity(0.1))
                     .cornerRadius(15)
                     .disabled(true)
                 
-                TextField("Description", text: $description)
+                TextField("Description", text: $incomeDetails)
                     .padding()
+                    .focused($focusedField, equals: .incomeDetails)
+                    .autocapitalization(.none)
                     .frame(width: 320)
                     .background(Color.black.opacity(0.1))
                     .cornerRadius(15)
                     .padding(.bottom,20)
                 
+                
                 Button("SAVE"){
-                   
+                    
+                    addIncomeVM.saveIncome(
+                        incomeDetails: incomeDetails,
+                        incomeAmount: Double(incomeAmount) ?? 0.0,
+                        incomeDate: incomeDate,
+                        userId: 1)
+                    
+                    
+                    addIncomeVM.incomeSuccessCallback = {
+                        alertMessage = addIncomeVM.responseMessage
+                        showAlert  = true
+                    }
+                    
+                    
                 }
                 .foregroundColor(.white)
                 .frame(width: 320, height: 50)
                 .bold()
                 .background(LinearGradient(gradient: gradientButton, startPoint: .leading, endPoint: .trailing))
                 .cornerRadius(10)
+                .alert(alertMessage, isPresented: $showAlert) {
+                    Button("OK", role: .cancel) {
+                        
+                        if addIncomeVM.statusCode == 200 {
+                            
+                            incomeDetails = ""
+                            incomeAmount = ""
+                            
+                            
+                        }
+                        
+                    }
+                }
                 
                 Spacer()
             }
@@ -78,7 +120,7 @@ struct AddIncomeView: View {
                     VStack{
                         Spacer()
                         if isCalculatorExpanded {
-                            CalculatorNumberView(amount: $amount)
+                            CalculatorNumberView(amount: $incomeAmount)
                                 .transition(.move(edge: .bottom))
                         }
                         
@@ -94,7 +136,11 @@ struct AddIncomeView: View {
                     
                     
                 }
-            )
+            ).onAppear {
+                DispatchQueue.main.async {
+                    focusedField = .incomeDetails
+                }
+            }
         }
     }
 }
@@ -105,40 +151,40 @@ struct AddIncomeView_Previews: PreviewProvider {
     }
 }
 
-struct CalculatorView: View {
-    @Binding var amount: String
-    
-    let buttonRows = [
-        ["7", "8", "9"],
-        ["4", "5", "6"],
-        ["1", "2", "3"],
-        [".", "0", "C"]
-    ]
-    
-    var body: some View {
-        VStack {
-            ForEach(buttonRows, id: \.self) { row in
-                HStack {
-                    Spacer()
-                    ForEach(row, id: \.self) { button in
-                        Button(action: {
-                            if button == "C" {
-                                self.amount = ""
-                            } else {
-                                self.amount += button
-                            }
-                        }) {
-                            Text(button)
-                                .font(.title)
-                                .frame(width: 90, height: 40)
-                                .background(Color.gray)
-                                .cornerRadius(40)
-                                .foregroundColor(.white)
-                        }
-                    }
-                    Spacer()
-                }
-            }
-        }
-    }
-}
+//struct CalculatorView: View {
+//    @Binding var incomeAmount: String
+//
+//    let buttonRows = [
+//        ["7", "8", "9"],
+//        ["4", "5", "6"],
+//        ["1", "2", "3"],
+//        [".", "0", "C"]
+//    ]
+//
+//    var body: some View {
+//        VStack {
+//            ForEach(buttonRows, id: \.self) { row in
+//                HStack {
+//                    Spacer()
+//                    ForEach(row, id: \.self) { button in
+//                        Button(action: {
+//                            if button == "C" {
+//                                self.incomeAmount = ""
+//                            } else {
+//                                self.incomeAmount += button
+//                            }
+//                        }) {
+//                            Text(button)
+//                                .font(.title)
+//                                .frame(width: 90, height: 40)
+//                                .background(Color.gray)
+//                                .cornerRadius(40)
+//                                .foregroundColor(.white)
+//                        }
+//                    }
+//                    Spacer()
+//                }
+//            }
+//        }
+//    }
+//}

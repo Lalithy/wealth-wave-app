@@ -9,8 +9,20 @@ import SwiftUI
 struct RegisterView: View {
     
     @StateObject var registerVM : RegisterViewModel = RegisterViewModel()
-    @State private var showSuccessMessage = false
-    @FocusState var focus
+    
+    @State private var email = ""
+    @State private var password = ""
+    @State private var confirmPassword = ""
+    
+    @State private var alertMessage = ""
+    @State private var showAlert = false
+    @State private var isStatusCode = false
+    
+    @FocusState private var focusedField: Field?
+    
+    enum Field {
+        case email, password, confirmPassword
+    }
     
     
     let gradientButton = Gradient(colors: [Color("ButtonColourTop"), Color("ButtonColourMiddle"), Color("ButtonColourEnd")])
@@ -29,36 +41,55 @@ struct RegisterView: View {
             }
             .padding(.bottom, 50)
             
-            TextField("Enter Email", text: $registerVM.email)
+            TextField("Enter Email", text: $email)
                 .padding()
+                .autocapitalization(.none)
                 .frame(width: 300)
                 .background(Color.black.opacity(0.1))
                 .cornerRadius(15)
-                .focused($focus)
+                .focused($focusedField, equals: .email)
+                .onSubmit {
+                    focusedField = .password
+                }
+               
             
-            TextField("Enter Password", text: $registerVM.password)
+            TextField("Enter Password", text: $password)
                 .padding()
+                .autocapitalization(.none)
                 .frame(width: 300)
                 .background(Color.black.opacity(0.1))
                 .cornerRadius(15)
                 .padding()
-                .focused($focus)
+                .focused($focusedField, equals: .password)
+                .onSubmit {
+                    focusedField = .confirmPassword
+                }
+                
             
-            TextField("Confirm Password", text: $registerVM.confirmPassword)
+            TextField("Confirm Password", text: $confirmPassword)
                 .padding()
+                .autocapitalization(.none)
                 .frame(width: 300)
                 .background(Color.black.opacity(0.1))
                 .cornerRadius(15)
                 .padding(.bottom, 50)
-                .focused($focus)
+                .focused($focusedField, equals: .confirmPassword)
+               
             
             
             Button("Login"){
-                registerVM.registrationSuccessCallback = {
-                            self.showSuccessMessage = true
-                        }
+
+                registerVM.saveRegister(
+                    email: email,
+                    password: password,
+                    confirmPassword: confirmPassword)
                 
-                registerVM.registerUser()
+                
+                registerVM.registrationSuccessCallback = {
+                    alertMessage = registerVM.responseMessage
+                    showAlert  = true
+                }
+                
                 
             }
             .foregroundColor(.white)
@@ -67,19 +98,27 @@ struct RegisterView: View {
             .background(LinearGradient(gradient: gradientButton, startPoint: .leading, endPoint: .trailing))
             .cornerRadius(10)
             .padding(.bottom, 40)
-            .alert(isPresented: $showSuccessMessage) {
-                    Alert(
-                        title: Text("Successful"),
-                        message: Text("User created successfully!"),
-                        dismissButton: .default(Text("OK")) {
-
-                        }
-                    )
+            .alert(alertMessage, isPresented: $showAlert) {
+                Button("OK", role: .cancel) {
+                    
+                    if registerVM.statusCode == 200 {
+                        
+                        isStatusCode = true
+                        
+                        
+                    }
+                    
                 }
+            }
             
             Spacer()
             
         }.background(LinearGradient(gradient: gradientBackground, startPoint: .top, endPoint: .bottom))
+        .onAppear {
+                DispatchQueue.main.async {
+                    focusedField = .email
+                }
+            }
         
             
     }

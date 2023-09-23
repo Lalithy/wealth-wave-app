@@ -9,17 +9,23 @@ import SwiftUI
 
 struct AddBudgetView: View {
     
+    @StateObject var addCategoryVM : ListOfExpensesViewModel = ListOfExpensesViewModel()
+    @StateObject var addBudgetVM : AddBudgetViewModel = AddBudgetViewModel()
+    
     @State private var selectedCategory = ""
-    @State private var amount = ""
-    @State private var description = ""
-    @State private var isCalculatorExpanded = false
+    @State private var selectedCategoryId = 1
+    @State private var budgetAmount = ""
+    @State private var isCalculatorExpanded = true
+    
+    @State private var alertMessage = ""
+    @State private var showAlert = false
     
     let gradientButton = Gradient(colors: [Color("ButtonColourTop"), Color("ButtonColourMiddle"), Color("ButtonColourEnd")])
+
     
-    var categories = ["Food", "Healthcare", "Housing", "Insurance", "Transportation", "Utilities", "Personal Spending", "Other"]
     
     var body: some View {
-        
+
         VStack {
             ZStack{
                 HStack {
@@ -39,12 +45,18 @@ struct AddBudgetView: View {
                 .padding(.bottom, 20)
             
             VStack{
-                Picker("Category", selection: $selectedCategory) {
-                    ForEach(categories, id: \.self) {
-                        Text($0)
-                        .foregroundColor(Color.black)
-                    }
-                }
+//                Picker("Category", selection: $selectedCategory) {
+//                    ForEach(addCategoryVM.budgetCategories, id: \.budgetCategoryId) { category in
+//                        Text(category.budgetCategoryName)
+//                        .tag(category.budgetCategoryName)
+//                    }
+//                }
+                Picker("Category", selection: $selectedCategoryId) {
+                               ForEach(addCategoryVM.budgetCategories, id: \.budgetCategoryId) { category in
+                                   Text(category.budgetCategoryName)
+                                   .tag(category.budgetCategoryId) 
+                               }
+                           }
                 .padding()
                 .frame(height: 50)
                 .clipped()
@@ -54,8 +66,9 @@ struct AddBudgetView: View {
                 .padding(.bottom, 20)
                 .foregroundColor(Color.black)
                 
-                TextField("Amount", text: $amount)
+                TextField("Amount", text: $budgetAmount)
                     .padding()
+                    .multilineTextAlignment(.trailing)
                     .frame(width: 320)
                     .background(Color.black.opacity(0.1))
                     .cornerRadius(15)
@@ -68,6 +81,17 @@ struct AddBudgetView: View {
                     .bold()
                 
                 Button("SAVE") {
+                    print("Selected Category ID: \(selectedCategoryId)")
+                    addBudgetVM.saveBudget(
+                        
+                        budgetAmount: Double(budgetAmount) ?? 0.0,
+                        budgetCategoryId: selectedCategoryId,
+                        userId: 1)
+                    
+                    addBudgetVM.budgetSuccessCallback = {
+                        alertMessage = addBudgetVM.responseMessage
+                        showAlert  = true
+                    }
                     
                 }
                 .foregroundColor(.white)
@@ -75,6 +99,17 @@ struct AddBudgetView: View {
                 .bold()
                 .background(LinearGradient(gradient: gradientButton, startPoint: .leading, endPoint: .trailing))
                 .cornerRadius(10)
+                .alert(alertMessage, isPresented: $showAlert) {
+                    Button("OK", role: .cancel) {
+                        
+                        if addBudgetVM.statusCode == 200 {
+                            
+                            budgetAmount = ""
+                        
+                        }
+                        
+                    }
+                }
                 
                 Spacer()
             }
@@ -85,7 +120,7 @@ struct AddBudgetView: View {
                     VStack{
                         Spacer()
                         if isCalculatorExpanded {
-                            CalculatorNumberView(amount: $amount)
+                            CalculatorNumberView(amount: $budgetAmount)
                                 .transition(.move(edge: .bottom))
                         }
                         

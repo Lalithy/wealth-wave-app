@@ -92,26 +92,32 @@ struct CalculatorNumberPadView: View {
     }
 }
 
+
 struct FiledInputView: View {
     
-    @ObservedObject var addExpensesVM = AddExpensesViewModel()
     
-    let gradientButton = Gradient(colors: [Color("ButtonColourTop"), Color("ButtonColourMiddle"), Color("ButtonColourEnd")])
-    
-    var budgetCategoryId: Int
+    @StateObject var addExpensesVM : AddExpensesViewModel = AddExpensesViewModel()
     
     @State private var expenseDate = Date()
     @State private var expenseAmount = ""
     @State private var location = ""
     @State private var expenseDetails = ""
     @State private var calculatorHeight: CGFloat = 0
-    @State private var isCalculatorExpanded = false
+    @State private var isCalculatorExpanded = true
     
-    //@State private var isShowingAlert = false
     @State private var alertMessage = ""
-    
     @State private var showAlert = false
     
+    let gradientButton = Gradient(colors: [Color("ButtonColourTop"), Color("ButtonColourMiddle"), Color("ButtonColourEnd")])
+    
+    var budgetCategoryId: Int
+    
+    @FocusState private var focusedField: Field?
+    
+    enum Field {
+        case location, description, saveButton
+    }
+
     var body: some View {
         VStack {
             DatePicker("Choose Date", selection: $expenseDate, in: ...Date(), displayedComponents: .date)
@@ -126,6 +132,7 @@ struct FiledInputView: View {
                 .frame(width: 320)
                 .background(Color.black.opacity(0.1))
                 .cornerRadius(15)
+                .multilineTextAlignment(.trailing)
                 .disabled(true)
             
             TextField("Location", text: $location)
@@ -133,6 +140,11 @@ struct FiledInputView: View {
                 .frame(width: 320)
                 .background(Color.black.opacity(0.1))
                 .cornerRadius(15)
+                .autocapitalization(.none)
+                .focused($focusedField, equals: .location)
+                .onSubmit {
+                    focusedField = .description
+                }
             
             TextField("Description", text: $expenseDetails)
                 .padding()
@@ -140,90 +152,55 @@ struct FiledInputView: View {
                 .background(Color.black.opacity(0.1))
                 .cornerRadius(15)
                 .padding(.bottom, 20)
+                .autocapitalization(.none)
+                .focused($focusedField, equals: .description)
+                .onSubmit {
+                    focusedField = .saveButton
+                }
+            
             
             Button("SAVE"){
+                
                 addExpensesVM.saveExpense(
                     expenseDetails: expenseDetails,
                     expenseAmount: Double(expenseAmount) ?? 0.0,
                     expenseDate: expenseDate,
                     location: location,
                     budgetCategoryId: budgetCategoryId,
-                    userId: 1                             )
+                    userId: 1)
                 
-                //showAlert = addExpensesVM.statusCode == 200
                 
-                alertMessage = addExpensesVM.responseMessage
-                showAlert = true
-                
-                if addExpensesVM.statusCode == 200 {
-                    
-                    expenseDetails = ""
-                    expenseAmount = ""
-                    location = ""
-                    
+                addExpensesVM.expensesSuccessCallback = {
+                    alertMessage = addExpensesVM.responseMessage
+                    showAlert  = true
                 }
                 
-                print("Expenses msg : \(alertMessage)")
-                print("Expenses code 1 : \(addExpensesVM.statusCode)")
+                focusedField = .saveButton
                 
             }
+            .focused($focusedField, equals: .saveButton)
             .foregroundColor(.white)
             .frame(width: 320, height: 50)
             .bold()
             .background(LinearGradient(gradient: gradientButton, startPoint: .leading, endPoint: .trailing))
             .cornerRadius(10)
-            .alert(isPresented: $showAlert) {
-                Alert(title: Text("Response"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
+            .alert(alertMessage, isPresented: $showAlert) {
+                Button("OK", role: .cancel) {
+
+                    if addExpensesVM.statusCode == 200 {
+                        
+                        expenseDetails = ""
+                        expenseAmount = ""
+                        location = ""
+                        
+                    }
+                    
+                }
             }
-            
-            
-            //            .alert(isPresented: $showAlert) {
-            //                            if addExpensesVM.statusCode == 200 {
-            //
-            ////                                expenseDetails = ""
-            ////                                expenseAmount = ""
-            ////                                location = ""
-            //                                return Alert(
-            //                                    title: Text("Success"),
-            //                                    message: Text("Expense saved successfully."),
-            //                                    dismissButton: .default(Text("OK"))
-            //                                )
-            //                            } else {
-            //
-            //                                return Alert(
-            //                                    title: Text("Error"),
-            //                                    message: Text(addExpensesVM.responseMessage),
-            //                                    dismissButton: .default(Text("OK"))
-            //                                )
-            //                            }
-            //                        }
-            //            .onTapGesture{
-            //
-            //                print("Button tapped")
-            //                print("Expenses : \(addExpensesVM.statusCode)")
-            //
-            //
-            //                alertMessage = addExpensesVM.responseMessage
-            //                isShowingAlert = true
-            //
-            //
-            //                if addExpensesVM.statusCode == 200 {
-            //
-            //                    expenseDetails = ""
-            //                    expenseAmount = ""
-            //                    location = ""
-            //
-            //                }
-            //            }
-            //            .alert(isPresented: $isShowingAlert) {
-            //                Alert(title: Text("Response"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
-            //            }
             
             
             Spacer()
             
-            Text(addExpensesVM.responseMessage)
-            Text("\(addExpensesVM.statusCode)")
         }
         
         .background(
@@ -249,9 +226,18 @@ struct FiledInputView: View {
                 
                 
             }
-        )
+        )  .onAppear {
+            DispatchQueue.main.async {
+                focusedField = .location
+            }
+        }
+        
+        
     }
 }
+
+
+
 
 
 
