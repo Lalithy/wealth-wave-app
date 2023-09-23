@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct DashboardView: View {
+    
+    @State private var isLogoutTapped = false
+    
     var body: some View {
         
         VStack{
@@ -15,6 +18,13 @@ struct DashboardView: View {
             
             BottomControllers()
         }
+        .navigationBarBackButtonHidden(true)
+        .navigationBarItems(trailing:
+                       NavigationLink(destination: Preview()) {
+                           Image(systemName: "person.circle")
+                           .font(.system(size: 20))
+                       }
+                   )
         
     }
 }

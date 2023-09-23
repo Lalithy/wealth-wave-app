@@ -21,11 +21,11 @@ struct AddBudgetView: View {
     @State private var showAlert = false
     
     let gradientButton = Gradient(colors: [Color("ButtonColourTop"), Color("ButtonColourMiddle"), Color("ButtonColourEnd")])
-
+    
     
     
     var body: some View {
-
+        
         VStack {
             ZStack{
                 HStack {
@@ -45,18 +45,18 @@ struct AddBudgetView: View {
                 .padding(.bottom, 20)
             
             VStack{
-//                Picker("Category", selection: $selectedCategory) {
-//                    ForEach(addCategoryVM.budgetCategories, id: \.budgetCategoryId) { category in
-//                        Text(category.budgetCategoryName)
-//                        .tag(category.budgetCategoryName)
-//                    }
-//                }
+                //                Picker("Category", selection: $selectedCategory) {
+                //                    ForEach(addCategoryVM.budgetCategories, id: \.budgetCategoryId) { category in
+                //                        Text(category.budgetCategoryName)
+                //                        .tag(category.budgetCategoryName)
+                //                    }
+                //                }
                 Picker("Category", selection: $selectedCategoryId) {
-                               ForEach(addCategoryVM.budgetCategories, id: \.budgetCategoryId) { category in
-                                   Text(category.budgetCategoryName)
-                                   .tag(category.budgetCategoryId) 
-                               }
-                           }
+                    ForEach(addCategoryVM.budgetCategories, id: \.budgetCategoryId) { category in
+                        Text(category.budgetCategoryName)
+                            .tag(category.budgetCategoryId)
+                    }
+                }
                 .padding()
                 .frame(height: 50)
                 .clipped()
@@ -80,8 +80,11 @@ struct AddBudgetView: View {
                     .foregroundColor(.blue)
                     .bold()
                 
-                Button("SAVE") {
-                    print("Selected Category ID: \(selectedCategoryId)")
+                
+                
+                Button(action: {
+                    
+                    
                     addBudgetVM.saveBudget(
                         
                         budgetAmount: Double(budgetAmount) ?? 0.0,
@@ -92,24 +95,27 @@ struct AddBudgetView: View {
                         alertMessage = addBudgetVM.responseMessage
                         showAlert  = true
                     }
-                    
+                }) {
+                    Text("Save")
+                        .foregroundColor(.white)
+                        .frame(width: 320, height: 50)
+                        .bold()
+                        .background(LinearGradient(gradient: gradientButton, startPoint: .leading, endPoint: .trailing))
+                        .cornerRadius(10)
                 }
-                .foregroundColor(.white)
-                .frame(width: 320, height: 50)
-                .bold()
-                .background(LinearGradient(gradient: gradientButton, startPoint: .leading, endPoint: .trailing))
-                .cornerRadius(10)
+                .background(Color.clear)
                 .alert(alertMessage, isPresented: $showAlert) {
                     Button("OK", role: .cancel) {
                         
                         if addBudgetVM.statusCode == 200 {
                             
                             budgetAmount = ""
-                        
+                            
                         }
                         
                     }
                 }
+                
                 
                 Spacer()
             }

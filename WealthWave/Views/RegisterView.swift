@@ -32,6 +32,11 @@ struct RegisterView: View {
         
         VStack{
             
+            NavigationLink(destination: LoginView(), isActive: $isStatusCode) {
+                        EmptyView()
+                    }
+                    .hidden()
+            
             HStack{
                 Spacer()
                 Text("Register")
@@ -76,40 +81,34 @@ struct RegisterView: View {
                 .focused($focusedField, equals: .confirmPassword)
                
             
-            
-            Button("Login"){
-
+            Button(action: {
                 registerVM.saveRegister(
                     email: email,
                     password: password,
                     confirmPassword: confirmPassword)
                 
-                
                 registerVM.registrationSuccessCallback = {
                     alertMessage = registerVM.responseMessage
-                    showAlert  = true
+                    showAlert = true
                 }
-                
-                
+            }) {
+                Text("Login")
+                    .foregroundColor(.white)
+                    .frame(width: 300, height: 50)
+                    .bold()
+                    .background(LinearGradient(gradient: gradientButton, startPoint: .leading, endPoint: .trailing))
+                    .cornerRadius(10)
+                    .padding(.bottom, 40)
             }
-            .foregroundColor(.white)
-            .frame(width: 300, height: 50)
-            .bold()
-            .background(LinearGradient(gradient: gradientButton, startPoint: .leading, endPoint: .trailing))
-            .cornerRadius(10)
-            .padding(.bottom, 40)
+            .background(Color.clear) 
             .alert(alertMessage, isPresented: $showAlert) {
                 Button("OK", role: .cancel) {
-                    
                     if registerVM.statusCode == 200 {
-                        
                         isStatusCode = true
-                        
-                        
                     }
-                    
                 }
             }
+
             
             Spacer()
             

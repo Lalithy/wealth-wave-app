@@ -33,7 +33,7 @@ struct Preview: View {
             .onTapGesture {
                 isLoginViewActive = true
             }
-        }
+        }.navigationBarBackButtonHidden(true)
     }
 }
 

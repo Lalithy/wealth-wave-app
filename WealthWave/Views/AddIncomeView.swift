@@ -75,8 +75,8 @@ struct AddIncomeView: View {
                     .cornerRadius(15)
                     .padding(.bottom,20)
                 
-                
-                Button("SAVE"){
+                Button(action: {
+                    
                     
                     addIncomeVM.saveIncome(
                         incomeDetails: incomeDetails,
@@ -90,13 +90,15 @@ struct AddIncomeView: View {
                         showAlert  = true
                     }
                     
-                    
+                }) {
+                    Text("Save")
+                        .foregroundColor(.white)
+                        .frame(width: 320, height: 50)
+                        .bold()
+                        .background(LinearGradient(gradient: gradientButton, startPoint: .leading, endPoint: .trailing))
+                        .cornerRadius(10)
                 }
-                .foregroundColor(.white)
-                .frame(width: 320, height: 50)
-                .bold()
-                .background(LinearGradient(gradient: gradientButton, startPoint: .leading, endPoint: .trailing))
-                .cornerRadius(10)
+                .background(Color.clear)
                 .alert(alertMessage, isPresented: $showAlert) {
                     Button("OK", role: .cancel) {
                         
@@ -110,6 +112,7 @@ struct AddIncomeView: View {
                         
                     }
                 }
+
                 
                 Spacer()
             }

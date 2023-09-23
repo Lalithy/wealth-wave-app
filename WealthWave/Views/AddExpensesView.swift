@@ -117,7 +117,7 @@ struct FiledInputView: View {
     enum Field {
         case location, description, saveButton
     }
-
+    
     var body: some View {
         VStack {
             DatePicker("Choose Date", selection: $expenseDate, in: ...Date(), displayedComponents: .date)
@@ -159,7 +159,7 @@ struct FiledInputView: View {
                 }
             
             
-            Button("SAVE"){
+            Button(action: {
                 
                 addExpensesVM.saveExpense(
                     expenseDetails: expenseDetails,
@@ -177,16 +177,19 @@ struct FiledInputView: View {
                 
                 focusedField = .saveButton
                 
+            }) {
+                Text("Save")
+                    .focused($focusedField, equals: .saveButton)
+                    .foregroundColor(.white)
+                    .frame(width: 320, height: 50)
+                    .bold()
+                    .background(LinearGradient(gradient: gradientButton, startPoint: .leading, endPoint: .trailing))
+                    .cornerRadius(10)
             }
-            .focused($focusedField, equals: .saveButton)
-            .foregroundColor(.white)
-            .frame(width: 320, height: 50)
-            .bold()
-            .background(LinearGradient(gradient: gradientButton, startPoint: .leading, endPoint: .trailing))
-            .cornerRadius(10)
+            .background(Color.clear)
             .alert(alertMessage, isPresented: $showAlert) {
                 Button("OK", role: .cancel) {
-
+                    
                     if addExpensesVM.statusCode == 200 {
                         
                         expenseDetails = ""
@@ -197,6 +200,7 @@ struct FiledInputView: View {
                     
                 }
             }
+            
             
             
             Spacer()

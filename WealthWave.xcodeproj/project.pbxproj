@@ -16,6 +16,7 @@
 		9228FDBE2AADC24700CE8E8D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9228FDBD2AADC24700CE8E8D /* Preview Assets.xcassets */; };
 		923DC2EA2ABC0A6A00809F30 /* EditExpensesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923DC2E92ABC0A6A00809F30 /* EditExpensesView.swift */; };
 		92716E3E2AB9B9D200B9A468 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92716E3D2AB9B9D200B9A468 /* DashboardView.swift */; };
+		928CB34B2ABF1700002226B8 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928CB34A2ABF1700002226B8 /* LoginViewModel.swift */; };
 		9295CD512ABCB85200259DB8 /* AddIncomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9295CD502ABCB85200259DB8 /* AddIncomeView.swift */; };
 		9295CD532ABCC10F00259DB8 /* AddSavingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9295CD522ABCC10F00259DB8 /* AddSavingView.swift */; };
 		9295CD552ABCC4FA00259DB8 /* BudgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9295CD542ABCC4FA00259DB8 /* BudgetView.swift */; };
@@ -44,6 +45,7 @@
 		9228FDBD2AADC24700CE8E8D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		923DC2E92ABC0A6A00809F30 /* EditExpensesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditExpensesView.swift; sourceTree = "<group>"; };
 		92716E3D2AB9B9D200B9A468 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
+		928CB34A2ABF1700002226B8 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		9295CD502ABCB85200259DB8 /* AddIncomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddIncomeView.swift; sourceTree = "<group>"; };
 		9295CD522ABCC10F00259DB8 /* AddSavingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSavingView.swift; sourceTree = "<group>"; };
 		9295CD542ABCC4FA00259DB8 /* BudgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetView.swift; sourceTree = "<group>"; };
@@ -82,6 +84,7 @@
 				92FE090B2ABEDE6700C8CCA6 /* AddIncomeViewModel.swift */,
 				92FE090D2ABEE5A000C8CCA6 /* AddSavingViewModel.swift */,
 				92FE090F2ABEFBA800C8CCA6 /* AddBudgetViewModel.swift */,
+				928CB34A2ABF1700002226B8 /* LoginViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -223,6 +226,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				928CB34B2ABF1700002226B8 /* LoginViewModel.swift in Sources */,
 				9228FDB92AADC24600CE8E8D /* ContentView.swift in Sources */,
 				9295CD532ABCC10F00259DB8 /* AddSavingView.swift in Sources */,
 				9295CD592ABCCCC200259DB8 /* ReportView.swift in Sources */,

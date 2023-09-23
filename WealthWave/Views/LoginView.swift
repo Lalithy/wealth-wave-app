@@ -9,8 +9,20 @@ import SwiftUI
 
 struct LoginView: View {
     
+    @StateObject var addLoginVM : LoginViewModel = LoginViewModel()
+    
     @State private var email = ""
     @State private var password = ""
+    
+    @State private var alertMessage = ""
+    @State private var showAlert = false
+    @State private var isStatusCode = false
+    
+    @FocusState private var focusedField: Field?
+    
+    enum Field {
+        case email, password, saveButton
+    }
     
     
     let gradientButton = Gradient(colors: [Color("ButtonColourTop"), Color("ButtonColourMiddle"), Color("ButtonColourEnd")])
@@ -20,6 +32,12 @@ struct LoginView: View {
         
         
         VStack{
+            
+            NavigationLink(destination: DashboardView(), isActive: $isStatusCode) {
+                EmptyView()
+            }
+            .hidden()
+            
             HStack {
                 Spacer()
                 Image("LOGO")
@@ -34,38 +52,74 @@ struct LoginView: View {
                 Text("Sign up with your email address")
                     .bold()
             }.padding(.top, 20)
-             .padding(.bottom,40)
+                .padding(.bottom,40)
             
             
             TextField("Enter Email", text: $email)
                 .padding()
+                .autocapitalization(.none)
                 .frame(width: 300)
                 .background(Color.black.opacity(0.1))
                 .cornerRadius(15)
+                .focused($focusedField, equals: .email)
+                .onSubmit {
+                    focusedField = .password
+                }
+            
             
             TextField("Enter Password", text: $password)
                 .padding()
+                .autocapitalization(.none)
                 .frame(width: 300)
                 .background(Color.black.opacity(0.1))
                 .cornerRadius(15)
                 .padding()
                 .padding(.bottom, 20)
+                .focused($focusedField, equals: .password)
+                .onSubmit {
+                    focusedField = .saveButton
+                }
             
             
             Button(action: {
                 
-            }) {
-                NavigationLink(destination: DashboardView()) {
-                    Text("Login")
-                        .foregroundColor(.white)
-                        .frame(width: 300, height: 50)
-                        .bold()
-                        .background(LinearGradient(gradient: gradientButton, startPoint: .leading, endPoint: .trailing))
-                        .cornerRadius(10)
-                        .padding(.bottom, 40)
+                addLoginVM.saveLogin(
+                    email: email,
+                    password: password)
+                
+                addLoginVM.loginSuccessCallback = {
+                    alertMessage = addLoginVM.responseMessage
+                    
+                    if addLoginVM.statusCode == 200 {
+                        isStatusCode = true
+                        
+                        email = ""
+                        password = ""
+                        
+                    }else {
+                        showAlert = true
+                    }
+                    
+                }
+                
+                focusedField = .saveButton
+            })
+            {
+                Text("Login")
+                    .focused($focusedField, equals: .saveButton)
+                    .foregroundColor(.white)
+                    .frame(width: 300, height: 50)
+                    .bold()
+                    .background(LinearGradient(gradient: gradientButton, startPoint: .leading, endPoint: .trailing))
+                    .cornerRadius(10)
+                    .padding(.bottom, 40)
+            }
+            .background(Color.clear)
+            .alert(alertMessage, isPresented: $showAlert) {
+                Button("OK", role: .cancel) {
+                    
                 }
             }
-            
             
             
             HStack{
@@ -84,6 +138,11 @@ struct LoginView: View {
             Spacer()
             
         }.background(LinearGradient(gradient: gradientBackground, startPoint: .top, endPoint: .bottom))
+            .onAppear {
+                DispatchQueue.main.async {
+                    focusedField = .email
+                }
+            }
         
     }
 }

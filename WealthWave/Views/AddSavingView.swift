@@ -66,16 +66,8 @@ struct AddSavingView: View {
                     .disabled(true)
                     .padding(.bottom,20)
                 
-//                TextField("Description", text: $savingsDetails)
-//                    .padding()
-//                    .focused($focusedField, equals: .savingsDetails)
-//                    .autocapitalization(.none)
-//                    .frame(width: 320)
-//                    .background(Color.black.opacity(0.1))
-//                    .cornerRadius(15)
-//                    .padding(.bottom,20)
                 
-                Button("SAVE"){
+                Button(action: {
                     
                     addSavingVM.saveSaving(
                         savingsDetails: "Savings",
@@ -88,13 +80,16 @@ struct AddSavingView: View {
                         alertMessage = addSavingVM.responseMessage
                         showAlert  = true
                     }
-                   
+                    
+                }) {
+                    Text("Save")
+                        .foregroundColor(.white)
+                        .frame(width: 320, height: 50)
+                        .bold()
+                        .background(LinearGradient(gradient: gradientButton, startPoint: .leading, endPoint: .trailing))
+                        .cornerRadius(10)
                 }
-                .foregroundColor(.white)
-                .frame(width: 320, height: 50)
-                .bold()
-                .background(LinearGradient(gradient: gradientButton, startPoint: .leading, endPoint: .trailing))
-                .cornerRadius(10)
+                .background(Color.clear)
                 .alert(alertMessage, isPresented: $showAlert) {
                     Button("OK", role: .cancel) {
                         
@@ -102,12 +97,12 @@ struct AddSavingView: View {
                             
                             savingsDetails = ""
                             savingsAmount = ""
-                            
-                            
+
                         }
                         
                     }
                 }
+                
                 
                 Spacer()
             }
@@ -135,11 +130,7 @@ struct AddSavingView: View {
                     
                 }
             )
-//            .onAppear {
-//                DispatchQueue.main.async {
-//                    focusedField = .savingsDetails
-//                }
-//            }
+        
         }
         
     }
