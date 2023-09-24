@@ -10,11 +10,11 @@ import SwiftUI
 struct DashboardView: View {
     
     @State private var isLogoutTapped = false
+  
     
     var body: some View {
         
         VStack{
-            
             
             BottomControllers()
         }
@@ -31,6 +31,7 @@ struct DashboardView: View {
 
 
 struct DashboardView_Previews: PreviewProvider {
+  
     static var previews: some View {
         DashboardView()
     }
@@ -38,6 +39,7 @@ struct DashboardView_Previews: PreviewProvider {
 
 
 struct BottomControllers: View {
+    
     var body: some View {
         TabView {
             

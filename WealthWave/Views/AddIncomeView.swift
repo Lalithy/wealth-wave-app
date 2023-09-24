@@ -25,6 +25,7 @@ struct AddIncomeView: View {
         case incomeDetails
     }
     
+    let userId = UserModel.shared.getUserId()
     
     let gradientButton = Gradient(colors: [Color("ButtonColourTop"), Color("ButtonColourMiddle"), Color("ButtonColourEnd")])
     
@@ -50,6 +51,8 @@ struct AddIncomeView: View {
             
             
             VStack{
+                
+                Text("User ID income: \(userId)")
                 DatePicker("Choose Date", selection: $incomeDate, in: ...Date(), displayedComponents: .date)
                     .padding()
                     .frame(width: 320)
@@ -82,7 +85,7 @@ struct AddIncomeView: View {
                         incomeDetails: incomeDetails,
                         incomeAmount: Double(incomeAmount) ?? 0.0,
                         incomeDate: incomeDate,
-                        userId: 1)
+                        userId: userId)
                     
                     
                     addIncomeVM.incomeSuccessCallback = {
@@ -106,8 +109,7 @@ struct AddIncomeView: View {
                             
                             incomeDetails = ""
                             incomeAmount = ""
-                            
-                            
+
                         }
                         
                     }
@@ -154,40 +156,3 @@ struct AddIncomeView_Previews: PreviewProvider {
     }
 }
 
-//struct CalculatorView: View {
-//    @Binding var incomeAmount: String
-//
-//    let buttonRows = [
-//        ["7", "8", "9"],
-//        ["4", "5", "6"],
-//        ["1", "2", "3"],
-//        [".", "0", "C"]
-//    ]
-//
-//    var body: some View {
-//        VStack {
-//            ForEach(buttonRows, id: \.self) { row in
-//                HStack {
-//                    Spacer()
-//                    ForEach(row, id: \.self) { button in
-//                        Button(action: {
-//                            if button == "C" {
-//                                self.incomeAmount = ""
-//                            } else {
-//                                self.incomeAmount += button
-//                            }
-//                        }) {
-//                            Text(button)
-//                                .font(.title)
-//                                .frame(width: 90, height: 40)
-//                                .background(Color.gray)
-//                                .cornerRadius(40)
-//                                .foregroundColor(.white)
-//                        }
-//                    }
-//                    Spacer()
-//                }
-//            }
-//        }
-//    }
-//}

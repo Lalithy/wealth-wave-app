@@ -10,6 +10,7 @@ import SwiftUI
 struct AddSavingView: View {
     
     @StateObject var addSavingVM : AddSavingViewModel = AddSavingViewModel()
+
     
     @State private var savingsDate = Date()
     @State private var savingsAmount = ""
@@ -18,13 +19,15 @@ struct AddSavingView: View {
     
     @State private var alertMessage = ""
     @State private var showAlert = false
-    
+
     @FocusState private var focusedField: Field?
     
     enum Field {
         case savingsDetails
     }
     
+    
+    let userId = UserModel.shared.getUserId()
     
     let gradientButton = Gradient(colors: [Color("ButtonColourTop"), Color("ButtonColourMiddle"), Color("ButtonColourEnd")])
     
@@ -73,12 +76,14 @@ struct AddSavingView: View {
                         savingsDetails: "Savings",
                         savingsAmount: Double(savingsAmount) ?? 0.0,
                         savingsDate: savingsDate,
-                        userId: 1)
-                    
+                        userId: userId)
+                
                     
                     addSavingVM.saveSuccessCallback = {
                         alertMessage = addSavingVM.responseMessage
                         showAlert  = true
+                        
+                        print("Saving responce : \(addSavingVM)")
                     }
                     
                 }) {
@@ -137,6 +142,7 @@ struct AddSavingView: View {
 }
 
 struct AddSavingView_Previews: PreviewProvider {
+   
     static var previews: some View {
         AddSavingView()
     }

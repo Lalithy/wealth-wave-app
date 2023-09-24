@@ -1,25 +1,25 @@
 //
-//  ListOfExpensesViewModel.swift
+//  GetExpensesViewModel.swift
 //  WealthWave
 //
-//  Created by Lali.. on 22/09/2023.
+//  Created by Lali.. on 24/09/2023.
 //
 
 import Foundation
 import SwiftUI
 
-class ListOfExpensesViewModel: ObservableObject {
-    @Published var budgetCategories: [BudgetCategory] = []
+class GetExpensesViewModel: ObservableObject {
+    @Published var expenses: [ExpensesDetails] = []
     @Published var userId: Int = UserModel.shared.getUserId()
 
     @Published var isLoading = true
 
     init() {
-        fetchBudgetCategories()
+        fetchExpensesList()
     }
 
-    func fetchBudgetCategories() {
-        guard let url = URL(string: "http://wealth-wave-service-env.eba-cc4bdc5e.us-west-1.elasticbeanstalk.com/api/fhms/budget-category/get-by-user?userId=\(userId)") else {
+    func fetchExpensesList() {
+        guard let url = URL(string: "http://wealth-wave-service-env.eba-cc4bdc5e.us-west-1.elasticbeanstalk.com/api/fhms/expense/get-by-user?userId=\(userId)") else {
             return
         }
 
@@ -35,10 +35,11 @@ class ListOfExpensesViewModel: ObservableObject {
 
             if let data = data {
                 do {
-                    let response = try JSONDecoder().decode(BudgetCategoryResponse.self, from: data)
+                    let response = try JSONDecoder().decode(ExpensesResponse.self, from: data)
                     DispatchQueue.main.async {
                         self.isLoading = false
-                        self.budgetCategories = response.details
+                        self.expenses = response.details
+                        
                     }
                 } catch {
                     print("Error decoding JSON: \(error)")

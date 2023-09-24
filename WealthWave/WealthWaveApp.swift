@@ -16,7 +16,7 @@ struct WealthWaveApp: App {
          // ContentView()
             NavigationView(){
                 Preview()
-                  
+                    
                               
                 
             }

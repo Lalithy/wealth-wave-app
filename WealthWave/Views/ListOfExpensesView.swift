@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ListOfExpensesView: View {
+    
     @StateObject var listOfExpensesVM: ListOfExpensesViewModel = ListOfExpensesViewModel()
 
     

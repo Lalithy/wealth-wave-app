@@ -20,6 +20,8 @@ struct AddBudgetView: View {
     @State private var alertMessage = ""
     @State private var showAlert = false
     
+    let userId = UserModel.shared.getUserId()
+    
     let gradientButton = Gradient(colors: [Color("ButtonColourTop"), Color("ButtonColourMiddle"), Color("ButtonColourEnd")])
     
     
@@ -45,12 +47,7 @@ struct AddBudgetView: View {
                 .padding(.bottom, 20)
             
             VStack{
-                //                Picker("Category", selection: $selectedCategory) {
-                //                    ForEach(addCategoryVM.budgetCategories, id: \.budgetCategoryId) { category in
-                //                        Text(category.budgetCategoryName)
-                //                        .tag(category.budgetCategoryName)
-                //                    }
-                //                }
+
                 Picker("Category", selection: $selectedCategoryId) {
                     ForEach(addCategoryVM.budgetCategories, id: \.budgetCategoryId) { category in
                         Text(category.budgetCategoryName)
@@ -89,7 +86,7 @@ struct AddBudgetView: View {
                         
                         budgetAmount: Double(budgetAmount) ?? 0.0,
                         budgetCategoryId: selectedCategoryId,
-                        userId: 1)
+                        userId: userId)
                     
                     addBudgetVM.budgetSuccessCallback = {
                         alertMessage = addBudgetVM.responseMessage

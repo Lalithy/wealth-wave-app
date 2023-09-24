@@ -40,7 +40,7 @@ class AddSavingViewModel: ObservableObject {
             
             URLSession.shared.dataTask(with: request) { data, response, error in
                 if let error = error {
-                    print("Error: \(error)")
+                    print("Error saving 1: \(error)")
                     self.statusCode = 500
                     self.responseMessage = "Error: \(error.localizedDescription)"
                     return
@@ -70,7 +70,7 @@ class AddSavingViewModel: ObservableObject {
             }.resume()
         } catch {
             print("Error creating JSON data: \(error)")
-            self.responseMessage = "Error: \(error.localizedDescription)"
+            self.responseMessage = "Error saving 3: \(error.localizedDescription)"
         }
     }
 }

@@ -48,6 +48,7 @@ struct AddExpensesView: View {
 }
 
 struct AddExpensesView_Previews: PreviewProvider {
+    
     static var previews: some View {
         AddExpensesView(itemName: "Food", budgetCategoryId: 1)
     }
@@ -108,6 +109,8 @@ struct FiledInputView: View {
     @State private var alertMessage = ""
     @State private var showAlert = false
     
+    let userId = UserModel.shared.getUserId()
+    
     let gradientButton = Gradient(colors: [Color("ButtonColourTop"), Color("ButtonColourMiddle"), Color("ButtonColourEnd")])
     
     var budgetCategoryId: Int
@@ -167,7 +170,7 @@ struct FiledInputView: View {
                     expenseDate: expenseDate,
                     location: location,
                     budgetCategoryId: budgetCategoryId,
-                    userId: 1)
+                    userId: userId)
                 
                 
                 addExpensesVM.expensesSuccessCallback = {
