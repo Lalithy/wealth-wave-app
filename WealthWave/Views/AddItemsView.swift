@@ -33,7 +33,7 @@ struct AddItemsView: View {
                 
                 ExpensesView()
                 
-                IncomeView(incomeViewModel: IncomeViewModel())
+                IncomeView()
                 
                 SavingView()
                 
@@ -84,7 +84,7 @@ struct ExpensesView: View {
 //            } else {
                 ScrollView {
                     ForEach(userExpensesList.expenses, id: \.expenseId) { item in
-                        UserExpensesListView(iconName: "minus.circle.fill",image: item.expenseCategory, expenseCategory: item.expenseCategory, expenseAmount: item.expenseAmount)
+                        UserExpensesListView(iconName: "minus.circle.fill",image: item.expenseCategory, expenseCategory: item.expenseCategory, expenseAmount: item.expenseAmount, expenseDetails: item.expenseDetails, expenseDate: item.expenseDate)
                         
                     }
                     Spacer()
@@ -126,12 +126,12 @@ struct UserExpensesListView: View {
     var image: String
     var expenseCategory: String
     var expenseAmount: Double
-//    var expenseDetails: String
-//    var expenseDate: String
+    var expenseDetails: String
+    var expenseDate: String
     
     var body: some View {
         
-        HStack {
+        VStack {
             HStack {
                 Button(action: {}) {
                     Image(systemName: iconName)
@@ -139,7 +139,7 @@ struct UserExpensesListView: View {
                         .foregroundColor(.red)
                         .scaledToFit()
                 }
-                .padding(.leading, 10)
+                //.padding(.leading, 10)
                 
                 Image(image)
                     .resizable()
@@ -152,25 +152,26 @@ struct UserExpensesListView: View {
                     .padding(.leading, 10)
                 
                 Text(String(format: "%.2f", expenseAmount))
-                    .font(.system(size: 15))
+                    .font(.system(size: 20))
                     .padding(.leading, 10)
                 //Spacer()
                 
             }
-            
-//            HStack {
-//
-//                padding(.leading, 10)
-//
-//                Text(expenseDetails)
-//                    .padding(.leading, 10)
-//
-//                Text(expenseDate)
-//                    .font(.system(size: 20))
-//                    .padding(.leading, 10)
-//                Spacer()
-//
-//            }
+            Spacer()
+            HStack {
+               
+                
+                Text(expenseDetails)
+                    .font(.system(size: 20))
+                    //.padding(.leading, 10)
+                
+                Text(expenseDate)
+                    .font(.system(size: 20))
+                    //.padding(.leading, 10)
+                //Spacer()
+                
+            }
+           
             
         }
         .padding(.top, 10)
