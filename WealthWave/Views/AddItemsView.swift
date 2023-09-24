@@ -321,7 +321,7 @@ struct ExpensesView1: View {
     var body: some View {
         VStack {
             
-            Text("Total: 1000")
+            Text("Total: \(incomeViewModel.status)")
                 .font(.system(size: 25))
                 .bold()
                 .padding(.top, 10)

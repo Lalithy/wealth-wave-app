@@ -14,6 +14,7 @@ struct IncomeItem: Codable {
     let incomeAmount: Double
 }
 
+
 struct IncomeResponse: Decodable {
     let message: String
     let details: [IncomeItem]

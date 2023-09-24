@@ -11,6 +11,7 @@ import Combine
 class IncomeViewModel: ObservableObject {
     @Published var incomeData: [IncomeItem] = []
     @Published var userId: Int = UserModel.shared.getUserId()
+    @Published var status: String = ""
     
     init() {
         fetchIncomeData()
@@ -37,6 +38,7 @@ class IncomeViewModel: ObservableObject {
                     DispatchQueue.main.async {
                         
                         self.incomeData = response.details
+                        self.status = response.status
                     }
                 } catch {
                     print("Error decoding JSON: \(error)")
