@@ -79,18 +79,17 @@ struct ExpensesView: View {
     var body: some View {
         VStack {
             
-            if userExpensesList.isLoading {
-                ProgressView()
-            } else {
+//            if userExpensesList.isLoading {
+//                ProgressView()
+//            } else {
                 ScrollView {
                     ForEach(userExpensesList.expenses, id: \.expenseId) { item in
-                        UserExpensesListView(iconName: "minus.circle.fill",image: item.expenseCategory, expenseCategory: item.expenseCategory,
-                                             expenseAmount: item.expenseAmount, expenseDetails: item.expenseDetails, expenseDate: item.expenseDate)
+                        UserExpensesListView(iconName: "minus.circle.fill",image: item.expenseCategory, expenseCategory: item.expenseCategory, expenseAmount: item.expenseAmount)
                         
                     }
                     Spacer()
                 }
-            }
+//            }
             
             Spacer()
             
@@ -127,8 +126,8 @@ struct UserExpensesListView: View {
     var image: String
     var expenseCategory: String
     var expenseAmount: Double
-    var expenseDetails: String
-    var expenseDate: String
+//    var expenseDetails: String
+//    var expenseDate: String
     
     var body: some View {
         
@@ -159,19 +158,19 @@ struct UserExpensesListView: View {
                 
             }
             
-            HStack {
-                
-                padding(.leading, 10)
-                
-                Text(expenseDetails)
-                    .padding(.leading, 10)
-                
-                Text(expenseDate)
-                    .font(.system(size: 20))
-                    .padding(.leading, 10)
-                Spacer()
-                
-            }
+//            HStack {
+//
+//                padding(.leading, 10)
+//
+//                Text(expenseDetails)
+//                    .padding(.leading, 10)
+//
+//                Text(expenseDate)
+//                    .font(.system(size: 20))
+//                    .padding(.leading, 10)
+//                Spacer()
+//
+//            }
             
         }
         .padding(.top, 10)
