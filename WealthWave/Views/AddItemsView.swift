@@ -316,12 +316,13 @@ struct SavingView: View {
 struct ExpensesView1: View {
     
     @StateObject var incomeViewModel: IncomeViewModel = IncomeViewModel()
+    @State private var isIncomeVisible = false
     @State private var isListVisible = false
     
     var body: some View {
         VStack {
             
-            Text("Total: \(incomeViewModel.status)")
+            Text("Total: \(incomeViewModel.totalAmount)")
                 .font(.system(size: 25))
                 .bold()
                 .padding(.top, 10)
@@ -354,7 +355,7 @@ struct ExpensesView1: View {
             Spacer()
             
             NavigationLink(
-                destination: ListOfExpensesView(),
+                destination: AddIncomeView(),
                 isActive: $isListVisible
             ) {
                 

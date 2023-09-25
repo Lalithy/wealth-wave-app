@@ -18,7 +18,7 @@ struct IncomeItem: Codable {
 struct IncomeResponse: Decodable {
     let message: String
     let details: [IncomeItem]
-    let status: String
+    let totalAmount: String
     let timestamp: String
 }
 

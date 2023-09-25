@@ -24,16 +24,16 @@ struct ListOfExpensesView: View {
                 Spacer()
             }
             
-            if listOfExpensesVM.isLoading {
-                ProgressView()
-            } else {
+//            if listOfExpensesVM.isLoading {
+//                ProgressView()
+//            } else {
                 ScrollView {
                     ForEach(listOfExpensesVM.budgetCategories, id: \.budgetCategoryId) { category in
                         ExpenseItemView(image: category.budgetCategoryName, buttonText: category.budgetCategoryName, budgetCategoryId: category.budgetCategoryId)
                     }
                     Spacer()
                 }
-            }
+//            }
         }
         .padding()
         .background(LinearGradient(gradient: gradientScreen, startPoint: .top, endPoint: .bottom))
