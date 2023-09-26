@@ -29,7 +29,7 @@ class AddSavingViewModel: ObservableObject {
             "savingsDate": savingDateStr,
             "userId": userId
         ]
-        
+         
         do {
             let jsonData = try JSONSerialization.data(withJSONObject: requestData, options: [])
             

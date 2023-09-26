@@ -11,7 +11,9 @@ class UserModel {
     static let shared = UserModel() 
     
     private let userDefaults = UserDefaults.standard
+    //private let categoryDefaults = UserDefaults.standard
     private let userIdKey = "userIdKey"
+    private let budgetCategoryIdKey = "budgetCategoryIdKey"
     
     func saveUserId(_ userId: Int) {
         userDefaults.set(userId, forKey: userIdKey)
@@ -20,5 +22,15 @@ class UserModel {
     func getUserId() -> Int {
         return userDefaults.integer(forKey: userIdKey)
     }
+    
+    func saveCategoryId(_ budgetCategoryId: Int) {
+        userDefaults.set(budgetCategoryId, forKey: budgetCategoryIdKey)
+    }
+    
+    func getCategoryId() -> Int {
+        return userDefaults.integer(forKey: budgetCategoryIdKey)
+    }
+    
+   
 }
 

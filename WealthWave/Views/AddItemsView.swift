@@ -18,14 +18,11 @@ struct AddItemsView: View {
                 TabBarButton(title: "EXPENSES", isSelected: selectedTab == 0) {
                     selectedTab = 0
                 }
-//                TabBarButton(title: "INCOME", isSelected: selectedTab == 1) {
-//                    selectedTab = 1
-//                }
+                TabBarButton(title: "INCOME", isSelected: selectedTab == 1) {
+                    selectedTab = 1
+                }
                 TabBarButton(title: "SAVINGS", isSelected: selectedTab == 2) {
                     selectedTab = 2
-                }
-                TabBarButton(title: "INCOME", isSelected: selectedTab == 3) {
-                    selectedTab = 3
                 }
                 
             }
@@ -36,11 +33,9 @@ struct AddItemsView: View {
                 
                 ExpensesView()
                 
-                //IncomeView()
+                IncomeView()
                 
                 SavingView()
-                
-                ExpensesView1()
                 
                 
             }
@@ -84,17 +79,17 @@ struct ExpensesView: View {
     var body: some View {
         VStack {
             
-//            if userExpensesList.isLoading {
-//                ProgressView()
-//            } else {
-                ScrollView {
-                    ForEach(userExpensesList.expenses, id: \.expenseId) { item in
-                        UserExpensesListView(iconName: "minus.circle.fill",image: item.expenseCategory, expenseCategory: item.expenseCategory, expenseAmount: item.expenseAmount, expenseDetails: item.expenseDetails, expenseDate: item.expenseDate)
-                        
-                    }
-                    //Spacer()
+            //            if userExpensesList.isLoading {
+            //                ProgressView()
+            //            } else {
+            ScrollView {
+                ForEach(userExpensesList.expenses, id: \.expenseId) { item in
+                    UserExpensesListView(iconName: "minus.circle.fill",image: item.expenseCategory, expenseCategory: item.expenseCategory, expenseAmount: item.expenseAmount, expenseDetails: item.expenseDetails, expenseDate: item.expenseDate)
+                    
                 }
-//            }
+                //Spacer()
+            }
+            //            }
             
             Spacer()
             
@@ -149,7 +144,7 @@ struct UserExpensesListView: View {
                 Image(image)
                     .resizable()
                     .frame(width: 50, height: 50)
-                    //.padding(.leading, 10)
+                //.padding(.leading, 10)
                     .scaledToFit()
                 
                 Text(expenseCategory)
@@ -158,7 +153,7 @@ struct UserExpensesListView: View {
                 
                 Text(String(format: "%.2f", expenseAmount))
                     .font(.system(size: 20))
-                    //.padding(.leading, 10)
+                //.padding(.leading, 10)
                 //Spacer()
                 
             }
@@ -166,11 +161,11 @@ struct UserExpensesListView: View {
             HStack {
                 Text(expenseDetails)
                     .font(.system(size: 20))
-                    //.padding(.leading, 10)
+                //.padding(.leading, 10)
                 
                 Text(expenseDate)
                     .font(.system(size: 20))
-                    //.padding(.leading, 10)
+                //.padding(.leading, 10)
                 //Spacer()
             }
             
@@ -183,74 +178,103 @@ struct UserExpensesListView: View {
 struct IncomeView: View {
     
     @StateObject var incomeViewModel: IncomeViewModel = IncomeViewModel()
-    
     @State private var isIncomeVisible = false
+    @State private var isListVisible = false
     
     var body: some View {
-        NavigationView {
-            VStack {
-                Text("Total:")
-                    .font(.system(size: 25))
-                    .bold()
-                    .padding(.top, 10)
-
-                HStack {
-                    Text("Date")
-                        .font(.headline)
-                        .padding(.trailing, 30)
-                    Text("Description")
-                        .font(.headline)
-                        .padding(.trailing, 30)
-                    Text("Amount")
-                        .font(.headline)
-                        .padding(.leading, 30)
-                }
+        VStack {
+            
+            Text("Total: \(incomeViewModel.totalAmount)")
+                .font(.system(size: 25))
+                .bold()
                 .padding(.top, 10)
-
-                ScrollView {
-                    LazyVStack {
-                        ForEach(incomeViewModel.incomeData, id: \.incomeId) { item in
-
-                            VStack {
-
-                                HStack {
-
-                                    Text(item.incomeDate)
-                                        .padding(.trailing, 30)
-                                    Text(item.incomeDetails)
-                                        .padding(.trailing, 30)
-                                    Text(String(format: "%.2f", item.incomeAmount))
-                                        .padding(.leading, 30)
-                                }
-                            }
-                        }
-
-                    }
-                }
-
-
-                Spacer()
-
-                NavigationLink(
-                    destination: AddIncomeView(),
-                    isActive: $isIncomeVisible
-                ) {}
-
-                Button(action: {
-                    isIncomeVisible = true
-                }) {
-                    Image(systemName: "plus.circle")
-                        .font(.system(size: 40))
-                        .foregroundColor(.blue)
-                }
-                .padding(.bottom, 20)
-                .padding(.trailing, 20)
+            
+            HStack {
+                Text("Date")
+                    .font(.headline)
+                    .padding(.trailing, 30)
+                Text("Description")
+                    .font(.headline)
+                    .padding(.trailing, 30)
+                Text("Amount")
+                    .font(.headline)
+                    .padding(.leading, 30)
             }
+            .padding(.top, 10)
+            
+            //            if userExpensesList.isLoading {
+            //                ProgressView()
+            //            } else {
+            ScrollView {
+                ForEach(incomeViewModel.incomeData, id: \.incomeId) { item in
+                    UserIncomeListView(incomeDate: item.incomeDate, incomeDetils: item.incomeDetails ,incomeAmount: item.incomeAmount)
+                    
+                }
+                //Spacer()
+            }
+            //            }
+            
+            Spacer()
+            
+            NavigationLink(
+                destination: AddIncomeView(),
+                isActive: $isListVisible
+            ) {
+                
+            }
+            .hidden()
+            
+            Button(action: {
+                
+                isListVisible = true
+            }) {
+                Image(systemName: "plus.circle")
+                    .font(.system(size: 40))
+                    .foregroundColor(.blue)
+            }
+            .padding(.bottom, 20)
+            .padding(.trailing, 20)
+            
+            
+        }.tag(1)
             .onAppear {
                 incomeViewModel.fetchIncomeData()
             }
-            .tag(1)
+    }
+}
+
+
+struct UserIncomeListView: View {
+    
+    var incomeDate: String
+    var incomeDetils: String
+    var incomeAmount: Double
+    
+    var body: some View {
+        
+        VStack {
+            HStack {
+                
+                //.padding(.leading, 10)
+                
+                Text(incomeDate)
+                    .font(.system(size: 10))
+                
+                Text(incomeDetils)
+                    .font(.system(size: 20))
+                
+                Text(String(format: "%.2f", incomeAmount))
+                    .font(.system(size: 20))
+                //.padding(.leading, 10)
+                //Spacer()
+                
+            }
+            //Spacer()
+            
+            
         }
+        .padding(.top, 10)
+        
     }
 }
 
@@ -308,110 +332,12 @@ struct SavingView: View {
             .padding(.trailing, 20)
             
             
-        }.tag(2)
-    }
-}
-
-
-struct ExpensesView1: View {
-    
-    @StateObject var incomeViewModel: IncomeViewModel = IncomeViewModel()
-    @State private var isIncomeVisible = false
-    @State private var isListVisible = false
-    
-    var body: some View {
-        VStack {
-            
-            Text("Total: \(incomeViewModel.totalAmount)")
-                .font(.system(size: 25))
-                .bold()
-                .padding(.top, 10)
-
-            HStack {
-                Text("Date")
-                    .font(.headline)
-                    .padding(.trailing, 30)
-                Text("Description")
-                    .font(.headline)
-                    .padding(.trailing, 30)
-                Text("Amount")
-                    .font(.headline)
-                    .padding(.leading, 30)
-            }
-            .padding(.top, 10)
-            
-//            if userExpensesList.isLoading {
-//                ProgressView()
-//            } else {
-                ScrollView {
-                    ForEach(incomeViewModel.incomeData, id: \.incomeId) { item in
-                        UserExpensesListView1(incomeDate: item.incomeDate, incomeDetils: item.incomeDetails ,incomeAmount: item.incomeAmount)
-                        
-                    }
-                    //Spacer()
-                }
-//            }
-            
-            Spacer()
-            
-            NavigationLink(
-                destination: AddIncomeView(),
-                isActive: $isListVisible
-            ) {
-                
-            }
-            .hidden()
-            
-            Button(action: {
-                
-                isListVisible = true
-            }) {
-                Image(systemName: "plus.circle")
-                    .font(.system(size: 40))
-                    .foregroundColor(.blue)
-            }
-            .padding(.bottom, 20)
-            .padding(.trailing, 20)
-            
-            
-        }.tag(3)
-            .onAppear {
-                incomeViewModel.fetchIncomeData()
-            }
-    }
-}
-
-
-struct UserExpensesListView1: View {
-    
-    var incomeDate: String
-    var incomeDetils: String
-    var incomeAmount: Double
-    
-    var body: some View {
-        
-        VStack {
-            HStack {
-               
-                //.padding(.leading, 10)
-                
-                Text(incomeDate)
-                    .font(.system(size: 10))
-
-                Text(incomeDetils)
-                    .font(.system(size: 20))
-                
-                Text(String(format: "%.2f", incomeAmount))
-                    .font(.system(size: 20))
-                    //.padding(.leading, 10)
-                //Spacer()
-                
-            }
-            //Spacer()
-           
-            
         }
-        .padding(.top, 10)
-        
+        .onAppear {
+            getSavingViewModel.fetchSavingsData()
+        }
+        .tag(2)
     }
 }
+
+

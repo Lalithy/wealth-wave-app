@@ -64,9 +64,11 @@ struct ExpenseItemView: View {
                 .padding(.trailing, 10)
                 .padding(.leading, 10)
             
-            NavigationLink(destination: AddExpensesView(itemName: buttonText,  budgetCategoryId: budgetCategoryId), isActive: $isSelected) {
+            NavigationLink(destination: AddExpensesView(itemName: buttonText), isActive: $isSelected) {
                 Button(action: {
                     isSelected.toggle()
+                    
+                    UserModel.shared.saveCategoryId(budgetCategoryId)
                 }) {
                     Text(buttonText)
                         .font(.system(size: 20))

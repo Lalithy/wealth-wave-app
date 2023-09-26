@@ -60,7 +60,6 @@ struct AddIncomeView: View {
                     .cornerRadius(15)
                     .padding(.horizontal, 100)
                 
-                
                 TextField("Amount", text: $incomeAmount)
                     .padding()
                     .multilineTextAlignment(.trailing)

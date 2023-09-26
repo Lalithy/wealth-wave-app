@@ -11,7 +11,7 @@ struct AddExpensesView: View {
     
     var itemName: String
     
-    var budgetCategoryId: Int
+    //var budgetCategoryId: Int
     
     var body: some View {
         
@@ -40,7 +40,7 @@ struct AddExpensesView: View {
                 .padding(.top, 10)
                 .disabled(true)
             
-            FiledInputView(budgetCategoryId: budgetCategoryId)
+            FiledInputView()
             
             Spacer()
         }
@@ -50,7 +50,7 @@ struct AddExpensesView: View {
 struct AddExpensesView_Previews: PreviewProvider {
     
     static var previews: some View {
-        AddExpensesView(itemName: "Food", budgetCategoryId: 1)
+        AddExpensesView(itemName: "Food")
     }
 }
 
@@ -111,9 +111,11 @@ struct FiledInputView: View {
     
     let userId = UserModel.shared.getUserId()
     
+    let budgetCategoryId = UserModel.shared.getCategoryId()
+    
     let gradientButton = Gradient(colors: [Color("ButtonColourTop"), Color("ButtonColourMiddle"), Color("ButtonColourEnd")])
     
-    var budgetCategoryId: Int
+    //var budgetCategoryId: Int
     
     @FocusState private var focusedField: Field?
     

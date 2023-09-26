@@ -11,7 +11,6 @@ struct AddSavingView: View {
     
     @StateObject var addSavingVM : AddSavingViewModel = AddSavingViewModel()
 
-    
     @State private var savingsDate = Date()
     @State private var savingsAmount = ""
     @State private var savingsDetails = ""
@@ -23,10 +22,9 @@ struct AddSavingView: View {
     @FocusState private var focusedField: Field?
     
     enum Field {
-        case savingsDetails
+        case savingsAmount
     }
-    
-    
+     
     let userId = UserModel.shared.getUserId()
     
     let gradientButton = Gradient(colors: [Color("ButtonColourTop"), Color("ButtonColourMiddle"), Color("ButtonColourEnd")])
@@ -53,6 +51,7 @@ struct AddSavingView: View {
             
             
             VStack{
+                
                 DatePicker("Choose Date", selection: $savingsDate, in: ...Date(), displayedComponents: .date)
                     .padding()
                     .frame(width: 320)
@@ -82,8 +81,6 @@ struct AddSavingView: View {
                     addSavingVM.saveSuccessCallback = {
                         alertMessage = addSavingVM.responseMessage
                         showAlert  = true
-                        
-                        print("Saving responce : \(addSavingVM)")
                     }
                     
                 }) {
@@ -135,7 +132,6 @@ struct AddSavingView: View {
                     
                 }
             )
-        
         }
         
     }

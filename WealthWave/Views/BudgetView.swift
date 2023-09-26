@@ -9,6 +9,7 @@ import SwiftUI
 
 struct BudgetView: View {
     
+    @StateObject var getBudgetVM : GetBudgetViewModel = GetBudgetViewModel()
     @State private var isBudgetVisible = false
     
     var body: some View {
@@ -24,16 +25,15 @@ struct BudgetView: View {
                 }
             }
             
+            
             ScrollView {
-                SetBudgetView(image: "Food", itemName: "Food", spendAmount: 1000.00, totalTitle: "Total: ",subTitle: "Remaining Budget:", totalAmount: 5000.00,remainingAmount: 4000.00, spendBarColor: .blue)
                 
-                
-                SetBudgetView(image: "Healthcare", itemName: "Healthcare", spendAmount: 3000.00, totalTitle: "Total: ",subTitle: "Remaining Budget:", totalAmount: 7000.00,remainingAmount: 4000.00, spendBarColor: .green)
-                
-                SetBudgetView(image: "Transportation", itemName: "Transportation", spendAmount: 2500.00, totalTitle: "Total: ",subTitle: "Remaining Budget:", totalAmount: 9000.00,remainingAmount: 6500.00, spendBarColor:.indigo)
-                
-                
+                ForEach(getBudgetVM.budget , id: \.budgetCategoryId) { budget in
+                    SetBudgetView(image: budget.budgetCategoryName, budgetCategoryName: budget.budgetCategoryName, expense: budget.expense,  estimatedBudget: budget.estimatedBudget, remainingBudget: budget.remainingBudget, spendBarColor:.indigo)
+                    
+                }
             }
+            
             
             Spacer()
             
@@ -57,6 +57,9 @@ struct BudgetView: View {
             .padding(.trailing, 20)
             
         }.tag(2)
+            .onAppear {
+                getBudgetVM.fetchBudgetList()
+            }
     }
 }
 
@@ -69,17 +72,14 @@ struct BudgetView_Previews: PreviewProvider {
 struct SetBudgetView: View {
     
     var image: String
-    var itemName: String
-    var spendAmount: Double
-    var totalTitle: String
-    var subTitle: String
-    var totalAmount: Double
-    var remainingAmount: Double
+    let budgetCategoryName: String
+    let expense: Double
+    let estimatedBudget: Double
+    let remainingBudget: Double
     var spendBarColor: Color
     
     var body: some View {
         
-      
         VStack(alignment: .leading) {
             HStack {
                 Image(image)
@@ -88,29 +88,30 @@ struct SetBudgetView: View {
                     .foregroundColor(.blue)
                 
                 HStack {
-                    Text(itemName)
+                    Text(budgetCategoryName)
                         .font(.system(size: 20))
                     
                     Spacer()
                     
-                    Text(String(spendAmount))
+                    Text(String(expense))
                         .font(.system(size: 20))
+                        .foregroundColor(.red)
                 }
                 //.frame(maxWidth: .infinity, alignment: .trailing)
             }
             
             HStack {
-                Text(totalTitle)
+                Text("Budget")
                     .font(.system(size: 15))
                 
-                Text(String(totalAmount))
+                Text(String(estimatedBudget))
                     .font(.system(size: 15))
                     .padding(.trailing, 40)
                 
-                Text(subTitle)
+                Text("Remaining Budget")
                     .font(.system(size: 15))
                 
-                Text(String(remainingAmount))
+                Text(String(remainingBudget))
                     .font(.system(size: 15))
             }
             
@@ -119,12 +120,12 @@ struct SetBudgetView: View {
                     .frame(width: 350, height: 8)
                     .foregroundColor(.gray)
                 Rectangle()
-                    .frame(width: CGFloat(spendAmount) / CGFloat(totalAmount) * 350, height: 8)
+                    .frame(width: CGFloat(expense) / CGFloat(estimatedBudget) * 350, height: 8)
                     .foregroundColor(spendBarColor)
             }.padding(.bottom,15)
             
         }.padding(.leading,20)
-        .padding(.trailing,20)
+            .padding(.trailing,20)
         
     }
     
