@@ -25,7 +25,7 @@ struct AddSavingView: View {
         case savingsAmount
     }
      
-    let userId = UserModel.shared.getUserId()
+    let userId = PropertyModel.shared.getUserId()
     
     let gradientButton = Gradient(colors: [Color("ButtonColourTop"), Color("ButtonColourMiddle"), Color("ButtonColourEnd")])
     
@@ -61,12 +61,23 @@ struct AddSavingView: View {
                 
                 TextField("Amount", text: $savingsAmount)
                     .padding()
+                    .focused($focusedField, equals: .savingsAmount)
                     .multilineTextAlignment(.trailing)
                     .frame(width: 320)
                     .background(Color.black.opacity(0.1))
                     .cornerRadius(15)
-                    .disabled(true)
+//                    .disabled(true)
                     .padding(.bottom,20)
+                
+                
+//                TextField("Description", text: $savingsDetails)
+//                    .padding()
+//                    .focused($focusedField, equals: .savingsDetails)
+//                    .autocapitalization(.none)
+//                    .frame(width: 320)
+//                    .background(Color.black.opacity(0.1))
+//                    .cornerRadius(15)
+//                    .padding(.bottom,20)
                 
                 
                 Button(action: {
@@ -132,6 +143,11 @@ struct AddSavingView: View {
                     
                 }
             )
+            .onAppear {
+                DispatchQueue.main.async {
+                    focusedField = .savingsAmount
+                }
+            }
         }
         
     }

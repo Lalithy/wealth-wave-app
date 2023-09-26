@@ -11,7 +11,7 @@ import Combine
 
 class GetSavingViewModel: ObservableObject {
     @Published var sumOfSavingsAmount: Double = 0.0
-    @Published var userId: Int = UserModel.shared.getUserId()
+    @Published var userId: Int = PropertyModel.shared.getUserId()
     
     init() {
            

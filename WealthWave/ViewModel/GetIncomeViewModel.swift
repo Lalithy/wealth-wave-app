@@ -10,7 +10,7 @@ import Combine
 
 class IncomeViewModel: ObservableObject {
     @Published var incomeData: [IncomeItem] = []
-    @Published var userId: Int = UserModel.shared.getUserId()
+    @Published var userId: Int = PropertyModel.shared.getUserId()
     @Published var totalAmount: String = ""
     
     init() {
@@ -47,31 +47,4 @@ class IncomeViewModel: ObservableObject {
         }.resume()
     }
     
-    
-
-//    func fetchIncomeData() {
-//
-//        print("income user: \(userId)")
-//        guard let url = URL(string: "http://wealth-wave-service-env.eba-cc4bdc5e.us-west-1.elasticbeanstalk.com/api/fhms/income/get-by-user?userId=\(userId)") else {
-//            return
-//        }
-//
-//        var request = URLRequest(url: url)
-//        request.httpMethod = "GET"
-//        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-//
-//        URLSession.shared.dataTaskPublisher(for: request)
-//            .map(\.data)
-//            .decode(type: IncomeResponse.self, decoder: JSONDecoder())
-//            .sink(receiveCompletion: { _ in }) { [weak self] response in
-//                self?.incomeData = response.details
-//
-//                print("income details : \(response.details)")
-//
-//
-//            }
-//            .store(in: &cancellables)
-//    }
-//
-//    private var cancellables: Set<AnyCancellable> = []
 }

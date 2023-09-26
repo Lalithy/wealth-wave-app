@@ -7,13 +7,13 @@
 
 import Foundation
 
-class UserModel {
-    static let shared = UserModel() 
+class PropertyModel {
+    static let shared = PropertyModel()
     
     private let userDefaults = UserDefaults.standard
-    //private let categoryDefaults = UserDefaults.standard
     private let userIdKey = "userIdKey"
     private let budgetCategoryIdKey = "budgetCategoryIdKey"
+
     
     func saveUserId(_ userId: Int) {
         userDefaults.set(userId, forKey: userIdKey)

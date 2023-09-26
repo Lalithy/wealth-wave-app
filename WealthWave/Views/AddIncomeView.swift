@@ -25,7 +25,7 @@ struct AddIncomeView: View {
         case incomeDetails
     }
     
-    let userId = UserModel.shared.getUserId()
+    let userId = PropertyModel.shared.getUserId()
     
     let gradientButton = Gradient(colors: [Color("ButtonColourTop"), Color("ButtonColourMiddle"), Color("ButtonColourEnd")])
     

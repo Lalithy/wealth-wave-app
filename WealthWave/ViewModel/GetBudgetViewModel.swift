@@ -10,13 +10,13 @@ import SwiftUI
 
 class GetBudgetViewModel: ObservableObject {
     @Published var budget: [BudgetItem] = []
-    @Published var userId: Int = UserModel.shared.getUserId()
+    @Published var userId: Int = PropertyModel.shared.getUserId()
 
     @Published var isLoading = true
 
     init() {
         fetchBudgetList()
-    }
+    } 
 
     func fetchBudgetList() {
         guard let url = URL(string: "http://wealth-wave-service-env.eba-cc4bdc5e.us-west-1.elasticbeanstalk.com/api/fhms/budget/get-by-user?userId=\(userId)") else {

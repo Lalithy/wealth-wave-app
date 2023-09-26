@@ -68,7 +68,7 @@ struct ExpenseItemView: View {
                 Button(action: {
                     isSelected.toggle()
                     
-                    UserModel.shared.saveCategoryId(budgetCategoryId)
+                    PropertyModel.shared.saveCategoryId(budgetCategoryId)
                 }) {
                     Text(buttonText)
                         .font(.system(size: 20))

@@ -15,12 +15,17 @@ struct AddBudgetView: View {
     @State private var selectedCategory = ""
     @State private var selectedCategoryId = 1
     @State private var budgetAmount = ""
-    @State private var isCalculatorExpanded = true
+    
+    
+    @State private var isCalculatorExpanded = false
     
     @State private var alertMessage = ""
     @State private var showAlert = false
+    @FocusState private var isAmountFocused: Bool
     
-    let userId = UserModel.shared.getUserId()
+    
+    
+    let userId = PropertyModel.shared.getUserId()
     
     let gradientButton = Gradient(colors: [Color("ButtonColourTop"), Color("ButtonColourMiddle"), Color("ButtonColourEnd")])
     
@@ -29,6 +34,7 @@ struct AddBudgetView: View {
     var body: some View {
         
         VStack {
+            
             ZStack{
                 HStack {
                     Spacer()
@@ -69,8 +75,12 @@ struct AddBudgetView: View {
                     .frame(width: 320)
                     .background(Color.black.opacity(0.1))
                     .cornerRadius(15)
-                    .disabled(true)
+                    //.disabled(true)
                     .padding(.bottom, 50)
+                    .keyboardType(.decimalPad)
+                    .focused($isAmountFocused)
+                    .submitLabel(.done)
+
                 
                 Text("Period for current month")
                     .padding(.bottom, 20)
@@ -116,30 +126,41 @@ struct AddBudgetView: View {
                 
                 Spacer()
             }
-            .background(
-                
-                ZStack(alignment: .bottom) {
-                    
-                    VStack{
-                        Spacer()
-                        if isCalculatorExpanded {
-                            CalculatorNumberView(amount: $budgetAmount)
-                                .transition(.move(edge: .bottom))
-                        }
-                        
-                        Rectangle()
-                            .fill(Color.gray)
-                            .frame( width: 150,height: 5)
-                            .onTapGesture {
-                                withAnimation {
-                                    isCalculatorExpanded.toggle()
-                                }
-                            }
-                    }
-                    
-                    
+//            .background(
+//
+//                ZStack(alignment: .bottom) {
+//
+//                    VStack{
+//                        Spacer()
+//                        if isCalculatorExpanded {
+//                            CalculatorNumberView(amount: $budgetAmount)
+//                                .transition(.move(edge: .bottom))
+//                        }
+//
+//                        Rectangle()
+//                            .fill(Color.gray)
+//                            .frame( width: 150,height: 5)
+//                            .onTapGesture {
+//                                withAnimation {
+//                                    isCalculatorExpanded.toggle()
+//                                }
+//                            }
+//                    }
+//
+//
+//                }
+//            )
+        }
+        .toolbar {
+            ToolbarItemGroup(placement: .keyboard){
+                Spacer()
+                Button("Done") {
+                    isAmountFocused = false
                 }
-            )
+                .onAppear(){
+                    isAmountFocused = false
+                }
+            }
         }
     }
 }

@@ -109,9 +109,9 @@ struct FiledInputView: View {
     @State private var alertMessage = ""
     @State private var showAlert = false
     
-    let userId = UserModel.shared.getUserId()
+    let userId = PropertyModel.shared.getUserId()
     
-    let budgetCategoryId = UserModel.shared.getCategoryId()
+    let budgetCategoryId = PropertyModel.shared.getCategoryId()
     
     let gradientButton = Gradient(colors: [Color("ButtonColourTop"), Color("ButtonColourMiddle"), Color("ButtonColourEnd")])
     

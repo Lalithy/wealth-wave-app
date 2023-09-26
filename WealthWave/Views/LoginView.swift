@@ -107,7 +107,7 @@ struct LoginView: View {
                         
                       //getSavingVM.fetchSavingsData()
 
-                        UserModel.shared.saveUserId(userId)
+                        PropertyModel.shared.saveUserId(userId)
                     }else {
                         showAlert = true
                     }

@@ -10,7 +10,7 @@ import SwiftUI
 
 class ListOfExpensesViewModel: ObservableObject {
     @Published var budgetCategories: [BudgetCategory] = []
-    @Published var userId: Int = UserModel.shared.getUserId()
+    @Published var userId: Int = PropertyModel.shared.getUserId()
 
     @Published var isLoading = true
 
