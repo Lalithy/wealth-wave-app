@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ReportView: View {
     
+    @StateObject var addCategoryVM : ListOfExpensesViewModel = ListOfExpensesViewModel()
     @State private var isReportVisible = false
 
     let incomeData: [ReportItem] = [
@@ -37,6 +38,8 @@ struct ReportView: View {
         ReportItem(date: Date(), category: "Food", description: "Salary", amount: 1000.0 ),
         ReportItem(date: Date(), category: "Food", description: "Salary", amount: 1000.0 ),
     ]
+    
+    @State private var budgetCategoryId = ""
 
     
     var body: some View {
@@ -49,6 +52,23 @@ struct ReportView: View {
                     .font(.system(size: 25))
                     .bold()
                 Spacer()
+            }
+            
+            HStack{
+                Picker("Category", selection: $budgetCategoryId) {
+                    ForEach(addCategoryVM.budgetCategories, id: \.budgetCategoryId) { category in
+                        Text(category.budgetCategoryName)
+                            .tag(category.budgetCategoryId)
+                    }
+                }
+                .padding()
+                .frame(height: 50)
+                .clipped()
+                .frame(width: 320)
+                .background(Color.black.opacity(0.1))
+                .cornerRadius(15)
+                .padding(.bottom, 20)
+                .foregroundColor(Color.black)
             }
 
             HStack {

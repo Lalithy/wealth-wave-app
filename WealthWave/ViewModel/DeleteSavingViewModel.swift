@@ -1,23 +1,25 @@
 //
-//  DeleteExpensesViewModel.swift
+//  DeleteSavingViewModel.swift
 //  WealthWave
 //
-//  Created by Lali.. on 26/09/2023.
+//  Created by Lali.. on 27/09/2023.
 //
 
 import Foundation
 
-class DeleteExpensesViewModel: ObservableObject {
+class DeleteSavingViewModel: ObservableObject {
     @Published var isDeleting = false
     @Published var deleteError: Error?
-    @Published var expenseDeleted = false
-    @Published var expenseDeleteResponse: ExpenseDeleteModel?
+    @Published var savingDeleted = false
+    @Published var savingDeleteResponse: SavingDeleteModel?
+    
+    @Published var userId: Int = PropertyModel.shared.getUserId()
 
-    func deleteExpense(expenseId: Int, completion: @escaping (Bool, String) -> Void) { 
-        guard let url = URL(string: "http://wealth-wave-service-env.eba-cc4bdc5e.us-west-1.elasticbeanstalk.com/api/fhms/expense/remove?expenseId=\(expenseId)") else {
+    func deleteSaving(completion: @escaping (Bool, String) -> Void) {
+        guard let url = URL(string: "http://wealth-wave-service-env.eba-cc4bdc5e.us-west-1.elasticbeanstalk.com/api/fhms/savings/remove?userId=\(userId)") else {
             return
         }
-        
+         
         var request = URLRequest(url: url)
         request.httpMethod = "DELETE"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -39,8 +41,8 @@ class DeleteExpensesViewModel: ObservableObject {
                  
                     if let data = data {
                         do {
-                            let errorResponse = try JSONDecoder().decode(ExpenseDeleteModel.self, from: data)
-                            self.expenseDeleteResponse = errorResponse
+                            let errorResponse = try JSONDecoder().decode(SavingDeleteModel.self, from: data)
+                            self.savingDeleteResponse = errorResponse
                             completion(false, errorResponse.message)
                         } catch {
                             self.deleteError = error
@@ -53,12 +55,10 @@ class DeleteExpensesViewModel: ObservableObject {
                     return
                 }
 
-                completion(true, "Successfully Deleted!") 
+                completion(true, "Successfully Deleted!")
             }
         }.resume()
     }
+
 }
-
-
-
 

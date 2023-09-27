@@ -194,133 +194,6 @@ struct UserExpensesListView: View {
 }
 
 
-
-//struct ExpensesView: View {
-//
-//    @StateObject var userExpensesList: GetExpensesViewModel = GetExpensesViewModel()
-//    @State private var isListVisible = false
-//
-//
-//
-//    var body: some View {
-//        VStack {
-//
-//
-//            ScrollView {
-//                ForEach(userExpensesList.expenses, id: \.expenseId) { item in
-//                    UserExpensesListView(iconName: "minus.circle.fill",image: item.expenseCategory, expenseCategory: item.expenseCategory, expenseAmount: item.expenseAmount, expenseDetails: item.expenseDetails, expenseDate: item.expenseDate, expenseId: item.expenseId)
-//                }
-//
-//            }
-//
-//
-//            Spacer()
-//
-//            NavigationLink(
-//                destination: ListOfExpensesView(),
-//                isActive: $isListVisible
-//            ) {
-//
-//            }
-//            .hidden()
-//
-//            Button(action: {
-//
-//                isListVisible = true
-//            }) {
-//                Image(systemName: "plus.circle")
-//                    .font(.system(size: 40))
-//                    .foregroundColor(.blue)
-//            }
-//            .padding(.bottom, 20)
-//            .padding(.trailing, 20)
-//
-//
-//        }.tag(0)
-//            .onAppear {
-//                userExpensesList.fetchExpensesList()
-//            }
-//    }
-//}
-//
-//struct UserExpensesListView: View {
-//    @StateObject var deleteExpensesViewModel = DeleteExpensesViewModel()
-//
-//    var iconName: String
-//    var image: String
-//    var expenseCategory: String
-//    var expenseAmount: Double
-//    var expenseDetails: String
-//    var expenseDate: String
-//    var expenseId: Int
-//
-//    var body: some View {
-//
-//        VStack {
-//            HStack {
-//                Button(action: {
-//                    deleteExpense()
-//                }) {
-//                    Image(systemName: iconName)
-//                        .font(.system(size: 30))
-//                        .foregroundColor(.red)
-//                        .scaledToFit()
-//                }
-//                .disabled(deleteExpensesViewModel.isDeleting)
-//                //.padding(.leading, 10)
-//
-//                Image(image)
-//                    .resizable()
-//                    .frame(width: 50, height: 50)
-//                //.padding(.leading, 10)
-//                    .scaledToFit()
-//
-//                Text(expenseCategory)
-//                    .font(.system(size: 20))
-//                    .padding(.leading, 10)
-//
-//                Text(String(format: "%.2f", expenseAmount))
-//                    .font(.system(size: 20))
-//                //.padding(.leading, 10)
-//                //Spacer()
-//
-//            }
-//            //Spacer()
-//            HStack {
-//                Text(expenseDetails)
-//                    .font(.system(size: 20))
-//                //.padding(.leading, 10)
-//
-//                Text(expenseDate)
-//                    .font(.system(size: 20))
-//                //.padding(.leading, 10)
-//                //Spacer()
-//            }
-//
-//        }
-//        .padding(.top, 10)
-//
-//    }
-//
-//    private func deleteExpense() {
-//        deleteExpensesViewModel.deleteExpense(expenseId: expenseId) {
-//            // Handle completion here, e.g., refresh the view
-//            if deleteExpensesViewModel.deleteError == nil {
-//                // Refresh your expenses list here after successful deletion
-//                deleteExpensesViewModel.expenseDeleted = true
-//            } else {
-//                // Handle error
-//                print("Error deleting expense: \(deleteExpensesViewModel.deleteError?.localizedDescription ?? "Unknown error")")
-//            }
-//        }
-//    }
-//}
-
-
-
-
-
-
 struct IncomeView: View {
     
     @StateObject var incomeViewModel: IncomeViewModel = IncomeViewModel()
@@ -428,15 +301,20 @@ struct UserIncomeListView: View {
 struct SavingView: View {
     @StateObject var getSavingViewModel: GetSavingViewModel = GetSavingViewModel()
     
-    @State private var isSavingVisible = false
+    @StateObject var deleteSavingViewModel : DeleteSavingViewModel = DeleteSavingViewModel()
     
+    @State private var isSavingVisible = false
+    @State private var deleteSuccess = false
+    @State private var errorMessage = ""
     
     var body: some View {
         VStack{
             
             HStack {
                 
-                Button(action: {}) {
+                Button(action: {
+                    deleteAndRefresh()
+                }) {
                     Image(systemName: "minus.circle.fill")
                         .font(.system(size: 20))
                         .foregroundColor(.red)
@@ -452,7 +330,6 @@ struct SavingView: View {
                 Text(String(format: "%.2f", getSavingViewModel.sumOfSavingsAmount))
                     .font(.system(size: 25))
                     .padding(.leading, 80)
-                
             }//.padding(.bottom, 300)
             .padding(.top, 10)
             
@@ -484,6 +361,18 @@ struct SavingView: View {
         }
         .tag(2)
     }
+    
+    
+    func deleteAndRefresh() {
+        deleteSavingViewModel.deleteSaving { success, message in
+            if success {
+                getSavingViewModel.fetchSavingsData()
+            } else {
+                errorMessage = message
+            }
+        }
+    }
+
 }
 
 

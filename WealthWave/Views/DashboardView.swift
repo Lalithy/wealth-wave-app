@@ -43,7 +43,7 @@ struct BottomControllers: View {
     var body: some View {
         TabView {
             
-            Text("Pie Chart View")
+            ChartsView()
                 .tabItem {
                     Image(systemName: "chart.pie.fill")
                     Text("Dashboard")

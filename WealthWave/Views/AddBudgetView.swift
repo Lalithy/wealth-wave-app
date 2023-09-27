@@ -16,20 +16,15 @@ struct AddBudgetView: View {
     @State private var selectedCategoryId = 1
     @State private var budgetAmount = ""
     
-    
     @State private var isCalculatorExpanded = false
     
     @State private var alertMessage = ""
     @State private var showAlert = false
     @FocusState private var isAmountFocused: Bool
     
-    
-    
     let userId = PropertyModel.shared.getUserId()
     
     let gradientButton = Gradient(colors: [Color("ButtonColourTop"), Color("ButtonColourMiddle"), Color("ButtonColourEnd")])
-    
-    
     
     var body: some View {
         
@@ -53,7 +48,7 @@ struct AddBudgetView: View {
                 .padding(.bottom, 20)
             
             VStack{
-
+                
                 Picker("Category", selection: $selectedCategoryId) {
                     ForEach(addCategoryVM.budgetCategories, id: \.budgetCategoryId) { category in
                         Text(category.budgetCategoryName)
@@ -69,28 +64,29 @@ struct AddBudgetView: View {
                 .padding(.bottom, 20)
                 .foregroundColor(Color.black)
                 
-                TextField("Amount", text: $budgetAmount)
+//                TextField("Amount", text: $budgetAmount)
+                TextField("Amount", text: Binding(
+                    get: { budgetAmount },
+                    set: { newValue in
+                        budgetAmount = newValue.filter { "0123456789.".contains($0) }
+                    }
+                ))
                     .padding()
                     .multilineTextAlignment(.trailing)
                     .frame(width: 320)
                     .background(Color.black.opacity(0.1))
                     .cornerRadius(15)
-                    //.disabled(true)
                     .padding(.bottom, 50)
                     .keyboardType(.decimalPad)
                     .focused($isAmountFocused)
-                    .submitLabel(.done)
-
+                
                 
                 Text("Period for current month")
                     .padding(.bottom, 20)
                     .foregroundColor(.blue)
                     .bold()
                 
-                
-                
                 Button(action: {
-                    
                     
                     addBudgetVM.saveBudget(
                         
@@ -112,6 +108,8 @@ struct AddBudgetView: View {
                 }
                 .background(Color.clear)
                 .alert(alertMessage, isPresented: $showAlert) {
+                    
+                    
                     Button("OK", role: .cancel) {
                         
                         if addBudgetVM.statusCode == 200 {
@@ -123,41 +121,13 @@ struct AddBudgetView: View {
                     }
                 }
                 
-                
                 Spacer()
             }
-//            .background(
-//
-//                ZStack(alignment: .bottom) {
-//
-//                    VStack{
-//                        Spacer()
-//                        if isCalculatorExpanded {
-//                            CalculatorNumberView(amount: $budgetAmount)
-//                                .transition(.move(edge: .bottom))
-//                        }
-//
-//                        Rectangle()
-//                            .fill(Color.gray)
-//                            .frame( width: 150,height: 5)
-//                            .onTapGesture {
-//                                withAnimation {
-//                                    isCalculatorExpanded.toggle()
-//                                }
-//                            }
-//                    }
-//
-//
-//                }
-//            )
         }
         .toolbar {
             ToolbarItemGroup(placement: .keyboard){
                 Spacer()
                 Button("Done") {
-                    isAmountFocused = false
-                }
-                .onAppear(){
                     isAmountFocused = false
                 }
             }
@@ -171,3 +141,5 @@ struct AddBudgetView_Previews: PreviewProvider {
         AddBudgetView()
     }
 }
+
+

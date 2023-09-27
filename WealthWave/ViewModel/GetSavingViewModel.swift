@@ -14,7 +14,6 @@ class GetSavingViewModel: ObservableObject {
     @Published var userId: Int = PropertyModel.shared.getUserId()
     
     init() {
-           
            fetchSavingsData()
        }
 

@@ -52,7 +52,6 @@ struct AddIncomeView: View {
             
             VStack{
                 
-                Text("User ID income: \(userId)")
                 DatePicker("Choose Date", selection: $incomeDate, in: ...Date(), displayedComponents: .date)
                     .padding()
                     .frame(width: 320)
