@@ -7,44 +7,21 @@
 
 import SwiftUI
 
+
 struct ReportView: View {
+    @StateObject var reportMonthVM : GetReportMonthViewModel = GetReportMonthViewModel()
+    @StateObject var reportViewModel: GetReportViewModel = GetReportViewModel()
     
-    @StateObject var addCategoryVM : ListOfExpensesViewModel = ListOfExpensesViewModel()
     @State private var isReportVisible = false
-
-    let incomeData: [ReportItem] = [
-        ReportItem(date: Date(), category: "Food", description: "Salary", amount: 1000.0 ),
-        ReportItem(date: Date(), category: "Food", description: "Salary", amount: 1000.0 ),
-        ReportItem(date: Date(), category: "Food", description: "Salary", amount: 1000.0 ),
-        ReportItem(date: Date(), category: "Food", description: "Salary", amount: 1000.0 ),
-        ReportItem(date: Date(), category: "Food", description: "Salary", amount: 1000.0 ),
-        ReportItem(date: Date(), category: "Food", description: "Salary", amount: 1000.0 ),
-        ReportItem(date: Date(), category: "Food", description: "Salary", amount: 1000.0 ),
-        ReportItem(date: Date(), category: "Food", description: "Salary", amount: 1000.0 ),
-        ReportItem(date: Date(), category: "Food", description: "Salary", amount: 1000.0 ),
-        ReportItem(date: Date(), category: "Food", description: "Salary", amount: 1000.0 ),
-        ReportItem(date: Date(), category: "Food", description: "Salary", amount: 1000.0 ),
-        ReportItem(date: Date(), category: "Food", description: "Salary", amount: 1000.0 ),
-        ReportItem(date: Date(), category: "Food", description: "Salary", amount: 1000.0 ),
-        ReportItem(date: Date(), category: "Food", description: "Salary", amount: 1000.0 ),
-        ReportItem(date: Date(), category: "Food", description: "Salary", amount: 1000.0 ),
-        ReportItem(date: Date(), category: "Food", description: "Salary", amount: 1000.0 ),
-        ReportItem(date: Date(), category: "Food", description: "Salary", amount: 1000.0 ),
-        ReportItem(date: Date(), category: "Food", description: "Salary", amount: 1000.0 ),
-        ReportItem(date: Date(), category: "Food", description: "Salary", amount: 1000.0 ),
-        ReportItem(date: Date(), category: "Food", description: "Salary", amount: 1000.0 ),
-        ReportItem(date: Date(), category: "Food", description: "Salary", amount: 1000.0 ),
-        ReportItem(date: Date(), category: "Food", description: "Salary", amount: 1000.0 ),
-        ReportItem(date: Date(), category: "Food", description: "Salary", amount: 1000.0 ),
-        ReportItem(date: Date(), category: "Food", description: "Salary", amount: 1000.0 ),
-    ]
-    
     @State private var budgetCategoryId = ""
-
+    @State private var selectedMonth: String = ""
+    
+    @State private var showAlert = false
+    
+    let gradientButton = Gradient(colors: [Color("ButtonColourTop"), Color("ButtonColourMiddle"), Color("ButtonColourEnd")])
+    
     
     var body: some View {
-        
-        
         VStack {
             HStack {
                 Spacer()
@@ -55,64 +32,71 @@ struct ReportView: View {
             }
             
             HStack{
-                Picker("Category", selection: $budgetCategoryId) {
-                    ForEach(addCategoryVM.budgetCategories, id: \.budgetCategoryId) { category in
-                        Text(category.budgetCategoryName)
-                            .tag(category.budgetCategoryId)
+                VStack {
+                    Picker("Months", selection: $selectedMonth) {
+                        ForEach(reportMonthVM.reportDates, id: \.self) { month in
+                            Text(month)
+                        }
                     }
+                    .padding()
+                    .frame(height: 50)
+                    .clipped()
+                    .frame(width: 200)
+                    .background(Color.black.opacity(0.1))
+                    .cornerRadius(15)
+                    
+                    .foregroundColor(Color.black)
                 }
-                .padding()
-                .frame(height: 50)
-                .clipped()
-                .frame(width: 320)
-                .background(Color.black.opacity(0.1))
-                .cornerRadius(15)
-                .padding(.bottom, 20)
-                .foregroundColor(Color.black)
+                
+                VStack {
+                    Button(action: {
+                        if let monthNumber = reportViewModel.getMonthNumber(from: selectedMonth) {
+                            
+                            reportViewModel.fetchReportData(month: monthNumber)
+                            
+                            reportViewModel.recordNotFoundCallback = {
+                                
+                                showAlert  = true
+                                reportViewModel.reportData = []
+                            }
+                            
+                        }
+                    }) {
+                        Text("Search")
+                            .foregroundColor(.white)
+                            .frame(width: 100, height: 50)
+                            .bold()
+                            .background(LinearGradient(gradient: gradientButton, startPoint: .leading, endPoint: .trailing))
+                            .cornerRadius(10)
+                    }
+                    .background(Color.clear)
+                }
             }
-
+            
+            
             HStack {
                 Text("Date")
                     .font(.headline)
-                    
+                
                 Text("Category")
                     .font(.headline)
-                   
+                
                 Text("Description")
                     .font(.headline)
-                    
+                
                 Text("Amount")
                     .font(.headline)
-                    
+                
             }.padding(.leading, 10)
-            .padding(.top, 10)
-
+                .padding(.top, 10)
+            
             ScrollView {
-                LazyVStack {
-                    ForEach(incomeData) { item in
-
-                        VStack{
-                            HStack {
-                        
-                                Text(item.date, style: .date)
-                                    
-                                Text(item.category)
-                                    
-                                Text(item.description)
-                                   
-                                Text(String(format: "%.2f", item.amount))
-                                    
-                            }
-                        }
-                        
-                    }
+                ForEach(reportViewModel.reportData, id: \.expenseId) { item in
+                    ReportListView(expenseDate: item.expenseDate, expenseCategory: item.expenseCategory ,expenseDetails: item.expenseDetails, expenseAmount: item.expenseAmount)
                 }
             }
-            //.frame(maxHeight: 700)
             
             Spacer()
-            
-    
             
             Button(action: {
                 
@@ -124,6 +108,61 @@ struct ReportView: View {
             .padding(.bottom, 20)
             .padding(.trailing, 20)
         }
+        .onAppear {
+            if let monthNumber = reportViewModel.getMonthNumber(from: selectedMonth) {
+                
+                reportViewModel.fetchReportData(month: monthNumber)
+            }
+        }
+                .alert(isPresented: $showAlert) {
+                    Alert(
+                        title: Text("Record not found"),
+                        message: Text("The requested records could not be found."),
+                        dismissButton: .default(Text("OK")) {
+        
+                            //reportViewModel.reportData = []
+                            
+                        }
+                    )
+                }
+    }
+}
+
+struct ReportListView: View {
+    
+    var expenseDate: String
+    var expenseCategory: String
+    var expenseDetails: String
+    var expenseAmount: Double
+    
+    var body: some View {
+        
+        VStack {
+            HStack {
+                
+                //.padding(.leading, 10)
+                
+                Text(expenseDate)
+                    .font(.system(size: 15))
+                
+                Text(expenseCategory)
+                    .font(.system(size: 15))
+                
+                Text(expenseDetails)
+                    .font(.system(size: 15))
+                
+                Text(String(format: "%.2f", expenseAmount))
+                    .font(.system(size: 15))
+                //.padding(.leading, 10)
+                //Spacer()
+                
+            }
+            //Spacer()
+            
+            
+        }
+        .padding(.top, 10)
+        
     }
 }
 
@@ -133,10 +172,3 @@ struct ReportView_Previews: PreviewProvider {
     }
 }
 
-struct ReportItem: Identifiable {
-    let id = UUID()
-    let date: Date
-    let category: String
-    let description: String
-    let amount: Double
-}

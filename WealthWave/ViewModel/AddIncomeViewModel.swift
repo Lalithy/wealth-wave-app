@@ -54,7 +54,7 @@ class AddIncomeViewModel: ObservableObject {
                             if let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
                                let message = json["message"] as? String {
                                 self.responseMessage = message
-                                print("income code: \(self.statusCode)")
+                             
                                 
                                 self.incomeSuccessCallback?()
                             }
@@ -62,7 +62,7 @@ class AddIncomeViewModel: ObservableObject {
                             if let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
                                let message = json["message"] as? String {
                                 self.responseMessage = message
-                                print("income code: \(self.statusCode)")
+                               
                                 self.incomeSuccessCallback?()
                             }
                         }
