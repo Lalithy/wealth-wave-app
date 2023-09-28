@@ -76,7 +76,7 @@ struct ExpensesView: View {
     @State private var isListVisible = false
     @State private var deleteSuccess = false
     @State private var errorMessage = ""
-
+    
     var body: some View {
         VStack {
             ScrollView {
@@ -97,14 +97,14 @@ struct ExpensesView: View {
                     )
                 }
             }
-
+            
             Spacer()
-
+            
             NavigationLink(
                 destination: ListOfExpensesView(),
                 isActive: $isListVisible
             ) {}
-
+            
             Button(action: {
                 isListVisible = true
             }) {
@@ -114,16 +114,16 @@ struct ExpensesView: View {
             }
             .padding(.bottom, 20)
             .padding(.trailing, 20)
-
-//            if deleteSuccess {
-//                Text("Expense deleted successfully")
-//                    .foregroundColor(.green)
-//                    .padding()
-//            } else if !errorMessage.isEmpty {
-//                Text("Error: \(errorMessage)")
-//                    .foregroundColor(.red)
-//                    .padding()
-//            }
+            
+            //            if deleteSuccess {
+            //                Text("Expense deleted successfully")
+            //                    .foregroundColor(.green)
+            //                    .padding()
+            //            } else if !errorMessage.isEmpty {
+            //                Text("Error: \(errorMessage)")
+            //                    .foregroundColor(.red)
+            //                    .padding()
+            //            }
         }
         .tag(0)
         .onAppear {
@@ -134,7 +134,7 @@ struct ExpensesView: View {
 
 struct UserExpensesListView: View {
     @StateObject var deleteExpensesViewModel = DeleteExpensesViewModel()
-
+    
     var iconName: String
     var image: String
     var expenseCategory: String
@@ -142,46 +142,68 @@ struct UserExpensesListView: View {
     var expenseDetails: String
     var expenseDate: String
     var expenseId: Int
-
+    
     var onDelete: (Bool, String) -> Void
-
+    //    lali4@gmail.com
+    
     var body: some View {
-        VStack {
+        VStack(alignment: .leading, spacing: 5) {
             HStack {
                 Button(action: {
                     deleteExpense()
                 }) {
                     Image(systemName: iconName)
-                        .font(.system(size: 30))
+                        .font(.system(size: 20))
                         .foregroundColor(.red)
                         .scaledToFit()
                 }
                 .disabled(deleteExpensesViewModel.isDeleting)
-
-                Image(image)
-                    .resizable()
-                    .frame(width: 50, height: 50)
-                    .scaledToFit()
-
-                Text(expenseCategory)
-                    .font(.system(size: 20))
-                    .padding(.leading, 10)
-
-                Text(String(format: "%.2f", expenseAmount))
-                    .font(.system(size: 20))
+                .padding(.leading, 20)
+                
+                VStack(alignment: .leading, spacing: 5) {
+                    HStack {
+                        Image(image)
+                            .resizable()
+                            .frame(width: 30, height: 30)
+                            .scaledToFit()
+                        
+                        Text(expenseCategory)
+                            .font(.system(size: 15))
+                        
+                        Spacer()
+                        
+                        Text(String(format: "%.2f", expenseAmount))
+                            .font(.system(size: 15))
+                            .padding(.trailing, 20)
+                            .frame(maxWidth: .infinity, alignment: .trailing)
+                    }
+                }
             }
-
+            
             HStack {
                 Text(expenseDetails)
-                    .font(.system(size: 20))
-
+                    .font(.system(size: 15))
+                    .padding(.leading, 20)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                
+                Spacer()
+                
                 Text(expenseDate)
-                    .font(.system(size: 20))
+                    .font(.system(size: 13))
+                    .padding(.trailing, 20)
+                    .frame(maxWidth: .infinity, alignment: .trailing)
             }
+            
+            Rectangle()
+                .frame(height: 1)
+                .foregroundColor(.blue)
+            
         }
+        
         .padding(.top, 10)
     }
-
+    
+    
     private func deleteExpense() {
         deleteExpensesViewModel.deleteExpense(expenseId: expenseId)
         { success, message in
@@ -190,7 +212,7 @@ struct UserExpensesListView: View {
             }
         }
     }
-
+    
 }
 
 
@@ -203,35 +225,47 @@ struct IncomeView: View {
     var body: some View {
         VStack {
             
-            Text("Total: \(incomeViewModel.totalAmount)")
-                .font(.system(size: 25))
+            Text("Total : \(incomeViewModel.totalAmount)")
                 .bold()
                 .padding(.top, 10)
+                .font(.system(size: 25))
+                .frame(maxWidth: .infinity, alignment: .center)
+           
             
             HStack {
-                Text("Date")
-                    .font(.headline)
-                    .padding(.trailing, 30)
-                Text("Description")
-                    .font(.headline)
-                    .padding(.trailing, 30)
-                Text("Amount")
-                    .font(.headline)
-                    .padding(.leading, 30)
+                VStack {
+                    Text("Date")
+                        .font(.headline)
+                        .padding(.leading, 20)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                }
+                
+                VStack {
+                    Text("Description")
+                        .font(.headline)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                }
+                
+                VStack {
+                    Text("Amount")
+                        .font(.headline)
+                        .padding(.trailing, 20)
+                        .frame(maxWidth: .infinity, alignment: .trailing)
+                }
             }
             .padding(.top, 10)
             
-            //            if userExpensesList.isLoading {
-            //                ProgressView()
-            //            } else {
+            Rectangle()
+                .frame(height: 1)
+                .foregroundColor(.blue)
+
+            
             ScrollView {
                 ForEach(incomeViewModel.incomeData, id: \.incomeId) { item in
-                    UserIncomeListView(incomeDate: item.incomeDate, incomeDetils: item.incomeDetails ,incomeAmount: item.incomeAmount)
-                    
+                    UserIncomeListView(incomeDate: item.incomeDate, incomeDetails: item.incomeDetails, incomeAmount: item.incomeAmount)
                 }
-                //Spacer()
+                
             }
-            //            }
             
             Spacer()
             
@@ -244,7 +278,6 @@ struct IncomeView: View {
             .hidden()
             
             Button(action: {
-                
                 isListVisible = true
             }) {
                 Image(systemName: "plus.circle")
@@ -266,36 +299,41 @@ struct IncomeView: View {
 struct UserIncomeListView: View {
     
     var incomeDate: String
-    var incomeDetils: String
+    var incomeDetails: String
     var incomeAmount: Double
     
     var body: some View {
-        
-        VStack {
-            HStack {
-                
-                //.padding(.leading, 10)
-                
+    
+        HStack {
+            VStack {
                 Text(incomeDate)
-                    .font(.system(size: 10))
-                
-                Text(incomeDetils)
-                    .font(.system(size: 20))
-                
-                Text(String(format: "%.2f", incomeAmount))
-                    .font(.system(size: 20))
-                //.padding(.leading, 10)
-                //Spacer()
-                
+                    .font(.system(size: 15))
+                    .padding(.leading, 20)
+                    .frame(maxWidth: .infinity, alignment: .leading)
             }
-            //Spacer()
             
+            VStack {
+                Text(incomeDetails)
+                    .font(.system(size: 15))
+                    .frame(maxWidth: .infinity, alignment: .leading)
+            }
             
+            VStack {
+                Text(String(format: "%.2f", incomeAmount))
+                    .font(.system(size: 15))
+                    .padding(.trailing, 20)
+                    .frame(maxWidth: .infinity, alignment: .trailing)
+            }
         }
         .padding(.top, 10)
         
+        Rectangle()
+            .frame(height: 1)
+            .foregroundColor(.blue)
+        
     }
 }
+
 
 
 struct SavingView: View {
@@ -320,17 +358,18 @@ struct SavingView: View {
                         .foregroundColor(.red)
                         .scaledToFit()
                 }
-                .padding(.leading, 10)
+                .padding(.leading, 20)
                 
                 
                 Text("Savings")
                     .font(.system(size: 25))
-                    .padding(.leading, 10)
+                
                 
                 Text(String(format: "%.2f", getSavingViewModel.sumOfSavingsAmount))
                     .font(.system(size: 25))
-                    .padding(.leading, 80)
-            }//.padding(.bottom, 300)
+                    .padding(.trailing, 20)
+                    .frame(maxWidth: .infinity, alignment: .trailing)
+            }
             .padding(.top, 10)
             
             
@@ -372,7 +411,7 @@ struct SavingView: View {
             }
         }
     }
-
+    
 }
 
 

@@ -21,7 +21,7 @@ struct DashboardView: View {
         .navigationBarBackButtonHidden(true)
         .navigationBarItems(trailing:
                        NavigationLink(destination: Preview()) {
-                           Image(systemName: "person.circle")
+                           Image(systemName: "circle.badge.minus")
                            .font(.system(size: 20))
                        }
                    )

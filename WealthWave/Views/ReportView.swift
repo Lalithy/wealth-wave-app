@@ -27,7 +27,7 @@ struct ReportView: View {
         VStack {
             HStack {
                 Spacer()
-                Text("Detail Report")
+                Text("Expenses Details Report")
                     .font(.system(size: 25))
                     .bold()
                 Spacer()
@@ -43,10 +43,9 @@ struct ReportView: View {
                     .padding()
                     .frame(height: 50)
                     .clipped()
-                    .frame(width: 200)
+                    .frame(width: 200, height: 35)
                     .background(Color.black.opacity(0.1))
                     .cornerRadius(5)
-                    
                     .foregroundColor(Color.black)
                 }
                 
@@ -62,9 +61,10 @@ struct ReportView: View {
                             
                         }
                     }) {
-                        Text("Search")
+                        Image(systemName: "magnifyingglass.circle")
                             .foregroundColor(.white)
-                            .frame(width: 100, height: 50)
+                            .font(.system(size: 25))
+                            .frame(width: 50, height: 35)
                             .bold()
                             .background(LinearGradient(gradient: gradientButton, startPoint: .leading, endPoint: .trailing))
                             .cornerRadius(5)
@@ -84,20 +84,37 @@ struct ReportView: View {
             
             
             HStack {
-                Text("Date")
-                    .font(.headline)
+                VStack {
+                    Text("Date")
+                        .font(.headline)
+                        .padding(.leading, 20)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                }
                 
-                Text("Category")
-                    .font(.headline)
+                VStack {
+                    Text("Category")
+                        .font(.headline)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                }
                 
-                Text("Description")
-                    .font(.headline)
+                VStack {
+                    Text("Description")
+                        .font(.headline)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                }
                 
-                Text("Amount")
-                    .font(.headline)
-                
-            }.padding(.leading, 10)
-                .padding(.top, 10)
+                VStack {
+                    Text("Amount")
+                        .font(.headline)
+                        .padding(.trailing, 20)
+                        .frame(maxWidth: .infinity, alignment: .trailing)
+                }
+            }
+            .padding(.top, 10)
+            
+            Rectangle()
+                .frame(height: 1)
+                .foregroundColor(.blue)
             
             ScrollView {
                 ForEach(reportViewModel.reportData, id: \.expenseId) { item in
@@ -150,31 +167,40 @@ struct ReportListView: View {
     
     var body: some View {
         
-        VStack {
-            HStack {
-                
-                //.padding(.leading, 10)
-                
+        
+        HStack {
+            VStack {
                 Text(expenseDate)
-                    .font(.system(size: 15))
-                
+                    .font(.system(size: 13))
+                    .padding(.leading, 20)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+            }
+            
+            VStack {
                 Text(expenseCategory)
                     .font(.system(size: 15))
-                
+                    .frame(maxWidth: .infinity, alignment: .leading)
+            }
+
+            VStack {
                 Text(expenseDetails)
                     .font(.system(size: 15))
-                
+                    .frame(maxWidth: .infinity, alignment: .leading)
+            }
+            
+            VStack {
                 Text(String(format: "%.2f", expenseAmount))
                     .font(.system(size: 15))
-                //.padding(.leading, 10)
-                //Spacer()
-                
+                    .padding(.trailing, 20)
+                    .frame(maxWidth: .infinity, alignment: .trailing)
             }
-            //Spacer()
-            
-            
         }
         .padding(.top, 10)
+        
+        Rectangle()
+            .frame(height: 1)
+            .foregroundColor(.blue)
+    
         
     }
 }
