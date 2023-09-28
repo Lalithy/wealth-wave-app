@@ -11,8 +11,6 @@ struct AddExpensesView: View {
     
     var itemName: String
     
-    //var budgetCategoryId: Int
-    
     var body: some View {
         
         VStack {
@@ -55,44 +53,6 @@ struct AddExpensesView_Previews: PreviewProvider {
 }
 
 
-struct CalculatorNumberPadView: View {
-    @Binding var amount: String
-    
-    let buttonRows = [
-        ["7", "8", "9"],
-        ["4", "5", "6"],
-        ["1", "2", "3"],
-        [".", "0", "C"]
-    ]
-    
-    var body: some View {
-        VStack {
-            ForEach(buttonRows, id: \.self) { row in
-                HStack {
-                    Spacer()
-                    ForEach(row, id: \.self) { button in
-                        Button(action: {
-                            if button == "C" {
-                                self.amount = ""
-                            } else {
-                                self.amount += button
-                            }
-                        }) {
-                            Text(button)
-                                .font(.title)
-                                .frame(width: 90, height: 40)
-                                .background(Color.gray)
-                                .cornerRadius(40)
-                                .foregroundColor(.white)
-                        }
-                    }
-                    Spacer()
-                }
-            }
-        }
-    }
-}
-
 
 struct FiledInputView: View {
     
@@ -115,12 +75,11 @@ struct FiledInputView: View {
     
     let gradientButton = Gradient(colors: [Color("ButtonColourTop"), Color("ButtonColourMiddle"), Color("ButtonColourEnd")])
     
-    //var budgetCategoryId: Int
     
     @FocusState private var focusedField: Field?
     
     enum Field {
-        case location, description, saveButton
+        case expenseAmount, location, description ,saveButton
     }
     
     var body: some View {
@@ -132,13 +91,24 @@ struct FiledInputView: View {
                 .cornerRadius(15)
                 .padding(.horizontal, 100)
             
-            TextField("Amount", text: $expenseAmount)
+            
+            TextField("Amount", text: Binding(
+                get: { expenseAmount },
+                set: { newValue in
+                    expenseAmount = newValue.filter { "0123456789.".contains($0) }
+                }
+            ))
                 .padding()
+                .multilineTextAlignment(.trailing)
                 .frame(width: 320)
                 .background(Color.black.opacity(0.1))
                 .cornerRadius(15)
-                .multilineTextAlignment(.trailing)
-                .disabled(true)
+                .keyboardType(.decimalPad)
+                .focused($focusedField, equals: .expenseAmount)
+                .onSubmit {
+                    focusedField = .location
+                }
+                
             
             TextField("Location", text: $location)
                 .padding()
@@ -204,43 +174,22 @@ struct FiledInputView: View {
                     }
                     
                 }
-            }
-            
-            
-            
+            }.task{}
+
             Spacer()
-            
         }
         
-        .background(
-            
-            ZStack(alignment: .bottom) {
-                
-                VStack{
-                    Spacer()
-                    if isCalculatorExpanded {
-                        CalculatorNumberPadView(amount: $expenseAmount)
-                            .transition(.move(edge: .bottom))
-                    }
-                    
-                    Rectangle()
-                        .fill(Color.gray)
-                        .frame( width: 150,height: 5)
-                        .onTapGesture {
-                            withAnimation {
-                                isCalculatorExpanded.toggle()
-                            }
+        .toolbar {
+            ToolbarItemGroup(placement: .keyboard){
+                Spacer()
+                Button("Done") {
+                            focusedField = .expenseAmount
+                            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                         }
-                }
-                
-                
-            }
-        )  .onAppear {
-            DispatchQueue.main.async {
-                focusedField = .location
+                        .focused($focusedField, equals: .expenseAmount)
             }
         }
-        
+         
         
     }
 }

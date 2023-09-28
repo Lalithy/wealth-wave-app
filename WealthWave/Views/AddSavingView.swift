@@ -59,26 +59,30 @@ struct AddSavingView: View {
                     .cornerRadius(15)
                     .padding(.horizontal, 100)
                 
-                TextField("Amount", text: $savingsAmount)
-                    .padding()
-                    .focused($focusedField, equals: .savingsAmount)
-                    .multilineTextAlignment(.trailing)
-                    .frame(width: 320)
-                    .background(Color.black.opacity(0.1))
-                    .cornerRadius(15)
-//                    .disabled(true)
-                    .padding(.bottom,20)
-                
-                
-//                TextField("Description", text: $savingsDetails)
+//                TextField("Amount", text: $savingsAmount)
 //                    .padding()
-//                    .focused($focusedField, equals: .savingsDetails)
-//                    .autocapitalization(.none)
+//                    .focused($focusedField, equals: .savingsAmount)
+//                    .multilineTextAlignment(.trailing)
 //                    .frame(width: 320)
 //                    .background(Color.black.opacity(0.1))
 //                    .cornerRadius(15)
+////                    .disabled(true)
 //                    .padding(.bottom,20)
                 
+                TextField("Amount", text: Binding(
+                    get: { savingsAmount },
+                    set: { newValue in
+                        savingsAmount = newValue.filter { "0123456789.".contains($0) }
+                    }
+                ))
+                .padding()
+                .multilineTextAlignment(.trailing)
+                .frame(width: 320)
+                .background(Color.black.opacity(0.1))
+                .cornerRadius(15)
+                .keyboardType(.decimalPad)
+                .focused($focusedField, equals: .savingsAmount)
+               
                 
                 Button(action: {
                     
@@ -114,38 +118,49 @@ struct AddSavingView: View {
                         }
                         
                     }
-                }
+                }.task{}
                 
                 
                 Spacer()
             }
-            .background(
-                
-                ZStack(alignment: .bottom) {
-                    
-                    VStack{
-                        Spacer()
-                        if isCalculatorExpanded {
-                            CalculatorNumberView(amount: $savingsAmount)
-                                .transition(.move(edge: .bottom))
-                        }
-                        
-                        Rectangle()
-                            .fill(Color.gray)
-                            .frame( width: 150,height: 5)
-                            .onTapGesture {
-                                withAnimation {
-                                    isCalculatorExpanded.toggle()
-                                }
-                            }
+//            .background(
+//
+//                ZStack(alignment: .bottom) {
+//
+//                    VStack{
+//                        Spacer()
+//                        if isCalculatorExpanded {
+//                            CalculatorNumberView(amount: $savingsAmount)
+//                                .transition(.move(edge: .bottom))
+//                        }
+//
+//                        Rectangle()
+//                            .fill(Color.gray)
+//                            .frame( width: 150,height: 5)
+//                            .onTapGesture {
+//                                withAnimation {
+//                                    isCalculatorExpanded.toggle()
+//                                }
+//                            }
+//                    }
+//
+//
+//                }
+//            )
+//            .onAppear {
+//                DispatchQueue.main.async {
+//                    focusedField = .savingsAmount
+//                }
+//            }
+            
+            .toolbar {
+                ToolbarItemGroup(placement: .keyboard){
+                    Spacer()
+                    Button("Done") {
+                        focusedField = .savingsAmount
+                        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                     }
-                    
-                    
-                }
-            )
-            .onAppear {
-                DispatchQueue.main.async {
-                    focusedField = .savingsAmount
+                    .focused($focusedField, equals: .savingsAmount)
                 }
             }
         }

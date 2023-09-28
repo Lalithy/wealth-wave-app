@@ -12,6 +12,8 @@ struct ReportView: View {
     @StateObject var reportMonthVM : GetReportMonthViewModel = GetReportMonthViewModel()
     @StateObject var reportViewModel: GetReportViewModel = GetReportViewModel()
     
+    @State private var isDownloading = false
+    
     @State private var isReportVisible = false
     @State private var budgetCategoryId = ""
     @State private var selectedMonth: String = ""
@@ -43,7 +45,7 @@ struct ReportView: View {
                     .clipped()
                     .frame(width: 200)
                     .background(Color.black.opacity(0.1))
-                    .cornerRadius(15)
+                    .cornerRadius(5)
                     
                     .foregroundColor(Color.black)
                 }
@@ -51,11 +53,9 @@ struct ReportView: View {
                 VStack {
                     Button(action: {
                         if let monthNumber = reportViewModel.getMonthNumber(from: selectedMonth) {
-                            
                             reportViewModel.fetchReportData(month: monthNumber)
-                            
+                            showAlert  = false
                             reportViewModel.recordNotFoundCallback = {
-                                
                                 showAlert  = true
                                 reportViewModel.reportData = []
                             }
@@ -67,10 +67,19 @@ struct ReportView: View {
                             .frame(width: 100, height: 50)
                             .bold()
                             .background(LinearGradient(gradient: gradientButton, startPoint: .leading, endPoint: .trailing))
-                            .cornerRadius(10)
+                            .cornerRadius(5)
                     }
                     .background(Color.clear)
                 }
+            }
+            
+            HStack{
+                
+                if showAlert {
+                    Text("Records not found for the given month.")
+                        .foregroundColor(.red)
+                }
+                
             }
             
             
@@ -114,17 +123,21 @@ struct ReportView: View {
                 reportViewModel.fetchReportData(month: monthNumber)
             }
         }
-                .alert(isPresented: $showAlert) {
-                    Alert(
-                        title: Text("Record not found"),
-                        message: Text("The requested records could not be found."),
-                        dismissButton: .default(Text("OK")) {
+        //                                        .alert(isPresented: $showAlert) {
+        //
+        //
+        //                                            Alert(
+        //                                                title: Text("Record not found"),
+        //                                                message: Text("The requested records could not be found."),
+        //                                                dismissButton: .default(Text("OK")) {
+        //
+        //                                                    //reportViewModel.reportData = []
+        //
+        //                                                }
+        //
+        //                                            )
+        //                                        }
         
-                            //reportViewModel.reportData = []
-                            
-                        }
-                    )
-                }
     }
 }
 

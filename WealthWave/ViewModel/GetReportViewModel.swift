@@ -65,8 +65,9 @@ class GetReportViewModel: ObservableObject {
                     if let data = data {
                         do {
                             let response = try JSONDecoder().decode(ReportResponse.self, from: data)
-                            DispatchQueue.main.async {
-                                self.reportData = response.details
+                            DispatchQueue.main.async { [weak self] in
+                            
+                                self?.reportData = response.details
                             }
                         } catch {
                             print("Error decoding JSON: \(error)")
@@ -76,8 +77,10 @@ class GetReportViewModel: ObservableObject {
 //                    DispatchQueue.main.async {
 //                        self.showRecordNotFoundAlert = true
 //                    }
+                    DispatchQueue.main.async { [weak self] in
+                        self?.recordNotFoundCallback?()
+                    }
                     
-                    self.recordNotFoundCallback?()
                 }
             }
         }.resume()

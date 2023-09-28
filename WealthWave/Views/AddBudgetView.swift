@@ -64,7 +64,7 @@ struct AddBudgetView: View {
                 .padding(.bottom, 20)
                 .foregroundColor(Color.black)
                 
-//                TextField("Amount", text: $budgetAmount)
+
                 TextField("Amount", text: Binding(
                     get: { budgetAmount },
                     set: { newValue in
@@ -116,10 +116,10 @@ struct AddBudgetView: View {
                             
                             budgetAmount = ""
                             
-                        }
+                        } 
                         
                     }
-                }
+                }.task{}
                 
                 Spacer()
             }

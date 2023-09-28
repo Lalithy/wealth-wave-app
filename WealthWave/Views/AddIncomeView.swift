@@ -22,7 +22,7 @@ struct AddIncomeView: View {
     @FocusState private var focusedField: Field?
     
     enum Field {
-        case incomeDetails
+        case incomeAmount, incomeDetails
     }
     
     let userId = PropertyModel.shared.getUserId()
@@ -59,13 +59,23 @@ struct AddIncomeView: View {
                     .cornerRadius(15)
                     .padding(.horizontal, 100)
                 
-                TextField("Amount", text: $incomeAmount)
-                    .padding()
-                    .multilineTextAlignment(.trailing)
-                    .frame(width: 320)
-                    .background(Color.black.opacity(0.1))
-                    .cornerRadius(15)
-                    .disabled(true)
+              
+                TextField("Amount", text: Binding(
+                    get: { incomeAmount },
+                    set: { newValue in
+                        incomeAmount = newValue.filter { "0123456789.".contains($0) }
+                    }
+                ))
+                .padding()
+                .multilineTextAlignment(.trailing)
+                .frame(width: 320)
+                .background(Color.black.opacity(0.1))
+                .cornerRadius(15)
+                .keyboardType(.decimalPad)
+                .focused($focusedField, equals: .incomeAmount)
+                .onSubmit {
+                    focusedField = .incomeDetails
+                }
                 
                 TextField("Description", text: $incomeDetails)
                     .padding()
@@ -85,11 +95,12 @@ struct AddIncomeView: View {
                         incomeDate: incomeDate,
                         userId: userId)
                     
-                    
                     addIncomeVM.incomeSuccessCallback = {
                         alertMessage = addIncomeVM.responseMessage
                         showAlert  = true
                     }
+                    
+                    
                     
                 }) {
                     Text("Save")
@@ -107,42 +118,25 @@ struct AddIncomeView: View {
                             
                             incomeDetails = ""
                             incomeAmount = ""
-
+                            
                         }
                         
                     }
                 }
-
+                .task{}
                 
                 Spacer()
             }
-            .background(
-                
-                ZStack(alignment: .bottom) {
-                    
-                    VStack{
-                        Spacer()
-                        if isCalculatorExpanded {
-                            CalculatorNumberView(amount: $incomeAmount)
-                                .transition(.move(edge: .bottom))
-                        }
-                        
-                        Rectangle()
-                            .fill(Color.gray)
-                            .frame( width: 150,height: 5)
-                            .onTapGesture {
-                                withAnimation {
-                                    isCalculatorExpanded.toggle()
-                                }
-                            }
-                    }
-                    
-                    
+        }
+        
+        .toolbar {
+            ToolbarItemGroup(placement: .keyboard){
+                Spacer()
+                Button("Done") {
+                    focusedField = .incomeAmount
+                    UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                 }
-            ).onAppear {
-                DispatchQueue.main.async {
-                    focusedField = .incomeDetails
-                }
+                .focused($focusedField, equals: .incomeAmount)
             }
         }
     }
