@@ -144,7 +144,6 @@ struct UserExpensesListView: View {
     var expenseId: Int
     
     var onDelete: (Bool, String) -> Void
-    //    lali4@gmail.com
     
     var body: some View {
         VStack(alignment: .leading, spacing: 5) {
@@ -199,7 +198,6 @@ struct UserExpensesListView: View {
                 .foregroundColor(.blue)
             
         }
-        
         .padding(.top, 10)
     }
     
@@ -236,7 +234,6 @@ struct IncomeView: View {
                 VStack {
                     Text("Date")
                         .font(.headline)
-                        .padding(.leading, 20)
                         .frame(maxWidth: .infinity, alignment: .leading)
                 }
                 
@@ -249,11 +246,12 @@ struct IncomeView: View {
                 VStack {
                     Text("Amount")
                         .font(.headline)
-                        .padding(.trailing, 20)
                         .frame(maxWidth: .infinity, alignment: .trailing)
                 }
             }
             .padding(.top, 10)
+            .padding(.leading,20)
+            .padding(.trailing,20)
             
             Rectangle()
                 .frame(height: 1)
@@ -308,7 +306,6 @@ struct UserIncomeListView: View {
             VStack {
                 Text(incomeDate)
                     .font(.system(size: 15))
-                    .padding(.leading, 20)
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
             
@@ -321,11 +318,12 @@ struct UserIncomeListView: View {
             VStack {
                 Text(String(format: "%.2f", incomeAmount))
                     .font(.system(size: 15))
-                    .padding(.trailing, 20)
                     .frame(maxWidth: .infinity, alignment: .trailing)
             }
         }
         .padding(.top, 10)
+        .padding(.leading,20)
+        .padding(.trailing,20)
         
         Rectangle()
             .frame(height: 1)

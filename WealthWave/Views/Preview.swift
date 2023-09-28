@@ -13,6 +13,7 @@ struct Preview: View {
     var body: some View {
         NavigationView {
             VStack {
+                Spacer()
                 NavigationLink("", destination: LoginView(), isActive: $isLoginViewActive)
                 
                 Image("LOGO")
@@ -29,11 +30,15 @@ struct Preview: View {
                     Text("Ride the Wave to Financial Prosperity!....")
                         .foregroundColor(Color(hue: 0.666, saturation: 1.0, brightness: 0.57))
                 }
+                
+                Spacer()
+                Spacer()
             }
-            .onTapGesture {
-                isLoginViewActive = true
-            }
-        }.navigationBarBackButtonHidden(true)
+            
+        } .onTapGesture {
+            isLoginViewActive = true
+        }
+        .navigationBarBackButtonHidden(true)
     }
 }
 
@@ -41,7 +46,7 @@ struct Preview_Previews: PreviewProvider {
     
     static var previews: some View {
         Preview()
-           
+        
     }
 }
 
