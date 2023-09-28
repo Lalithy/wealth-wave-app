@@ -59,20 +59,13 @@ struct AddSavingView: View {
                     .cornerRadius(15)
                     .padding(.horizontal, 100)
                 
-//                TextField("Amount", text: $savingsAmount)
-//                    .padding()
-//                    .focused($focusedField, equals: .savingsAmount)
-//                    .multilineTextAlignment(.trailing)
-//                    .frame(width: 320)
-//                    .background(Color.black.opacity(0.1))
-//                    .cornerRadius(15)
-////                    .disabled(true)
-//                    .padding(.bottom,20)
                 
                 TextField("Amount", text: Binding(
                     get: { savingsAmount },
                     set: { newValue in
-                        savingsAmount = newValue.filter { "0123456789.".contains($0) }
+                        if newValue.count <= 25 {
+                            savingsAmount = newValue.filter { "0123456789.".contains($0) }
+                        }
                     }
                 ))
                 .padding()
@@ -85,14 +78,12 @@ struct AddSavingView: View {
                
                 
                 Button(action: {
-                    
                     addSavingVM.saveSaving(
                         savingsDetails: "Savings",
                         savingsAmount: Double(savingsAmount) ?? 0.0,
                         savingsDate: savingsDate,
                         userId: userId)
-                
-                    
+                                    
                     addSavingVM.saveSuccessCallback = {
                         alertMessage = addSavingVM.responseMessage
                         showAlert  = true

@@ -59,11 +59,13 @@ struct AddIncomeView: View {
                     .cornerRadius(15)
                     .padding(.horizontal, 100)
                 
-              
+
                 TextField("Amount", text: Binding(
                     get: { incomeAmount },
                     set: { newValue in
-                        incomeAmount = newValue.filter { "0123456789.".contains($0) }
+                        if newValue.count <= 25 {
+                            incomeAmount = newValue.filter { "0123456789.".contains($0) }
+                        }
                     }
                 ))
                 .padding()
@@ -77,18 +79,31 @@ struct AddIncomeView: View {
                     focusedField = .incomeDetails
                 }
                 
-                TextField("Description", text: $incomeDetails)
-                    .padding()
-                    .focused($focusedField, equals: .incomeDetails)
-                    .autocapitalization(.none)
-                    .frame(width: 320)
-                    .background(Color.black.opacity(0.1))
-                    .cornerRadius(15)
-                    .padding(.bottom,20)
+                TextField("Description", text: Binding(
+                    get: { self.incomeDetails },
+                    set: { newValue in
+                        if newValue.count <= 200 {
+                            self.incomeDetails = newValue
+                        }
+                    }
+                ))
+                .padding()
+                .focused($focusedField, equals: .incomeDetails)
+                .disableAutocorrection(true)
+                .autocapitalization(.none)
+                .frame(width: 320)
+                .background(Color.black.opacity(0.1))
+                .cornerRadius(15)
+                .padding(.bottom,20)
+                
+                if incomeDetails.count == 50 {
+                    Text("Description cannot exceed 200 characters")
+                        .foregroundColor(.red)
+                        .padding(.bottom, 5)
+                }
                 
                 Button(action: {
-                    
-                    
+
                     addIncomeVM.saveIncome(
                         incomeDetails: incomeDetails,
                         incomeAmount: Double(incomeAmount) ?? 0.0,
@@ -99,9 +114,7 @@ struct AddIncomeView: View {
                         alertMessage = addIncomeVM.responseMessage
                         showAlert  = true
                     }
-                    
-                    
-                    
+  
                 }) {
                     Text("Save")
                         .foregroundColor(.white)

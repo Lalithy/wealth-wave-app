@@ -33,9 +33,9 @@ struct RegisterView: View {
         VStack{
             
             NavigationLink(destination: LoginView(), isActive: $isStatusCode) {
-                        EmptyView()
-                    }
-                    .hidden()
+                EmptyView()
+            }
+            .hidden()
             
             HStack{
                 Spacer()
@@ -46,46 +46,79 @@ struct RegisterView: View {
             }
             .padding(.bottom, 50)
             
-            TextField("Enter Email", text: $email)
-                .padding()
-                .autocapitalization(.none)
-                .frame(width: 300)
-                .background(Color.black.opacity(0.1))
-                .cornerRadius(15)
-                .focused($focusedField, equals: .email)
-                .onSubmit {
-                    focusedField = .password
+            TextField("Enter Email", text: Binding(
+                get: { self.email },
+                set: { newValue in
+                    if newValue.count <= 50 {
+                        self.email = newValue
+                    }
                 }
-               
+            ))
+            .padding()
+            .disableAutocorrection(true)
+            .autocapitalization(.none)
+            .frame(width: 300)
+            .background(Color.black.opacity(0.1))
+            .cornerRadius(15)
+            .focused($focusedField, equals: .email)
+            .onSubmit {
+                focusedField = .password
+            }
             
-            TextField("Enter Password", text: $password)
-                .padding()
-                .autocapitalization(.none)
-                .frame(width: 300)
-                .background(Color.black.opacity(0.1))
-                .cornerRadius(15)
-                .padding()
-                .focused($focusedField, equals: .password)
-                .onSubmit {
-                    focusedField = .confirmPassword
+            
+            TextField("Enter Password", text: Binding(
+                get: { self.password },
+                set: { newValue in
+                    if newValue.count <= 10 {
+                        self.password = newValue
+                    }
                 }
-                
+            ))
+            .padding()
+            .disableAutocorrection(true)
+            .autocapitalization(.none)
+            .frame(width: 300)
+            .background(Color.black.opacity(0.1))
+            .cornerRadius(15)
+            .padding()
+            .focused($focusedField, equals: .password)
+            .onSubmit {
+                focusedField = .confirmPassword
+            }
             
-            TextField("Confirm Password", text: $confirmPassword)
-                .padding()
-                .autocapitalization(.none)
-                .frame(width: 300)
-                .background(Color.black.opacity(0.1))
-                .cornerRadius(15)
-                .padding(.bottom, 50)
-                .focused($focusedField, equals: .confirmPassword)
-               
+            
+            if password.count == 10 {
+                Text("Password cannot exceed 10 characters")
+                    .foregroundColor(.red)
+                    .padding(.bottom, 5)
+            }
+            
+            TextField("Confirm Password", text: Binding(
+                get: { self.confirmPassword },
+                set: { newValue in
+                    if newValue.count <= 10 {
+                        self.confirmPassword = newValue
+                    }
+                }
+            ))
+            .padding()
+            .disableAutocorrection(true)
+            .autocapitalization(.none)
+            .frame(width: 300)
+            .background(Color.black.opacity(0.1))
+            .cornerRadius(15)
+            .padding(.bottom, 50)
+            .focused($focusedField, equals: .confirmPassword)
+            
             
             Button(action: {
+                let trimmedPassword = password.trimmingCharacters(in: .whitespacesAndNewlines)
+                let trimmedConfirmPassword = confirmPassword.trimmingCharacters(in: .whitespacesAndNewlines)
+                
                 registerVM.saveRegister(
                     email: email,
-                    password: password,
-                    confirmPassword: confirmPassword)
+                    password: trimmedPassword,
+                    confirmPassword: trimmedConfirmPassword)
                 
                 registerVM.registrationSuccessCallback = {
                     alertMessage = registerVM.responseMessage
@@ -100,7 +133,7 @@ struct RegisterView: View {
                     .cornerRadius(10)
                     .padding(.bottom, 40)
             }
-            .background(Color.clear) 
+            .background(Color.clear)
             .alert(alertMessage, isPresented: $showAlert) {
                 Button("OK", role: .cancel) {
                     if registerVM.statusCode == 200 {
@@ -108,18 +141,18 @@ struct RegisterView: View {
                     }
                 }
             }
-
+            
             
             Spacer()
             
         }.background(LinearGradient(gradient: gradientBackground, startPoint: .top, endPoint: .bottom))
-        .onAppear {
+            .onAppear {
                 DispatchQueue.main.async {
                     focusedField = .email
                 }
             }
         
-            
+        
     }
 }
 

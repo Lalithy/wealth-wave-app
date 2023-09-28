@@ -10,18 +10,15 @@ import SwiftUI
 struct LoginView: View {
     
     @StateObject var addLoginVM : LoginViewModel = LoginViewModel()
-    
     @StateObject var getSavingVM = GetSavingViewModel()
-    
     
     @State private var email = ""
     @State private var password = ""
-    
     @State private var alertMessage = ""
     @State private var showAlert = false
     @State private var isStatusCode = false
-    
     @State private var userId: Int = 0
+    @State private var isPasswordVisible = false
     
     @FocusState private var focusedField: Field?
     
@@ -60,58 +57,105 @@ struct LoginView: View {
                 .padding(.bottom,40)
             
             
-            TextField("Enter Email", text: $email)
-                .padding()
-                .autocapitalization(.none)
-                .frame(width: 300)
-                .background(Color.black.opacity(0.1))
-                .cornerRadius(15)
-                .focused($focusedField, equals: .email)
-                .onSubmit {
-                    focusedField = .password
+            TextField("Enter Email", text: Binding(
+                get: { self.email },
+                set: { newValue in
+                    if newValue.count <= 50 {
+                        self.email = newValue
+                    }
                 }
+            ))
+            .padding()
+            .disableAutocorrection(true)
+            .autocapitalization(.none)
+            .frame(width: 300)
+            .background(Color.black.opacity(0.1))
+            .cornerRadius(15)
+            .focused($focusedField, equals: .email)
+            .onSubmit {
+                focusedField = .password
+            }
             
-            
-            TextField("Enter Password", text: $password)
-                .padding()
-                .autocapitalization(.none)
-                .frame(width: 300)
-                .background(Color.black.opacity(0.1))
-                .cornerRadius(15)
-                .padding()
-                .padding(.bottom, 20)
-                .focused($focusedField, equals: .password)
-                .onSubmit {
-                    focusedField = .saveButton
+            ZStack(alignment: .trailing) {
+                if isPasswordVisible {
+                    TextField("Enter Password", text: Binding(
+                        get: { self.password },
+                        set: { newValue in
+                            if newValue.count <= 10 {
+                                self.password = newValue
+                            }
+                        }
+                    ))
+                    .padding()
+                    .disableAutocorrection(true)
+                    .autocapitalization(.none)
+                    .frame(width: 300)
+                    .background(Color.black.opacity(0.1))
+                    .cornerRadius(15)
+                    .padding()
+                    .padding(.bottom, 20)
+                    .focused($focusedField, equals: .password)
+                    .onSubmit {
+                        focusedField = .saveButton
+                    }
+                } else {
+                    SecureField("Enter Password", text: Binding(
+                        get: { self.password },
+                        set: { newValue in
+                            if newValue.count <= 10 {
+                                self.password = newValue
+                            }
+                        }
+                    ))
+                    .padding()
+                    .autocapitalization(.none)
+                    .frame(width: 300)
+                    .background(Color.black.opacity(0.1))
+                    .cornerRadius(15)
+                    .padding()
+                    .padding(.bottom, 20)
+                    .focused($focusedField, equals: .password)
+                    .onSubmit {
+                        focusedField = .saveButton
+                    }
                 }
+                
+                Button(action: {
+                    isPasswordVisible.toggle()
+                }) {
+                    Image(systemName: isPasswordVisible ? "eye.slash.fill" : "eye.fill")
+                        .foregroundColor(.blue)
+                        .font(.system(size: 20))
+                        .padding(.trailing, 25)
+                        .padding(.bottom, 15)
+                }
+                .buttonStyle(PlainButtonStyle())
+            }
+            
             
             
             Button(action: {
                 
+                let trimmedPassword = password.trimmingCharacters(in: .whitespacesAndNewlines)
+                
                 addLoginVM.saveLogin(
                     email: email,
-                    password: password)
+                    password: trimmedPassword)
                 
                 addLoginVM.loginSuccessCallback = {
                     alertMessage = addLoginVM.responseMessage
                     
                     if addLoginVM.statusCode == 200 {
-                        isStatusCode = true
-
-                        //getSavingVM.userId = userId
-
+                        
                         userId = addLoginVM.userId
-                        print("data user id login:  \(userId)")
                         email = ""
                         password = ""
                         
-                      //getSavingVM.fetchSavingsData()
-
                         PropertyModel.shared.saveUserId(userId)
+                        isStatusCode = true
                     }else {
                         showAlert = true
                     }
-                    
                 }
                 
                 focusedField = .saveButton

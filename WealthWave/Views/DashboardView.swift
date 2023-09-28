@@ -22,7 +22,6 @@ struct DashboardView: View {
         .navigationBarItems(trailing:
                        NavigationLink(destination: Preview()) {
                            Image(systemName: "arrow.right.circle")
-                           .foregroundColor(.blue)
                            .font(.system(size: 20))
                        }
                    )

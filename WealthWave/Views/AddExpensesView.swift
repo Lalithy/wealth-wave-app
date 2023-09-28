@@ -53,7 +53,6 @@ struct AddExpensesView_Previews: PreviewProvider {
 }
 
 
-
 struct FiledInputView: View {
     
     
@@ -95,44 +94,75 @@ struct FiledInputView: View {
             TextField("Amount", text: Binding(
                 get: { expenseAmount },
                 set: { newValue in
-                    expenseAmount = newValue.filter { "0123456789.".contains($0) }
+                    if newValue.count <= 25 {
+                        expenseAmount = newValue.filter { "0123456789.".contains($0) }
+                    }
                 }
             ))
-                .padding()
-                .multilineTextAlignment(.trailing)
-                .frame(width: 320)
-                .background(Color.black.opacity(0.1))
-                .cornerRadius(15)
-                .keyboardType(.decimalPad)
-                .focused($focusedField, equals: .expenseAmount)
-                .onSubmit {
-                    focusedField = .location
-                }
-                
+            .padding()
+            .multilineTextAlignment(.trailing)
+            .frame(width: 320)
+            .background(Color.black.opacity(0.1))
+            .cornerRadius(15)
+            .keyboardType(.decimalPad)
+            .focused($focusedField, equals: .expenseAmount)
+            .onSubmit {
+                focusedField = .location
+            }
             
-            TextField("Location", text: $location)
-                .padding()
-                .frame(width: 320)
-                .background(Color.black.opacity(0.1))
-                .cornerRadius(15)
-                .autocapitalization(.none)
-                .focused($focusedField, equals: .location)
-                .onSubmit {
-                    focusedField = .description
-                }
             
-            TextField("Description", text: $expenseDetails)
-                .padding()
-                .frame(width: 320)
-                .background(Color.black.opacity(0.1))
-                .cornerRadius(15)
-                .padding(.bottom, 20)
-                .autocapitalization(.none)
-                .focused($focusedField, equals: .description)
-                .onSubmit {
-                    focusedField = .saveButton
+            TextField("Location", text: Binding(
+                get: { self.location },
+                set: { newValue in
+                    if newValue.count <= 50 {
+                        self.location = newValue
+                    }
                 }
+            ))
+            .padding()
+            .frame(width: 320)
+            .background(Color.black.opacity(0.1))
+            .cornerRadius(15)
+            .autocapitalization(.none)
+            .focused($focusedField, equals: .location)
+            .onSubmit {
+                focusedField = .description
+            }
             
+            if location.count == 50 {
+                Text("Location cannot exceed 50 characters")
+                    .foregroundColor(.red)
+                    .padding(.bottom, 5)
+                    .disableAutocorrection(true)
+                    .autocapitalization(.none)
+            }
+            
+            TextField("Description", text: Binding(
+                get: { self.expenseDetails },
+                set: { newValue in
+                    if newValue.count <= 200 {
+                        self.expenseDetails = newValue
+                    }
+                }
+            ))
+            .padding()
+            .disableAutocorrection(true)
+            .autocapitalization(.none)
+            .frame(width: 320)
+            .background(Color.black.opacity(0.1))
+            .cornerRadius(15)
+            .padding(.bottom, 20)
+            .autocapitalization(.none)
+            .focused($focusedField, equals: .description)
+            .onSubmit {
+                focusedField = .saveButton
+            }
+            
+            if expenseDetails.count == 50 {
+                Text("Description cannot exceed 200 characters")
+                    .foregroundColor(.red)
+                    .padding(.bottom, 5)
+            }
             
             Button(action: {
                 
@@ -175,7 +205,7 @@ struct FiledInputView: View {
                     
                 }
             }.task{}
-
+            
             Spacer()
         }
         
@@ -183,13 +213,13 @@ struct FiledInputView: View {
             ToolbarItemGroup(placement: .keyboard){
                 Spacer()
                 Button("Done") {
-                            focusedField = .expenseAmount
-                            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-                        }
-                        .focused($focusedField, equals: .expenseAmount)
+                    focusedField = .expenseAmount
+                    UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                }
+                .focused($focusedField, equals: .expenseAmount)
             }
         }
-         
+        
         
     }
 }
