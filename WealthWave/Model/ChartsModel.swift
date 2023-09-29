@@ -21,3 +21,17 @@ struct ChartExpensesResponse: Decodable {
     let timestamp: String
 }
 
+struct ChartExpensesCategory: Codable {
+    let budgetCategory: String
+    let expensePercentage: Double
+}
+
+struct ChartExpensesCategoryResponse: Decodable {
+    let message: String
+    let details: [ChartExpensesCategory]
+    let status: String
+    let timestamp: String
+}
+
+
+

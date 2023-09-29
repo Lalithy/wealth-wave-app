@@ -1,26 +1,27 @@
 //
-//  ChartsViewModel.swift
+//  ChartsExpensesCategoryViewModel.swift
 //  WealthWave
 //
-//  Created by Lali.. on 2023-09-29.
+//  Created by Lali.. on 2023-09-30.
 //
+
 
 import SwiftUI
 import Foundation
 
-class ChartsViewModel: ObservableObject {
+class ChartsExpensesCategoryViewModel: ObservableObject {
     
-    @Published var chartExpenses: [ChartExpensesDetails] = []
+    @Published var chartExpensesCategory: [ChartExpensesCategory] = []
     @Published var userId: Int = PropertyModel.shared.getUserId()
 
     @Published var isLoading = true
 
     init() {
-        fetchChartExpensesList()
+        fetchChartExpensesCategoryList()
     }
 
-    func fetchChartExpensesList() {
-        guard let url = URL(string: "http://wealth-wave-service-env.eba-cc4bdc5e.us-west-1.elasticbeanstalk.com/api/fhms/dashboard/expenses-statistics?userId=\(userId)") else {
+    func fetchChartExpensesCategoryList() {
+        guard let url = URL(string: "http://wealth-wave-service-env.eba-cc4bdc5e.us-west-1.elasticbeanstalk.com/api/fhms/dashboard/chart?userId=\(userId)") else {
             return
         }
 
@@ -36,10 +37,10 @@ class ChartsViewModel: ObservableObject {
 
             if let data = data {
                 do {
-                    let response = try JSONDecoder().decode(ChartExpensesResponse.self, from: data)
+                    let response = try JSONDecoder().decode(ChartExpensesCategoryResponse.self, from: data)
                     DispatchQueue.main.async {
                         self.isLoading = false
-                        self.chartExpenses = response.details
+                        self.chartExpensesCategory = response.details
                         
                     }
                 } catch {
@@ -49,7 +50,3 @@ class ChartsViewModel: ObservableObject {
         }.resume()
     }
 }
-
-
-
-

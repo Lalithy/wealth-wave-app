@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		3A46F31E2AC6B85D00C43489 /* ChartsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A46F31D2AC6B85D00C43489 /* ChartsViewModel.swift */; };
 		3A5DFF462AC698B000B4CC85 /* ChartsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5DFF452AC698B000B4CC85 /* ChartsModel.swift */; };
+		3AD03EEB2AC70A9400BDF5CA /* ChartsExpensesCategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD03EEA2AC70A9400BDF5CA /* ChartsExpensesCategoryViewModel.swift */; };
 		9212FA542AAE103F00490868 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9212FA532AAE103F00490868 /* RegisterView.swift */; };
 		9212FA592AAE27AC00490868 /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9212FA582AAE27AC00490868 /* RegisterViewModel.swift */; };
 		9225F3822AADD3240009AA5C /* Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9225F3812AADD3240009AA5C /* Preview.swift */; };
@@ -57,6 +58,7 @@
 /* Begin PBXFileReference section */
 		3A46F31D2AC6B85D00C43489 /* ChartsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartsViewModel.swift; sourceTree = "<group>"; };
 		3A5DFF452AC698B000B4CC85 /* ChartsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartsModel.swift; sourceTree = "<group>"; };
+		3AD03EEA2AC70A9400BDF5CA /* ChartsExpensesCategoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartsExpensesCategoryViewModel.swift; sourceTree = "<group>"; };
 		9212FA532AAE103F00490868 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		9212FA582AAE27AC00490868 /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
 		9225F3812AADD3240009AA5C /* Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preview.swift; sourceTree = "<group>"; };
@@ -134,6 +136,7 @@
 				929AC73A2AC4320100AB3058 /* GetReportMonthViewModel.swift */,
 				923839312AC4ABD700F3B4D6 /* GetReportViewModel.swift */,
 				3A46F31D2AC6B85D00C43489 /* ChartsViewModel.swift */,
+				3AD03EEA2AC70A9400BDF5CA /* ChartsExpensesCategoryViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -288,6 +291,7 @@
 			files = (
 				928CB34B2ABF1700002226B8 /* LoginViewModel.swift in Sources */,
 				9228FDB92AADC24600CE8E8D /* ContentView.swift in Sources */,
+				3AD03EEB2AC70A9400BDF5CA /* ChartsExpensesCategoryViewModel.swift in Sources */,
 				9295CD532ABCC10F00259DB8 /* AddSavingView.swift in Sources */,
 				923839322AC4ABD700F3B4D6 /* GetReportViewModel.swift in Sources */,
 				92DF58152ABF57030060E428 /* GetSavingViewModel.swift in Sources */,

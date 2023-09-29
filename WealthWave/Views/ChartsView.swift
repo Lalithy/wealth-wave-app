@@ -56,6 +56,7 @@ struct BackgroundView: View {
     var selectedSide : SideOfTheForce
 
     @StateObject var userChartExpensesList: ChartsViewModel = ChartsViewModel()
+    @StateObject var userChartExpensesCategoryList: ChartsExpensesCategoryViewModel = ChartsExpensesCategoryViewModel()
     
     var body: some View {
         
@@ -120,8 +121,8 @@ struct BackgroundView: View {
 
                         ZStack {
 
-                            ForEach(0..<data.count, id: \.self){i in
-                                DrawShape(center: CGPoint(x: g.frame(in: .global).width / 2, y: g.frame(in: .global).height / 2), index: i)
+                            ForEach(0..<userChartExpensesCategoryList.chartExpensesCategory.count, id: \.self){i in
+                                DrawShape(center: CGPoint(x: g.frame(in: .global).width / 2, y: g.frame(in: .global).height / 2), index: i, chartExpensesCategoryList: userChartExpensesCategoryList)
                             }
                         }
                     }
@@ -131,11 +132,12 @@ struct BackgroundView: View {
                     .shadow(radius: 5)
 
                     VStack {
-                        ForEach(data) { i in
+
+                        ForEach(userChartExpensesCategoryList.chartExpensesCategory,id: \.budgetCategory) { i in
 
                             HStack {
 
-                                Text(i.name)
+                                Text(i.budgetCategory)
                                     .frame(width: 150, alignment: .leading)
 
                                 GeometryReader {g in
@@ -144,10 +146,10 @@ struct BackgroundView: View {
                                         Spacer(minLength: 0)
 
                                         Rectangle()
-                                            .fill(i.color)
-                                            .frame(width: self.getWidth(width: g.frame(in: .global).width, value: i.percent), height: 10)
+                                            .fill(Color(i.budgetCategory))
+                                            .frame(width: self.getWidth(width: g.frame(in: .global).width, value: i.expensePercentage), height: 10)
 
-                                        Text(String(format: "\(i.percent)", "%.Of-"))
+                                        Text(String(format: "%.2f", i.expensePercentage)+" %")
                                             .fontWeight(.bold)
                                             .padding(.leading, 6)
                                     }
@@ -180,13 +182,15 @@ struct DrawShape : View {
     var center : CGPoint
     var index : Int
     
+    var chartExpensesCategoryList: ChartsExpensesCategoryViewModel
+    
     var body: some View {
         
         Path {path in
             path.move(to: self.center)
             path.addArc(center: self.center, radius: 180, startAngle: .init(degrees: self.from()), endAngle: .init(degrees: self.to()), clockwise: false)
         }
-        .fill(data[index].color)
+        .fill(Color(chartExpensesCategoryList.chartExpensesCategory[index].budgetCategory))
     }
     
     func from()->Double {
@@ -194,10 +198,10 @@ struct DrawShape : View {
         if index == 0 {
             return 0
         } else {
-            var temp : Double = 0
+            var temp : Double = 1
             
             for i in 0...index-1{
-                temp += Double(data[i].percent / 100) * 360
+                temp += Double(chartExpensesCategoryList.chartExpensesCategory[i].expensePercentage / 100) * 360
             }
             return temp
         }
@@ -208,7 +212,7 @@ struct DrawShape : View {
         var temp : Double = 0
 
         for i in 0...index{
-            temp += Double(data[i].percent / 100) * 360
+            temp += Double(chartExpensesCategoryList.chartExpensesCategory[i].expensePercentage / 100) * 360
         }
         return temp
     }
@@ -221,25 +225,3 @@ struct ChartsView_Previews: PreviewProvider {
         ChartsView()
     }
 }
-
-struct Pie : Identifiable {
-    
-    var id : Int
-    var percent : CGFloat
-    var name : String
-    var color : Color
-    
-}
-
-var data = [
-    
-    Pie(id: 0, percent: 10, name: "Food", color: Color("Food")),
-    Pie(id: 1, percent: 15, name: "Housing", color: Color("Housing")),
-    Pie(id: 2, percent: 20, name: "Transportation", color: Color("Transportation")),
-    Pie(id: 3, percent: 5, name: "Utilities", color: Color("Utilities")),
-    Pie(id: 4, percent: 15, name: "Other", color: Color("Other")),
-    Pie(id: 5, percent: 15, name: "Personal Spending", color: Color("Personal Spending")),
-    Pie(id: 6, percent: 12, name: "Healthcare", color: Color("Healthcare")),
-    Pie(id: 7, percent: 8, name: "Insurance", color: Color("Insurance"))
-        
-]
