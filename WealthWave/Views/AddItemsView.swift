@@ -9,41 +9,93 @@ import SwiftUI
 
 
 struct AddItemsView: View {
-    @State private var selectedTab = 0
+    
+    init(){
+        UISegmentedControl.appearance().setTitleTextAttributes([.font : UIFont.preferredFont(forTextStyle: .headline)], for: .normal)
+    }
+    
+    @State private var selectedSideDashboard: SideOfTheForceDashboard = .expenses
+   
+    var body: some View {
+        
+        VStack {
+            Picker("Coose a Side", selection: $selectedSideDashboard) {
+                ForEach(SideOfTheForceDashboard.allCases, id: \.self) {
+                    Text($0.rawValue)
+                        
+                }
+            }
+            .pickerStyle(SegmentedPickerStyle())
+            .padding()
+            Spacer()
+            ChosenBackgroundViewDashboard(selectedSideDashboard: selectedSideDashboard)
+            Spacer()
+            
+        }
+        
+    }
+}
+
+enum SideOfTheForceDashboard: String, CaseIterable {
+    case expenses = "Expenses"
+    case income = "Income"
+    case savings = "Savings"
+}
+
+struct ChosenBackgroundViewDashboard: View {
+    
+    var selectedSideDashboard: SideOfTheForceDashboard
     
     var body: some View {
-        VStack {
-            
-            HStack {
-                TabBarButton(title: "EXPENSES", isSelected: selectedTab == 0) {
-                    selectedTab = 0
-                }
-                TabBarButton(title: "INCOME", isSelected: selectedTab == 1) {
-                    selectedTab = 1
-                }
-                TabBarButton(title: "SAVINGS", isSelected: selectedTab == 2) {
-                    selectedTab = 2
-                }
-                
-            }
-            .padding(.vertical, 10)
-            
-            
-            TabView(selection: $selectedTab) {
-                
-                ExpensesView()
-                
-                IncomeView()
-                
-                SavingView()
-                
-                
-            }
-            
-            .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+        switch selectedSideDashboard {
+        case .expenses:
+            ExpensesView()
+        case .income:
+            IncomeView()
+        case .savings:
+            SavingView()
         }
     }
 }
+
+
+
+//struct AddItemsView: View {
+//    @State private var selectedTab = 0
+//
+//    var body: some View {
+//        VStack {
+//
+//            HStack {
+//                TabBarButton(title: "EXPENSES", isSelected: selectedTab == 0) {
+//                    selectedTab = 0
+//                }
+//                TabBarButton(title: "INCOME", isSelected: selectedTab == 1) {
+//                    selectedTab = 1
+//                }
+//                TabBarButton(title: "SAVINGS", isSelected: selectedTab == 2) {
+//                    selectedTab = 2
+//                }
+//
+//            }
+//            .padding(.vertical, 10)
+//
+//
+//            TabView(selection: $selectedTab) {
+//
+//                ExpensesView()
+//
+//                IncomeView()
+//
+//                SavingView()
+//
+//
+//            }
+//
+//            .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+//        }
+//    }
+//}
 
 struct TabBarButton: View {
     var title: String
@@ -76,6 +128,8 @@ struct ExpensesView: View {
     @State private var isListVisible = false
     @State private var deleteSuccess = false
     @State private var errorMessage = ""
+    
+   
     
     var body: some View {
         VStack {
@@ -125,6 +179,7 @@ struct ExpensesView: View {
             //                    .padding()
             //            }
         }
+       
         .tag(0)
         .onAppear {
             userExpensesList.fetchExpensesList()
@@ -195,6 +250,7 @@ struct UserExpensesListView: View {
             }
             .foregroundColor(.secondary)
             
+            
             Rectangle()
                 .frame(height: 1)
                 .padding(.leading, 20)
@@ -203,6 +259,7 @@ struct UserExpensesListView: View {
             
         }
         .padding(.top, 10)
+
         
     }
     
@@ -322,8 +379,7 @@ struct UserIncomeListView: View {
                             .foregroundColor(.blue)
                             .frame(width: 30, height: 30)
                             .scaledToFit()
-                        
-                        
+                                
                         
                         Text(incomeDetails)
                             .font(.system(size: 15))

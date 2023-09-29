@@ -10,6 +10,10 @@ import Charts
 
 struct ChartsView: View {
     
+    init(){
+        UISegmentedControl.appearance().setTitleTextAttributes([.font : UIFont.preferredFont(forTextStyle: .headline)], for: .normal)
+    }
+    
     @State private var selectedSide: SideOfTheForce = .chart
     
     var body: some View {
@@ -18,6 +22,7 @@ struct ChartsView: View {
             Picker("Coose a Side", selection: $selectedSide) {
                 ForEach(SideOfTheForce.allCases, id: \.self) {
                     Text($0.rawValue)
+                    
                 }
             }
             .pickerStyle(SegmentedPickerStyle())
@@ -27,8 +32,11 @@ struct ChartsView: View {
             Spacer()
         }
         
+        
     }
 }
+
+
 
 enum SideOfTheForce: String, CaseIterable {
     case chart = "Chart"
@@ -53,7 +61,7 @@ struct BackgroundView: View {
     
     var backgroundName : String
     var selectedSide : SideOfTheForce
-
+    
     @StateObject var userChartExpensesList: ChartsViewModel = ChartsViewModel()
     @StateObject var userChartExpensesCategoryList: ChartsExpensesCategoryViewModel = ChartsExpensesCategoryViewModel()
     
@@ -68,6 +76,8 @@ struct BackgroundView: View {
                         .font(.footnote)
                         .foregroundColor(.secondary)
                         .font(.system(size: 25))
+                        .padding(.leading, 20)
+                    
                     
                     Chart {
                         ForEach(userChartExpensesList.chartExpenses, id: \.month) { expenses in
@@ -84,6 +94,8 @@ struct BackgroundView: View {
                     
                     .chartLegend(position: .bottom, alignment: selectedSide == .statistics ? .leading: .center, spacing: 25)
                     .frame(height:250)
+                    .padding(.leading, 20)
+                    .padding(.trailing, 20)
                 }
                 
                 VStack(alignment: .leading, spacing: 10) {
@@ -93,6 +105,7 @@ struct BackgroundView: View {
                         .font(.footnote)
                         .foregroundColor(.secondary)
                         .font(.system(size: 25))
+                        .padding(.leading, 20)
                     
                     Chart {
                         ForEach(userChartExpensesList.chartExpenses,id: \.month) { expenses in
@@ -105,6 +118,8 @@ struct BackgroundView: View {
                         }
                     }
                     .frame(height:150)
+                    .padding(.leading, 20)
+                    .padding(.trailing, 20)
                 }
                 .padding(.top, 40)
             }
@@ -117,11 +132,11 @@ struct BackgroundView: View {
                     .bold()
                 
                 VStack {
-
+                    
                     GeometryReader {g in
-
+                        
                         ZStack {
-
+                            
                             ForEach(0..<userChartExpensesCategoryList.chartExpensesCategory.count, id: \.self){i in
                                 DrawShape(center: CGPoint(x: g.frame(in: .global).width / 2, y: g.frame(in: .global).height / 2), index: i, chartExpensesCategoryList: userChartExpensesCategoryList)
                             }
@@ -131,42 +146,44 @@ struct BackgroundView: View {
                     .padding()
                     .clipShape(Circle())
                     .shadow(radius: 5)
-
+                    
                     VStack {
-
+                        
                         ForEach(userChartExpensesCategoryList.chartExpensesCategory,id: \.budgetCategory) { i in
-
+                            
                             HStack {
-
+                                
                                 Text(i.budgetCategory)
                                     .frame(width: 150, alignment: .leading)
-
+                                
                                 GeometryReader {g in
                                     HStack {
-
+                                        
                                         Spacer(minLength: 0)
-
+                                        
+                                        
                                         Rectangle()
                                             .fill(Color(i.budgetCategory))
                                             .frame(width: self.getWidth(width: g.frame(in: .global).width, value: i.expensePercentage), height: 10)
-
+                                        
                                         Text(String(format: "%.2f", i.expensePercentage)+" %")
                                             .fontWeight(.bold)
                                             .padding(.leading, 6)
                                     }
-
+                                    
                                 }
-
+                                
                             }
                             .padding(.top, 6)
                         }
                     }
                     .padding()
                     Spacer()
-
+                    
                 }
                 .edgesIgnoringSafeArea(.top)
             }
+            
         }
     }
     
@@ -209,9 +226,9 @@ struct DrawShape : View {
     }
     
     func to()->Double {
-
+        
         var temp : Double = 0
-
+        
         for i in 0...index{
             temp += Double(chartExpensesCategoryList.chartExpensesCategory[i].expensePercentage / 100) * 360
         }

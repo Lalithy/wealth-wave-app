@@ -29,7 +29,7 @@ struct BudgetView: View {
             ScrollView {
                 
                 ForEach(getBudgetVM.budget , id: \.budgetCategoryId) { budget in
-                    SetBudgetView(image: budget.budgetCategoryName, budgetCategoryName: budget.budgetCategoryName, expense: budget.expense,  estimatedBudget: budget.estimatedBudget, remainingBudget: budget.remainingBudget, spendBarColor: Color("Insurance"))
+                    SetBudgetView(image: budget.budgetCategoryName, budgetCategoryName: budget.budgetCategoryName, expense: budget.expense,  estimatedBudget: budget.estimatedBudget, remainingBudget: budget.remainingBudget, spendBarColor:.cyan)
                     
                 }
             }
@@ -126,7 +126,7 @@ struct SetBudgetView: View {
                                 .foregroundColor(.gray)
                             Rectangle()
                                 .frame(width: CGFloat(min(expense, estimatedBudget)) / CGFloat(estimatedBudget) * 350, height: 8)
-                                .foregroundColor(expense > estimatedBudget ? .red : .indigo)
+                                .foregroundColor(expense > estimatedBudget ? Color("Personal Spending") : Color("Insurance"))
                         }
                         .padding(.bottom, 10)
                         .frame(maxWidth: .infinity, alignment: .leading)

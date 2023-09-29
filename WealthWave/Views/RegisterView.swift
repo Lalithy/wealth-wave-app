@@ -26,7 +26,7 @@ struct RegisterView: View {
     
     
     let gradientButton = Gradient(colors: [Color("ButtonColourTop"), Color("ButtonColourMiddle"), Color("ButtonColourEnd")])
-    let gradientBackground = Gradient(colors: [Color("BackgroundTop"), Color("BackgroundMiddle"), Color("BackgroundEnd")])
+    //let gradientBackground = Gradient(colors: [Color("BackgroundTop"), Color("BackgroundMiddle"), Color("BackgroundEnd")])
     
     var body: some View {
         
@@ -143,7 +143,8 @@ struct RegisterView: View {
             
             Spacer()
             
-        }.background(LinearGradient(gradient: gradientBackground, startPoint: .top, endPoint: .bottom))
+        }
+        //.background(LinearGradient(gradient: gradientBackground, startPoint: .top, endPoint: .bottom))
             .onAppear {
                 DispatchQueue.main.async {
                     focusedField = .email

@@ -12,7 +12,8 @@ struct ListOfExpensesView: View {
     @StateObject var listOfExpensesVM: ListOfExpensesViewModel = ListOfExpensesViewModel()
 
     
-    let gradientScreen = Gradient(colors: [Color("ScreenColorTop"), Color("ScreenColorMiddle"), Color("ScreenColorEnd")])
+    //let gradientScreen = Gradient(colors: [Color("ScreenColorTop"), Color("ScreenColorMiddle"), Color("ScreenColorEnd")])
+    
     
     var body: some View {
         VStack {
@@ -36,7 +37,7 @@ struct ListOfExpensesView: View {
 //            }
         }
         .padding()
-        .background(LinearGradient(gradient: gradientScreen, startPoint: .top, endPoint: .bottom))
+       // .background(LinearGradient(gradient: gradientScreen, startPoint: .top, endPoint: .bottom))
         .onAppear {
             listOfExpensesVM.fetchBudgetCategories()
         }
