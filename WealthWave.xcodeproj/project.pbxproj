@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3A46F31E2AC6B85D00C43489 /* ChartsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A46F31D2AC6B85D00C43489 /* ChartsViewModel.swift */; };
+		3A5DFF462AC698B000B4CC85 /* ChartsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5DFF452AC698B000B4CC85 /* ChartsModel.swift */; };
 		9212FA542AAE103F00490868 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9212FA532AAE103F00490868 /* RegisterView.swift */; };
 		9212FA592AAE27AC00490868 /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9212FA582AAE27AC00490868 /* RegisterViewModel.swift */; };
 		9225F3822AADD3240009AA5C /* Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9225F3812AADD3240009AA5C /* Preview.swift */; };
@@ -53,6 +55,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3A46F31D2AC6B85D00C43489 /* ChartsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartsViewModel.swift; sourceTree = "<group>"; };
+		3A5DFF452AC698B000B4CC85 /* ChartsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartsModel.swift; sourceTree = "<group>"; };
 		9212FA532AAE103F00490868 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		9212FA582AAE27AC00490868 /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
 		9225F3812AADD3240009AA5C /* Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preview.swift; sourceTree = "<group>"; };
@@ -129,6 +133,7 @@
 				929AC7352AC40AD700AB3058 /* DeleteSavingViewModel.swift */,
 				929AC73A2AC4320100AB3058 /* GetReportMonthViewModel.swift */,
 				923839312AC4ABD700F3B4D6 /* GetReportViewModel.swift */,
+				3A46F31D2AC6B85D00C43489 /* ChartsViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -206,6 +211,7 @@
 				92565FBF2AC349B800E79B03 /* ExpenseDeleteModel.swift */,
 				929AC7372AC40B0600AB3058 /* SavingDeleteModel.swift */,
 				923839332AC4ABFC00F3B4D6 /* ReportModel.swift */,
+				3A5DFF452AC698B000B4CC85 /* ChartsModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -290,6 +296,7 @@
 				9295CD592ABCCCC200259DB8 /* ReportView.swift in Sources */,
 				92AADDF72ABDDA6C00597610 /* AddExpensesViewModel.swift in Sources */,
 				9212FA592AAE27AC00490868 /* RegisterViewModel.swift in Sources */,
+				3A46F31E2AC6B85D00C43489 /* ChartsViewModel.swift in Sources */,
 				929AC73F2AC44ACA00AB3058 /* ChartsView.swift in Sources */,
 				92FE09102ABEFBA800C8CCA6 /* AddBudgetViewModel.swift in Sources */,
 				92B2F8772ABAE3DB0035656F /* ListOfExpensesView.swift in Sources */,
@@ -316,6 +323,7 @@
 				9295CD512ABCB85200259DB8 /* AddIncomeView.swift in Sources */,
 				929AC73B2AC4320100AB3058 /* GetReportMonthViewModel.swift in Sources */,
 				9295CD552ABCC4FA00259DB8 /* BudgetView.swift in Sources */,
+				3A5DFF462AC698B000B4CC85 /* ChartsModel.swift in Sources */,
 				92A5D7DC2AC054EB0076FD7D /* GetExpensesViewModel.swift in Sources */,
 				92C22A6F2AADDC0A0099AB39 /* LoginView.swift in Sources */,
 				9228FDB72AADC24600CE8E8D /* WealthWaveApp.swift in Sources */,
