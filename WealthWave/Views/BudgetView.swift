@@ -29,7 +29,7 @@ struct BudgetView: View {
             ScrollView {
                 
                 ForEach(getBudgetVM.budget , id: \.budgetCategoryId) { budget in
-                    SetBudgetView(image: budget.budgetCategoryName, budgetCategoryName: budget.budgetCategoryName, expense: budget.expense,  estimatedBudget: budget.estimatedBudget, remainingBudget: budget.remainingBudget, spendBarColor:.indigo)
+                    SetBudgetView(image: budget.budgetCategoryName, budgetCategoryName: budget.budgetCategoryName, expense: budget.expense,  estimatedBudget: budget.estimatedBudget, remainingBudget: budget.remainingBudget, spendBarColor: Color("Insurance"))
                     
                 }
             }
@@ -118,7 +118,7 @@ struct SetBudgetView: View {
                     .font(.system(size: 13))
                     .frame(maxWidth: .infinity, alignment: .trailing)
             }
-            .foregroundColor(Color(red: 0.2, green: 0.2, blue: 0.2))
+            .foregroundColor(.secondary)
   
             ZStack(alignment: .leading) {
                             Rectangle()
@@ -131,9 +131,9 @@ struct SetBudgetView: View {
                         .padding(.bottom, 10)
                         .frame(maxWidth: .infinity, alignment: .leading)
             
-            Rectangle()
-                .frame(height: 1)
-                .foregroundColor(.blue)
+//            Rectangle()
+//                .frame(height: 1)
+//                .foregroundColor(.blue)
             
         }
         .padding(.top, 10)

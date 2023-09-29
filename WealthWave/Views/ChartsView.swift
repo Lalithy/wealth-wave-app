@@ -26,7 +26,6 @@ struct ChartsView: View {
             ChosenBackgroundView(selectedSide: selectedSide)
             Spacer()
         }
-        .padding()
         
     }
 }
@@ -114,6 +113,8 @@ struct BackgroundView: View {
             ScrollView {
                 
                 Text ("Expense Dashboard")
+                    .font(.system(size: 25))
+                    .bold()
                 
                 VStack {
 

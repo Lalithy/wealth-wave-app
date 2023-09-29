@@ -23,6 +23,7 @@ struct DashboardView: View {
                        NavigationLink(destination: Preview()) {
                            Image(systemName: "arrow.right.circle")
                            .font(.system(size: 20))
+                           .padding(.trailing, 20)
                        }
                    )
         
@@ -51,7 +52,6 @@ struct BottomControllers: View {
             AddItemsView()
                 .tabItem {
                     Image(systemName: "square.grid.3x1.folder.fill.badge.plus")
-                        //.renderingMode(.original)
                     Text("Add Items")
                 }
            

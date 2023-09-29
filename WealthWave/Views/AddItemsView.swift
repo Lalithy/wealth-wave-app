@@ -193,14 +193,17 @@ struct UserExpensesListView: View {
                     .padding(.trailing, 20)
                     .frame(maxWidth: .infinity, alignment: .trailing)
             }
-            .foregroundColor(Color(red: 0.2, green: 0.2, blue: 0.2))
+            .foregroundColor(.secondary)
             
             Rectangle()
                 .frame(height: 1)
+                .padding(.leading, 20)
+                .padding(.trailing, 20)
                 .foregroundColor(.blue)
             
         }
         .padding(.top, 10)
+        
     }
     
     
@@ -297,7 +300,8 @@ struct UserIncomeListView: View {
     var onDeleteIncome: (Bool, String) -> Void
     
     var body: some View {
-    
+
+        
         VStack(alignment: .leading, spacing: 5) {
             HStack {
                 Button(action: {
@@ -318,6 +322,8 @@ struct UserIncomeListView: View {
                             .foregroundColor(.blue)
                             .frame(width: 30, height: 30)
                             .scaledToFit()
+                        
+                        
                         
                         Text(incomeDetails)
                             .font(.system(size: 15))
@@ -345,6 +351,8 @@ struct UserIncomeListView: View {
             
             Rectangle()
                 .frame(height: 1)
+                .padding(.leading, 20)
+                .padding(.trailing, 20)
                 .foregroundColor(.blue)
             
         }
@@ -386,6 +394,13 @@ struct SavingView: View {
                         .scaledToFit()
                 }
                 .padding(.leading, 20)
+                
+                
+                Image(systemName: "dollarsign.circle")
+                    .resizable()
+                    .foregroundColor(.blue)
+                    .frame(width: 30, height: 30)
+                    .scaledToFit()
                 
                 
                 Text("Savings")

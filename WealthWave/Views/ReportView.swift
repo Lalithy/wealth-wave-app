@@ -68,6 +68,7 @@ struct ReportView: View {
                             .bold()
                             .background(.white)
                             .cornerRadius(5)
+                            .shadow(radius: 2)
                     }
                     .background(Color.clear)
                 }
@@ -114,6 +115,8 @@ struct ReportView: View {
             
             Rectangle()
                 .frame(height: 1)
+                .padding(.leading,20)
+                .padding(.trailing,20)
                 .foregroundColor(.blue)
             
             ScrollView {
@@ -124,15 +127,15 @@ struct ReportView: View {
             
             Spacer()
             
-            Button(action: {
-                
-            }) {
-                Image(systemName: "arrow.down.circle")
-                    .font(.system(size: 40))
-                    .foregroundColor(.blue)
-            }
-            .padding(.bottom, 20)
-            .padding(.trailing, 20)
+//            Button(action: {
+//
+//            }) {
+//                Image(systemName: "arrow.down.circle")
+//                    .font(.system(size: 40))
+//                    .foregroundColor(.blue)
+//            }
+//            .padding(.bottom, 20)
+//            .padding(.trailing, 20)
         }
         .onAppear {
             if let monthNumber = reportViewModel.getMonthNumber(from: selectedMonth) {
@@ -199,6 +202,8 @@ struct ReportListView: View {
         
         Rectangle()
             .frame(height: 1)
+            .padding(.leading,20)
+            .padding(.trailing,20)
             .foregroundColor(.blue)
     
         
