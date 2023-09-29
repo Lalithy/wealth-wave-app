@@ -16,6 +16,9 @@
 		9228FDBE2AADC24700CE8E8D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9228FDBD2AADC24700CE8E8D /* Preview Assets.xcassets */; };
 		923839322AC4ABD700F3B4D6 /* GetReportViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923839312AC4ABD700F3B4D6 /* GetReportViewModel.swift */; };
 		923839342AC4ABFC00F3B4D6 /* ReportModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923839332AC4ABFC00F3B4D6 /* ReportModel.swift */; };
+		92395DC72AC763570073D0AD /* ChartsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92395DC62AC763570073D0AD /* ChartsModel.swift */; };
+		92395DC92AC7639E0073D0AD /* ChartsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92395DC82AC7639E0073D0AD /* ChartsViewModel.swift */; };
+		92395DCB2AC764160073D0AD /* ChartsExpensesCategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92395DCA2AC764160073D0AD /* ChartsExpensesCategoryViewModel.swift */; };
 		923DC2EA2ABC0A6A00809F30 /* EditExpensesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923DC2E92ABC0A6A00809F30 /* EditExpensesView.swift */; };
 		924D0F172AC69836007A1E03 /* DeleteIncomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 924D0F162AC69836007A1E03 /* DeleteIncomeViewModel.swift */; };
 		924D0F192AC69910007A1E03 /* IncomeDeleteModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 924D0F182AC69910007A1E03 /* IncomeDeleteModel.swift */; };
@@ -65,6 +68,9 @@
 		9228FDBD2AADC24700CE8E8D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		923839312AC4ABD700F3B4D6 /* GetReportViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetReportViewModel.swift; sourceTree = "<group>"; };
 		923839332AC4ABFC00F3B4D6 /* ReportModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportModel.swift; sourceTree = "<group>"; };
+		92395DC62AC763570073D0AD /* ChartsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartsModel.swift; sourceTree = "<group>"; };
+		92395DC82AC7639E0073D0AD /* ChartsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartsViewModel.swift; sourceTree = "<group>"; };
+		92395DCA2AC764160073D0AD /* ChartsExpensesCategoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartsExpensesCategoryViewModel.swift; sourceTree = "<group>"; };
 		923DC2E92ABC0A6A00809F30 /* EditExpensesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditExpensesView.swift; sourceTree = "<group>"; };
 		924D0F162AC69836007A1E03 /* DeleteIncomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteIncomeViewModel.swift; sourceTree = "<group>"; };
 		924D0F182AC69910007A1E03 /* IncomeDeleteModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomeDeleteModel.swift; sourceTree = "<group>"; };
@@ -134,6 +140,8 @@
 				929AC73A2AC4320100AB3058 /* GetReportMonthViewModel.swift */,
 				923839312AC4ABD700F3B4D6 /* GetReportViewModel.swift */,
 				924D0F162AC69836007A1E03 /* DeleteIncomeViewModel.swift */,
+				92395DC82AC7639E0073D0AD /* ChartsViewModel.swift */,
+				92395DCA2AC764160073D0AD /* ChartsExpensesCategoryViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -212,6 +220,7 @@
 				929AC7372AC40B0600AB3058 /* SavingDeleteModel.swift */,
 				923839332AC4ABFC00F3B4D6 /* ReportModel.swift */,
 				924D0F182AC69910007A1E03 /* IncomeDeleteModel.swift */,
+				92395DC62AC763570073D0AD /* ChartsModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -294,6 +303,7 @@
 				924D0F192AC69910007A1E03 /* IncomeDeleteModel.swift in Sources */,
 				92565FBE2AC3287100E79B03 /* DeleteExpensesViewModel.swift in Sources */,
 				923839342AC4ABFC00F3B4D6 /* ReportModel.swift in Sources */,
+				92395DCB2AC764160073D0AD /* ChartsExpensesCategoryViewModel.swift in Sources */,
 				9295CD592ABCCCC200259DB8 /* ReportView.swift in Sources */,
 				92AADDF72ABDDA6C00597610 /* AddExpensesViewModel.swift in Sources */,
 				9212FA592AAE27AC00490868 /* RegisterViewModel.swift in Sources */,
@@ -314,12 +324,14 @@
 				92565FC02AC349B800E79B03 /* ExpenseDeleteModel.swift in Sources */,
 				92A5D7DE2AC056D40076FD7D /* ExpensesModel.swift in Sources */,
 				9225F3822AADD3240009AA5C /* Preview.swift in Sources */,
+				92395DC92AC7639E0073D0AD /* ChartsViewModel.swift in Sources */,
 				92B2F8792ABAFD8A0035656F /* AddExpensesView.swift in Sources */,
 				928917252AC0144E008527B5 /* GetIncomeViewModel.swift in Sources */,
 				92B3E47F2ABDEDC700CC2BC0 /* BudgetCategoryModel.swift in Sources */,
 				929AC7382AC40B0600AB3058 /* SavingDeleteModel.swift in Sources */,
 				92AADDF32ABDA57A00597610 /* ListOfExpensesViewModel.swift in Sources */,
 				92A873D02AC2BCE50011F51A /* BudgetModel.swift in Sources */,
+				92395DC72AC763570073D0AD /* ChartsModel.swift in Sources */,
 				9295CD512ABCB85200259DB8 /* AddIncomeView.swift in Sources */,
 				929AC73B2AC4320100AB3058 /* GetReportMonthViewModel.swift in Sources */,
 				9295CD552ABCC4FA00259DB8 /* BudgetView.swift in Sources */,
