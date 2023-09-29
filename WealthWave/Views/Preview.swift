@@ -27,7 +27,7 @@ struct Preview: View {
                         .foregroundColor(Color(hue: 0.666, saturation: 1.0, brightness: 0.57))
                 }
                 HStack{
-                    Text("Ride the Wave to Financial Prosperity!....")
+                    Text("Ride the Wave to Financial Prosperity")
                         .foregroundColor(Color(hue: 0.666, saturation: 1.0, brightness: 0.57))
                 }
                 

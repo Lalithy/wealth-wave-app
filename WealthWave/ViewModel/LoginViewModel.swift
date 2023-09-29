@@ -13,13 +13,13 @@ class LoginViewModel: ObservableObject {
     @Published var userId: Int = 0
     
     var loginSuccessCallback: (() -> Void)?
-
+    
     func saveLogin(email: String, password: String) {
         guard let url = URL(string: "http://wealth-wave-service-env.eba-cc4bdc5e.us-west-1.elasticbeanstalk.com/api/fhms/user/login") else {
             return
         }
         
-
+        
         let requestData: [String: Any] = [
             "email": email,
             "password": password,
@@ -44,27 +44,44 @@ class LoginViewModel: ObservableObject {
                 if let data = data {
                     if let httpResponse = response as? HTTPURLResponse {
                         
-                        self.statusCode = httpResponse.statusCode
+                        
+                        
+                        DispatchQueue.main.async { [weak self] in
+                            self?.statusCode = httpResponse.statusCode
+                        }
                         
                         if httpResponse.statusCode == 200 {
                             if let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
                                let message = json["message"] as? String {
-                                self.responseMessage = message
+                                
+                                DispatchQueue.main.async { [weak self] in
+                                    self?.responseMessage = message
+                                }
+                                
+                                
                                 
                                 if let details = json["details"] as? [String: Any],
-                                               let userId = details["userId"] as? Int {
-                                                self.userId = userId
-                                  
-                                            }
+                                   let userId = details["userId"] as? Int {
+                                    
+                                    DispatchQueue.main.async { [weak self] in
+                                        self?.userId = userId
+                                        self?.loginSuccessCallback?()
+                                    }
+                                    
+                                    
+                                }
                                 
-                                self.loginSuccessCallback?()
+                                
                             }
                         } else if httpResponse.statusCode == 400 {
                             if let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
                                let message = json["message"] as? String {
-                                self.responseMessage = message
-                               
-                                self.loginSuccessCallback?()
+                                
+                                DispatchQueue.main.async { [weak self] in
+                                    self?.responseMessage = message
+                                    self?.loginSuccessCallback?()
+                                }
+
                             }
                         }
                     }

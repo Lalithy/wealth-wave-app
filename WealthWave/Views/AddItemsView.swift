@@ -146,6 +146,7 @@ struct UserExpensesListView: View {
     var onDelete: (Bool, String) -> Void
     
     var body: some View {
+        
         VStack(alignment: .leading, spacing: 5) {
             HStack {
                 Button(action: {
@@ -192,6 +193,7 @@ struct UserExpensesListView: View {
                     .padding(.trailing, 20)
                     .frame(maxWidth: .infinity, alignment: .trailing)
             }
+            .foregroundColor(Color(red: 0.2, green: 0.2, blue: 0.2))
             
             Rectangle()
                 .frame(height: 1)
@@ -213,12 +215,13 @@ struct UserExpensesListView: View {
     
 }
 
-
 struct IncomeView: View {
     
     @StateObject var incomeViewModel: IncomeViewModel = IncomeViewModel()
     @State private var isIncomeVisible = false
     @State private var isListVisible = false
+    @State private var deleteSuccess = false
+    @State private var errorMessage = ""
     
     var body: some View {
         VStack {
@@ -229,38 +232,24 @@ struct IncomeView: View {
                 .font(.system(size: 25))
                 .frame(maxWidth: .infinity, alignment: .center)
            
-            
-            HStack {
-                VStack {
-                    Text("Date")
-                        .font(.headline)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                }
-                
-                VStack {
-                    Text("Description")
-                        .font(.headline)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                }
-                
-                VStack {
-                    Text("Amount")
-                        .font(.headline)
-                        .frame(maxWidth: .infinity, alignment: .trailing)
-                }
-            }
-            .padding(.top, 10)
-            .padding(.leading,20)
-            .padding(.trailing,20)
-            
-            Rectangle()
-                .frame(height: 1)
-                .foregroundColor(.blue)
 
             
             ScrollView {
                 ForEach(incomeViewModel.incomeData, id: \.incomeId) { item in
-                    UserIncomeListView(incomeDate: item.incomeDate, incomeDetails: item.incomeDetails, incomeAmount: item.incomeAmount)
+                    UserIncomeListView(
+                        iconName: "minus.circle.fill",
+                        image: "dollarsign.arrow.circlepath",
+                        incomeDate: item.incomeDate,
+                        incomeDetails: item.incomeDetails,
+                        incomeAmount: item.incomeAmount,
+                        incomeId: item.incomeId,
+                        onDeleteIncome: { success, message in
+                            deleteSuccess = success
+                            errorMessage = message
+                            incomeViewModel.fetchIncomeData()
+                        }
+                    
+                    )
                 }
                 
             }
@@ -296,42 +285,82 @@ struct IncomeView: View {
 
 struct UserIncomeListView: View {
     
+    @StateObject var deleteIncomeViewModel = DeleteIncomeViewModel()
+    
+    var iconName: String
+    var image: String
     var incomeDate: String
     var incomeDetails: String
     var incomeAmount: Double
+    var incomeId: Int
+    
+    var onDeleteIncome: (Bool, String) -> Void
     
     var body: some View {
     
-        HStack {
-            VStack {
+        VStack(alignment: .leading, spacing: 5) {
+            HStack {
+                Button(action: {
+                    deleteIncome()
+                }) {
+                    Image(systemName: iconName)
+                        .font(.system(size: 20))
+                        .foregroundColor(.red)
+                        .scaledToFit()
+                }
+                .disabled(deleteIncomeViewModel.isDeleting)
+                .padding(.leading, 20)
+                
+                VStack(alignment: .leading, spacing: 5) {
+                    HStack {
+                        Image(systemName: image)
+                            .resizable()
+                            .foregroundColor(.blue)
+                            .frame(width: 30, height: 30)
+                            .scaledToFit()
+                        
+                        Text(incomeDetails)
+                            .font(.system(size: 15))
+                        
+                        Spacer()
+                        
+                        Text(String(format: "%.2f", incomeAmount))
+                            .font(.system(size: 15))
+                            .padding(.trailing, 20)
+                            .frame(maxWidth: .infinity, alignment: .trailing)
+                    }
+                }
+            }
+            
+            HStack {
+                
+                Spacer()
+                
                 Text(incomeDate)
-                    .font(.system(size: 15))
-                    .frame(maxWidth: .infinity, alignment: .leading)
-            }
-            
-            VStack {
-                Text(incomeDetails)
-                    .font(.system(size: 15))
-                    .frame(maxWidth: .infinity, alignment: .leading)
-            }
-            
-            VStack {
-                Text(String(format: "%.2f", incomeAmount))
-                    .font(.system(size: 15))
+                    .font(.system(size: 13))
+                    .padding(.trailing, 20)
                     .frame(maxWidth: .infinity, alignment: .trailing)
+                    .foregroundColor(Color(red: 0.2, green: 0.2, blue: 0.2))
             }
+            
+            Rectangle()
+                .frame(height: 1)
+                .foregroundColor(.blue)
+            
         }
         .padding(.top, 10)
-        .padding(.leading,20)
-        .padding(.trailing,20)
-        
-        Rectangle()
-            .frame(height: 1)
-            .foregroundColor(.blue)
         
     }
+    
+    private func deleteIncome() {
+        deleteIncomeViewModel.deleteIncome(incomeId: incomeId)
+        { success, message in
+            DispatchQueue.main.async {
+                onDeleteIncome(success, message)
+            }
+        }
+    }
 }
-
 
 
 struct SavingView: View {

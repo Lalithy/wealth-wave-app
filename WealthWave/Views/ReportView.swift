@@ -62,11 +62,11 @@ struct ReportView: View {
                         }
                     }) {
                         Image(systemName: "magnifyingglass.circle")
-                            .foregroundColor(.white)
+                            .foregroundColor(.blue)
                             .font(.system(size: 25))
                             .frame(width: 50, height: 35)
                             .bold()
-                            .background(LinearGradient(gradient: gradientButton, startPoint: .leading, endPoint: .trailing))
+                            .background(.white)
                             .cornerRadius(5)
                     }
                     .background(Color.clear)

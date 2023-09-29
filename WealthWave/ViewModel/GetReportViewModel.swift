@@ -58,7 +58,12 @@ class GetReportViewModel: ObservableObject {
 
             if let httpResponse = response as? HTTPURLResponse {
                 
-                self.statusCode = httpResponse.statusCode
+              
+                
+                DispatchQueue.main.async { [weak self] in
+                
+                    self?.statusCode = httpResponse.statusCode
+                }
                 
                 if httpResponse.statusCode == 302 {
                   
@@ -74,9 +79,6 @@ class GetReportViewModel: ObservableObject {
                         }
                     }
                 } else if httpResponse.statusCode == 404 {
-//                    DispatchQueue.main.async {
-//                        self.showRecordNotFoundAlert = true
-//                    }
                     DispatchQueue.main.async { [weak self] in
                         self?.recordNotFoundCallback?()
                     }

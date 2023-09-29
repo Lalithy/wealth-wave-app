@@ -114,7 +114,7 @@ struct FiledInputView: View {
             TextField("Location", text: Binding(
                 get: { self.location },
                 set: { newValue in
-                    if newValue.count <= 50 {
+                    if newValue.count <= 30 {
                         self.location = newValue
                     }
                 }
@@ -129,7 +129,7 @@ struct FiledInputView: View {
                 focusedField = .description
             }
             
-            if location.count == 50 {
+            if location.count == 30 {
                 Text("Location cannot exceed 50 characters")
                     .foregroundColor(.red)
                     .padding(.bottom, 5)
@@ -140,7 +140,7 @@ struct FiledInputView: View {
             TextField("Description", text: Binding(
                 get: { self.expenseDetails },
                 set: { newValue in
-                    if newValue.count <= 200 {
+                    if newValue.count <= 30 {
                         self.expenseDetails = newValue
                     }
                 }
@@ -210,13 +210,15 @@ struct FiledInputView: View {
         }
         
         .toolbar {
-            ToolbarItemGroup(placement: .keyboard){
-                Spacer()
-                Button("Done") {
-                    focusedField = .expenseAmount
-                    UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-                }
-                .focused($focusedField, equals: .expenseAmount)
+            ToolbarItemGroup(placement: .keyboard) {
+           
+                    Spacer()
+                    Button("Done") {
+                        focusedField = .expenseAmount
+                        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                    }
+                    .focused($focusedField, equals: .expenseAmount)
+                
             }
         }
         

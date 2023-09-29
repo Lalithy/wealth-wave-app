@@ -20,7 +20,12 @@ struct AddBudgetView: View {
     
     @State private var alertMessage = ""
     @State private var showAlert = false
-    @FocusState private var isAmountFocused: Bool
+    
+    @FocusState private var focusedField: Field?
+    
+    enum Field {
+        case budgetAmount
+    }
     
     let userId = PropertyModel.shared.getUserId()
     
@@ -80,7 +85,7 @@ struct AddBudgetView: View {
                     .cornerRadius(15)
                     .padding(.bottom, 50)
                     .keyboardType(.decimalPad)
-                    .focused($isAmountFocused)
+                    .focused($focusedField, equals: .budgetAmount)
                 
                 
                 Text("Period for current month")
@@ -127,13 +132,25 @@ struct AddBudgetView: View {
             }
         }
         .toolbar {
-            ToolbarItemGroup(placement: .keyboard){
-                Spacer()
-                Button("Done") {
-                    isAmountFocused = false
-                }
+            ToolbarItemGroup(placement: .keyboard) {
+               
+                    Spacer()
+                    Button("Done") {
+                        focusedField = .budgetAmount
+                        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                    }
+                    .focused($focusedField, equals: .budgetAmount)
+                
             }
         }
+//        .toolbar {
+//            ToolbarItemGroup(placement: .keyboard){
+//                Spacer()
+//                Button("Done") {
+//                    isAmountFocused = false
+//                }
+//            }
+//        }
     }
 }
 

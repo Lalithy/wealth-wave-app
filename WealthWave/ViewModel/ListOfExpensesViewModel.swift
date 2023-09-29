@@ -36,9 +36,9 @@ class ListOfExpensesViewModel: ObservableObject {
             if let data = data {
                 do {
                     let response = try JSONDecoder().decode(BudgetCategoryResponse.self, from: data)
-                    DispatchQueue.main.async {
-                        self.isLoading = false
-                        self.budgetCategories = response.details
+                    DispatchQueue.main.async { [weak self] in
+                        self?.isLoading = false
+                        self?.budgetCategories = response.details
                     }
                 } catch {
                     print("Error decoding JSON: \(error)")

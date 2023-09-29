@@ -82,7 +82,7 @@ struct AddIncomeView: View {
                 TextField("Description", text: Binding(
                     get: { self.incomeDetails },
                     set: { newValue in
-                        if newValue.count <= 200 {
+                        if newValue.count <= 30 {
                             self.incomeDetails = newValue
                         }
                     }
@@ -143,13 +143,15 @@ struct AddIncomeView: View {
         }
         
         .toolbar {
-            ToolbarItemGroup(placement: .keyboard){
-                Spacer()
-                Button("Done") {
-                    focusedField = .incomeAmount
-                    UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-                }
-                .focused($focusedField, equals: .incomeAmount)
+            ToolbarItemGroup(placement: .keyboard) {
+              
+                    Spacer()
+                    Button("Done") {
+                        focusedField = .incomeAmount
+                        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                    }
+                    .focused($focusedField, equals: .incomeAmount)
+                
             }
         }
     }

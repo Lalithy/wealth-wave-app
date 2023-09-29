@@ -136,11 +136,10 @@ struct LoginView: View {
             
             Button(action: {
                 
-                let trimmedPassword = password.trimmingCharacters(in: .whitespacesAndNewlines)
-                
+               
                 addLoginVM.saveLogin(
                     email: email,
-                    password: trimmedPassword)
+                    password: password)
                 
                 addLoginVM.loginSuccessCallback = {
                     alertMessage = addLoginVM.responseMessage

@@ -51,22 +51,29 @@ class AddExpensesViewModel: ObservableObject {
                 if let data = data {
                     if let httpResponse = response as? HTTPURLResponse {
                         
-                        self.statusCode = httpResponse.statusCode
-                        
+                        DispatchQueue.main.async { [weak self] in
+                            self?.statusCode = httpResponse.statusCode
+                        }
+            
                         if httpResponse.statusCode == 200 {
                             if let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
                                let message = json["message"] as? String {
-                                self.responseMessage = message
-                                //print("Expenses code: \(self.statusCode)")
                                 
-                                self.expensesSuccessCallback?()
+                                DispatchQueue.main.async { [weak self] in
+                                    self?.responseMessage = message
+                                    self?.expensesSuccessCallback?()
+                                }
+                               
                             }
                         } else if httpResponse.statusCode == 400 {
                             if let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
                                let message = json["message"] as? String {
-                                self.responseMessage = message
-                               // print("Expenses code: \(self.statusCode)")
-                                self.expensesSuccessCallback?()
+                                
+                                DispatchQueue.main.async { [weak self] in
+                                    self?.responseMessage = message
+                                    self?.expensesSuccessCallback?()
+                                }
+                                
                             }
                         }
                     }

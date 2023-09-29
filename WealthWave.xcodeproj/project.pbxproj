@@ -17,6 +17,8 @@
 		923839322AC4ABD700F3B4D6 /* GetReportViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923839312AC4ABD700F3B4D6 /* GetReportViewModel.swift */; };
 		923839342AC4ABFC00F3B4D6 /* ReportModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923839332AC4ABFC00F3B4D6 /* ReportModel.swift */; };
 		923DC2EA2ABC0A6A00809F30 /* EditExpensesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923DC2E92ABC0A6A00809F30 /* EditExpensesView.swift */; };
+		924D0F172AC69836007A1E03 /* DeleteIncomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 924D0F162AC69836007A1E03 /* DeleteIncomeViewModel.swift */; };
+		924D0F192AC69910007A1E03 /* IncomeDeleteModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 924D0F182AC69910007A1E03 /* IncomeDeleteModel.swift */; };
 		92565FBE2AC3287100E79B03 /* DeleteExpensesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92565FBD2AC3287100E79B03 /* DeleteExpensesViewModel.swift */; };
 		92565FC02AC349B800E79B03 /* ExpenseDeleteModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92565FBF2AC349B800E79B03 /* ExpenseDeleteModel.swift */; };
 		92716E3E2AB9B9D200B9A468 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92716E3D2AB9B9D200B9A468 /* DashboardView.swift */; };
@@ -64,6 +66,8 @@
 		923839312AC4ABD700F3B4D6 /* GetReportViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetReportViewModel.swift; sourceTree = "<group>"; };
 		923839332AC4ABFC00F3B4D6 /* ReportModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportModel.swift; sourceTree = "<group>"; };
 		923DC2E92ABC0A6A00809F30 /* EditExpensesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditExpensesView.swift; sourceTree = "<group>"; };
+		924D0F162AC69836007A1E03 /* DeleteIncomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteIncomeViewModel.swift; sourceTree = "<group>"; };
+		924D0F182AC69910007A1E03 /* IncomeDeleteModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomeDeleteModel.swift; sourceTree = "<group>"; };
 		92565FBD2AC3287100E79B03 /* DeleteExpensesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteExpensesViewModel.swift; sourceTree = "<group>"; };
 		92565FBF2AC349B800E79B03 /* ExpenseDeleteModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseDeleteModel.swift; sourceTree = "<group>"; };
 		92716E3D2AB9B9D200B9A468 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
@@ -129,6 +133,7 @@
 				929AC7352AC40AD700AB3058 /* DeleteSavingViewModel.swift */,
 				929AC73A2AC4320100AB3058 /* GetReportMonthViewModel.swift */,
 				923839312AC4ABD700F3B4D6 /* GetReportViewModel.swift */,
+				924D0F162AC69836007A1E03 /* DeleteIncomeViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -136,12 +141,12 @@
 		9225F37C2AADD2110009AA5C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				92B2F8762ABAE3DB0035656F /* ListOfExpensesView.swift */,
 				9225F3812AADD3240009AA5C /* Preview.swift */,
 				92C22A6E2AADDC0A0099AB39 /* LoginView.swift */,
 				9212FA532AAE103F00490868 /* RegisterView.swift */,
 				92716E3D2AB9B9D200B9A468 /* DashboardView.swift */,
 				92B2F8742ABAD1080035656F /* AddItemsView.swift */,
-				92B2F8762ABAE3DB0035656F /* ListOfExpensesView.swift */,
 				923DC2E92ABC0A6A00809F30 /* EditExpensesView.swift */,
 				92B2F8782ABAFD8A0035656F /* AddExpensesView.swift */,
 				9295CD502ABCB85200259DB8 /* AddIncomeView.swift */,
@@ -206,6 +211,7 @@
 				92565FBF2AC349B800E79B03 /* ExpenseDeleteModel.swift */,
 				929AC7372AC40B0600AB3058 /* SavingDeleteModel.swift */,
 				923839332AC4ABFC00F3B4D6 /* ReportModel.swift */,
+				924D0F182AC69910007A1E03 /* IncomeDeleteModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -285,6 +291,7 @@
 				9295CD532ABCC10F00259DB8 /* AddSavingView.swift in Sources */,
 				923839322AC4ABD700F3B4D6 /* GetReportViewModel.swift in Sources */,
 				92DF58152ABF57030060E428 /* GetSavingViewModel.swift in Sources */,
+				924D0F192AC69910007A1E03 /* IncomeDeleteModel.swift in Sources */,
 				92565FBE2AC3287100E79B03 /* DeleteExpensesViewModel.swift in Sources */,
 				923839342AC4ABFC00F3B4D6 /* ReportModel.swift in Sources */,
 				9295CD592ABCCCC200259DB8 /* ReportView.swift in Sources */,
@@ -316,6 +323,7 @@
 				9295CD512ABCB85200259DB8 /* AddIncomeView.swift in Sources */,
 				929AC73B2AC4320100AB3058 /* GetReportMonthViewModel.swift in Sources */,
 				9295CD552ABCC4FA00259DB8 /* BudgetView.swift in Sources */,
+				924D0F172AC69836007A1E03 /* DeleteIncomeViewModel.swift in Sources */,
 				92A5D7DC2AC054EB0076FD7D /* GetExpensesViewModel.swift in Sources */,
 				92C22A6F2AADDC0A0099AB39 /* LoginView.swift in Sources */,
 				9228FDB72AADC24600CE8E8D /* WealthWaveApp.swift in Sources */,

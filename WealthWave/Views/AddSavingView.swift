@@ -10,7 +10,7 @@ import SwiftUI
 struct AddSavingView: View {
     
     @StateObject var addSavingVM : AddSavingViewModel = AddSavingViewModel()
-
+    
     @State private var savingsDate = Date()
     @State private var savingsAmount = ""
     @State private var savingsDetails = ""
@@ -18,13 +18,13 @@ struct AddSavingView: View {
     
     @State private var alertMessage = ""
     @State private var showAlert = false
-
+    
     @FocusState private var focusedField: Field?
     
     enum Field {
         case savingsAmount
     }
-     
+    
     let userId = PropertyModel.shared.getUserId()
     
     let gradientButton = Gradient(colors: [Color("ButtonColourTop"), Color("ButtonColourMiddle"), Color("ButtonColourEnd")])
@@ -75,7 +75,7 @@ struct AddSavingView: View {
                 .cornerRadius(15)
                 .keyboardType(.decimalPad)
                 .focused($focusedField, equals: .savingsAmount)
-               
+                
                 
                 Button(action: {
                     addSavingVM.saveSaving(
@@ -83,7 +83,7 @@ struct AddSavingView: View {
                         savingsAmount: Double(savingsAmount) ?? 0.0,
                         savingsDate: savingsDate,
                         userId: userId)
-                                    
+                    
                     addSavingVM.saveSuccessCallback = {
                         alertMessage = addSavingVM.responseMessage
                         showAlert  = true
@@ -105,7 +105,7 @@ struct AddSavingView: View {
                             
                             savingsDetails = ""
                             savingsAmount = ""
-
+                            
                         }
                         
                     }
@@ -114,36 +114,8 @@ struct AddSavingView: View {
                 
                 Spacer()
             }
-//            .background(
-//
-//                ZStack(alignment: .bottom) {
-//
-//                    VStack{
-//                        Spacer()
-//                        if isCalculatorExpanded {
-//                            CalculatorNumberView(amount: $savingsAmount)
-//                                .transition(.move(edge: .bottom))
-//                        }
-//
-//                        Rectangle()
-//                            .fill(Color.gray)
-//                            .frame( width: 150,height: 5)
-//                            .onTapGesture {
-//                                withAnimation {
-//                                    isCalculatorExpanded.toggle()
-//                                }
-//                            }
-//                    }
-//
-//
-//                }
-//            )
-//            .onAppear {
-//                DispatchQueue.main.async {
-//                    focusedField = .savingsAmount
-//                }
-//            }
-            
+           
+    
             .toolbar {
                 ToolbarItemGroup(placement: .keyboard){
                     Spacer()
@@ -155,12 +127,16 @@ struct AddSavingView: View {
                 }
             }
         }
-        
+
     }
+    
+    
 }
 
+
+
 struct AddSavingView_Previews: PreviewProvider {
-   
+    
     static var previews: some View {
         AddSavingView()
     }

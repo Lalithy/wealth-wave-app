@@ -111,24 +111,15 @@ struct SetBudgetView: View {
                 
                 Spacer()
                 
-                Text("Remaining Budget :")
+                Text("Remaining :")
                     .font(.system(size: 13))
                 
                 Text(String(format: "%.2f", remainingBudget))
                     .font(.system(size: 13))
                     .frame(maxWidth: .infinity, alignment: .trailing)
             }
-            
-//            ZStack(alignment: .leading) {
-//                            Rectangle()
-//                                .frame(width: 350, height: 8)
-//                                .foregroundColor(.gray)
-//                            Rectangle()
-//                                .frame(width: CGFloat(expense) / CGFloat(estimatedBudget) * 350, height: 8)
-//                                .foregroundColor(spendBarColor)
-//                        }.padding(.bottom,10)
-//                .frame(maxWidth: .infinity, alignment: .leading)
-            
+            .foregroundColor(Color(red: 0.2, green: 0.2, blue: 0.2))
+  
             ZStack(alignment: .leading) {
                             Rectangle()
                                 .frame(width: 350, height: 8)
@@ -149,52 +140,7 @@ struct SetBudgetView: View {
         .padding(.leading,20)
         .padding(.trailing,20)
         
-//        VStack(alignment: .leading) {
-//            HStack {
-//                Image(image)
-//                    .resizable()
-//                    .frame(width: 50, height: 50)
-//                    .foregroundColor(.blue)
-//
-//                HStack {
-//                    Text(budgetCategoryName)
-//                        .font(.system(size: 20))
-//
-//                    Spacer()
-//
-//                    Text(String(expense))
-//                        .font(.system(size: 20))
-//                        .foregroundColor(.red)
-//                }
-//                //.frame(maxWidth: .infinity, alignment: .trailing)
-//            }
-//
-//            HStack {
-//                Text("Budget")
-//                    .font(.system(size: 15))
-//
-//                Text(String(estimatedBudget))
-//                    .font(.system(size: 15))
-//                    .padding(.trailing, 40)
-//
-//                Text("Remaining Budget")
-//                    .font(.system(size: 15))
-//
-//                Text(String(remainingBudget))
-//                    .font(.system(size: 15))
-//            }
-//
-//            ZStack(alignment: .leading) {
-//                Rectangle()
-//                    .frame(width: 350, height: 8)
-//                    .foregroundColor(.gray)
-//                Rectangle()
-//                    .frame(width: CGFloat(expense) / CGFloat(estimatedBudget) * 350, height: 8)
-//                    .foregroundColor(spendBarColor)
-//            }.padding(.bottom,15)
-//
-//        }.padding(.leading,20)
-//        .padding(.trailing,20)
+
         
     }
     

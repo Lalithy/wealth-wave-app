@@ -112,20 +112,18 @@ struct RegisterView: View {
             
             
             Button(action: {
-                let trimmedPassword = password.trimmingCharacters(in: .whitespacesAndNewlines)
-                let trimmedConfirmPassword = confirmPassword.trimmingCharacters(in: .whitespacesAndNewlines)
                 
                 registerVM.saveRegister(
                     email: email,
-                    password: trimmedPassword,
-                    confirmPassword: trimmedConfirmPassword)
+                    password: password,
+                    confirmPassword: confirmPassword)
                 
                 registerVM.registrationSuccessCallback = {
                     alertMessage = registerVM.responseMessage
                     showAlert = true
                 }
             }) {
-                Text("Login")
+                Text("Register")
                     .foregroundColor(.white)
                     .frame(width: 300, height: 50)
                     .bold()
