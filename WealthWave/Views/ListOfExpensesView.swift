@@ -19,7 +19,7 @@ struct ListOfExpensesView: View {
         VStack {
             HStack {
                 Spacer()
-                Text("EXPENSES")
+                Text("Expenses")
                     .font(.system(size: 25))
                     .bold()
                 Spacer()
@@ -58,26 +58,41 @@ struct ExpenseItemView: View {
     var budgetCategoryId: Int
     
     var body: some View {
-        HStack {
-            Image(image)
-                .resizable()
-                .frame(width: 50, height: 50)
-                .padding(.trailing, 10)
-                .padding(.leading, 10)
-            
-            NavigationLink(destination: AddExpensesView(itemName: buttonText), isActive: $isSelected) {
-                Button(action: {
-                    isSelected.toggle()
-                    
-                    PropertyModel.shared.saveCategoryId(budgetCategoryId)
-                }) {
-                    Text(buttonText)
-                        .font(.system(size: 20))
-                        .foregroundColor(isSelected ? .blue : .black)
+        
+        
+        ZStack {
+                    RoundedRectangle(cornerRadius: 2)
+                        .foregroundColor(.white)
+                        .shadow(color: Color.gray.opacity(0.5), radius: 3, x: 0, y: 2)
+                        .frame(height: 80)
+                        
+            HStack {
+                Image(image)
+                    .resizable()
+                    .frame(width: 50, height: 50)
+                    .padding(.trailing, 10)
+                    .padding(.leading, 10)
+                
+                NavigationLink(destination: AddExpensesView(itemName: buttonText), isActive: $isSelected) {
+                    Button(action: {
+                        isSelected.toggle()
+                        
+                        PropertyModel.shared.saveCategoryId(budgetCategoryId)
+                    }) {
+                        Text(buttonText)
+                            .font(.system(size: 20))
+                            .foregroundColor(isSelected ? .blue : .black)
+                    }
                 }
+                
+                Spacer()
             }
-            
-            Spacer()
-        }
+  
+                    
+                }
+                .padding(.horizontal, 10)
+                .padding(.vertical, 5)
+        
+      
     }
 }

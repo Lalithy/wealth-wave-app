@@ -60,7 +60,7 @@ class RegisterViewModel: ObservableObject {
                                 }
                                 
                                 
-                            }
+    }
                         } else if httpResponse.statusCode == 400 {
                             if let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
                                let message = json["message"] as? String {

@@ -79,7 +79,7 @@ struct SetBudgetView: View {
     var body: some View {
         
         ZStack {
-                    RoundedRectangle(cornerRadius: 10)
+                    RoundedRectangle(cornerRadius: 2)
                         .foregroundColor(.white)
                         .shadow(color: Color.gray.opacity(0.5), radius: 3, x: 0, y: 2)
                         .frame(height: 80)
@@ -124,6 +124,11 @@ struct SetBudgetView: View {
                     Text(String(format: "%.2f", remainingBudget))
                         .font(.system(size: 13))
                         .frame(maxWidth: .infinity, alignment: .trailing)
+                    
+                    Text("LKR")
+                        .font(.system(size: 10))
+                        .padding(.trailing, 20)
+                        .padding(.top, 5)
                 }
                 .foregroundColor(.secondary)
       
@@ -133,7 +138,7 @@ struct SetBudgetView: View {
                                     .foregroundColor(.gray)
                                 Rectangle()
                                     .frame(width: CGFloat(min(expense, estimatedBudget)) / CGFloat(estimatedBudget) * 350, height: 8)
-                                    .foregroundColor(expense > estimatedBudget ? Color("Personal Spending") : Color("Insurance"))
+                                    .foregroundColor(expense > estimatedBudget ? Color("Personal") : Color("Insurance"))
                             }
                             .padding(.bottom, 10)
                             .frame(maxWidth: .infinity, alignment: .leading)

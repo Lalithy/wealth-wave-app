@@ -42,7 +42,7 @@ struct AddSavingView: View {
                 }
             }
             
-            Image(systemName: "dollarsign.circle")
+            Image("Savings")
                 .resizable()
                 .frame(width: 50, height: 50)
                 .padding(.trailing, 20)
@@ -63,7 +63,7 @@ struct AddSavingView: View {
                 TextField("Amount", text: Binding(
                     get: { savingsAmount },
                     set: { newValue in
-                        if newValue.count <= 25 {
+                        if newValue.count <= 10 {
                             savingsAmount = newValue.filter { "0123456789.".contains($0) }
                         }
                     }

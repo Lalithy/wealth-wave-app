@@ -17,6 +17,8 @@ struct RegisterView: View {
     @State private var alertMessage = ""
     @State private var showAlert = false
     @State private var isStatusCode = false
+    @State private var isPasswordVisible = false
+    @State private var isConfirmPasswordVisible = false
     
     @FocusState private var focusedField: Field?
     
@@ -46,6 +48,7 @@ struct RegisterView: View {
             }
             .padding(.bottom, 50)
             
+            
             TextField("Enter Email", text: Binding(
                 get: { self.email },
                 set: { newValue in
@@ -64,26 +67,83 @@ struct RegisterView: View {
             .onSubmit {
                 focusedField = .password
             }
+            .padding(.bottom, 20)
             
             
-            TextField("Enter Password", text: Binding(
-                get: { self.password },
-                set: { newValue in
-                    if newValue.count <= 10 {
-                        self.password = newValue
+//            TextField("Enter Password", text: Binding(
+//                get: { self.password },
+//                set: { newValue in
+//                    if newValue.count <= 10 {
+//                        self.password = newValue
+//                    }
+//                }
+//            ))
+//            .padding()
+//            .disableAutocorrection(true)
+//            .autocapitalization(.none)
+//            .frame(width: 300)
+//            .background(Color.black.opacity(0.1))
+//            .cornerRadius(15)
+//            .padding()
+//            .focused($focusedField, equals: .password)
+//            .onSubmit {
+//                focusedField = .confirmPassword
+//            }
+            
+            ZStack(alignment: .trailing) {
+                if isPasswordVisible {
+                    TextField("Enter Password", text: Binding(
+                        get: { self.password },
+                        set: { newValue in
+                            if newValue.count <= 10 {
+                                self.password = newValue
+                            }
+                        }
+                    ))
+                    .padding()
+                    .disableAutocorrection(true)
+                    .autocapitalization(.none)
+                    .frame(width: 300)
+                    .background(Color.black.opacity(0.1))
+                    .cornerRadius(15)
+                    //.padding()
+                    .padding(.bottom, 20)
+                    .focused($focusedField, equals: .password)
+                    .onSubmit {
+                        focusedField = .confirmPassword
+                    }
+                } else {
+                    SecureField("Enter Password", text: Binding(
+                        get: { self.password },
+                        set: { newValue in
+                            if newValue.count <= 10 {
+                                self.password = newValue
+                            }
+                        }
+                    ))
+                    .padding()
+                    .autocapitalization(.none)
+                    .frame(width: 300)
+                    .background(Color.black.opacity(0.1))
+                    .cornerRadius(15)
+                    //.padding()
+                    .padding(.bottom, 20)
+                    .focused($focusedField, equals: .password)
+                    .onSubmit {
+                        focusedField = .confirmPassword
                     }
                 }
-            ))
-            .padding()
-            .disableAutocorrection(true)
-            .autocapitalization(.none)
-            .frame(width: 300)
-            .background(Color.black.opacity(0.1))
-            .cornerRadius(15)
-            .padding()
-            .focused($focusedField, equals: .password)
-            .onSubmit {
-                focusedField = .confirmPassword
+                
+                Button(action: {
+                    isPasswordVisible.toggle()
+                }) {
+                    Image(systemName: isPasswordVisible ? "eye.slash.fill" : "eye.fill")
+                        .foregroundColor(.blue)
+                        .font(.system(size: 20))
+                        .padding(.trailing, 25)
+                        .padding(.bottom, 15)
+                }
+                .buttonStyle(PlainButtonStyle())
             }
             
             
@@ -93,22 +153,82 @@ struct RegisterView: View {
                     .padding(.bottom, 5)
             }
             
-            TextField("Confirm Password", text: Binding(
-                get: { self.confirmPassword },
-                set: { newValue in
-                    if newValue.count <= 10 {
-                        self.confirmPassword = newValue
-                    }
+//            TextField("Confirm Password", text: Binding(
+//                get: { self.confirmPassword },
+//                set: { newValue in
+//                    if newValue.count <= 10 {
+//                        self.confirmPassword = newValue
+//                    }
+//                }
+//            ))
+//            .padding()
+//            .disableAutocorrection(true)
+//            .autocapitalization(.none)
+//            .frame(width: 300)
+//            .background(Color.black.opacity(0.1))
+//            .cornerRadius(15)
+//            .padding(.bottom, 50)
+//            .focused($focusedField, equals: .confirmPassword)
+            
+            
+            ZStack(alignment: .trailing) {
+                if isConfirmPasswordVisible {
+                    TextField("Confirm Password", text: Binding(
+                        get: { self.confirmPassword },
+                        set: { newValue in
+                            if newValue.count <= 10 {
+                                self.confirmPassword = newValue
+                            }
+                        }
+                    ))
+                    .padding()
+                    .disableAutocorrection(true)
+                    .autocapitalization(.none)
+                    .frame(width: 300)
+                    .background(Color.black.opacity(0.1))
+                    .cornerRadius(15)
+                   // .padding()
+                    .padding(.bottom, 20)
+                    .focused($focusedField, equals: .confirmPassword)
+                    
+                } else {
+                    SecureField("Confirm Password", text: Binding(
+                        get: { self.confirmPassword },
+                        set: { newValue in
+                            if newValue.count <= 10 {
+                                self.confirmPassword = newValue
+                            }
+                        }
+                    ))
+                    .padding()
+                    .autocapitalization(.none)
+                    .frame(width: 300)
+                    .background(Color.black.opacity(0.1))
+                    .cornerRadius(15)
+                    //.padding()
+                    .padding(.bottom, 20)
+                    .focused($focusedField, equals: .confirmPassword)
+                    
                 }
-            ))
-            .padding()
-            .disableAutocorrection(true)
-            .autocapitalization(.none)
-            .frame(width: 300)
-            .background(Color.black.opacity(0.1))
-            .cornerRadius(15)
-            .padding(.bottom, 50)
-            .focused($focusedField, equals: .confirmPassword)
+                
+                Button(action: {
+                    isConfirmPasswordVisible.toggle()
+                }) {
+                    Image(systemName: isConfirmPasswordVisible ? "eye.slash.fill" : "eye.fill")
+                        .foregroundColor(.blue)
+                        .font(.system(size: 20))
+                        .padding(.trailing, 25)
+                        .padding(.bottom, 15)
+                }
+                .buttonStyle(PlainButtonStyle())
+            }
+            
+            
+            if confirmPassword.count == 10 {
+                Text("Confirm Password cannot exceed 10 characters")
+                    .foregroundColor(.red)
+                    .padding(.bottom, 5)
+            }
             
             
             Button(action: {

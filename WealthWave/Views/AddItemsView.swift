@@ -15,14 +15,14 @@ struct AddItemsView: View {
     }
     
     @State private var selectedSideDashboard: SideOfTheForceDashboard = .expenses
-   
+    
     var body: some View {
         
         VStack {
             Picker("Coose a Side", selection: $selectedSideDashboard) {
                 ForEach(SideOfTheForceDashboard.allCases, id: \.self) {
                     Text($0.rawValue)
-                        
+                    
                 }
             }
             .pickerStyle(SegmentedPickerStyle())
@@ -129,7 +129,7 @@ struct ExpensesView: View {
     @State private var deleteSuccess = false
     @State private var errorMessage = ""
     
-   
+    
     
     var body: some View {
         VStack {
@@ -179,7 +179,7 @@ struct ExpensesView: View {
             //                    .padding()
             //            }
         }
-       
+        
         .tag(0)
         .onAppear {
             userExpensesList.fetchExpensesList()
@@ -204,10 +204,10 @@ struct UserExpensesListView: View {
         
         
         ZStack {
-                    RoundedRectangle(cornerRadius: 10)
-                        .foregroundColor(.white)
-                        .shadow(color: Color.gray.opacity(0.5), radius: 3, x: 0, y: 2)
-                        .frame(height: 80)
+            RoundedRectangle(cornerRadius: 2)
+                .foregroundColor(.white)
+                .shadow(color: Color.gray.opacity(0.5), radius: 3, x: 0, y: 2)
+                .frame(height: 80)
             
             
             VStack(alignment: .leading, spacing: 5) {
@@ -227,7 +227,7 @@ struct UserExpensesListView: View {
                         HStack {
                             Image(image)
                                 .resizable()
-                                .frame(width: 30, height: 30)
+                                .frame(width: 40, height: 30)
                                 .scaledToFit()
                             
                             Text(expenseCategory)
@@ -237,8 +237,13 @@ struct UserExpensesListView: View {
                             
                             Text(String(format: "%.2f", expenseAmount))
                                 .font(.system(size: 15))
-                                .padding(.trailing, 20)
+                                //.padding(.trailing, 20)
                                 .frame(maxWidth: .infinity, alignment: .trailing)
+                            
+                            Text("LKR")
+                                .font(.system(size: 10))
+                                .padding(.trailing, 20)
+                                .padding(.top, 5)
                         }
                     }
                 }
@@ -260,11 +265,11 @@ struct UserExpensesListView: View {
                 
             }
             .padding(.top, 10)
-                    
-                }
-                .padding(.horizontal, 10)
-                .padding(.vertical, 5)
-    
+            
+        }
+        .padding(.horizontal, 10)
+        .padding(.vertical, 5)
+        
     }
     
     
@@ -295,8 +300,8 @@ struct IncomeView: View {
                 .padding(.top, 10)
                 .font(.system(size: 25))
                 .frame(maxWidth: .infinity, alignment: .center)
-           
-
+            
+            
             
             ScrollView {
                 ForEach(incomeViewModel.incomeData, id: \.incomeId) { item in
@@ -312,7 +317,7 @@ struct IncomeView: View {
                             errorMessage = message
                             incomeViewModel.fetchIncomeData()
                         }
-                    
+                        
                     )
                 }
                 
@@ -363,74 +368,79 @@ struct UserIncomeListView: View {
     var body: some View {
         
         
-              ZStack {
-                          RoundedRectangle(cornerRadius: 10)
-                              .foregroundColor(.white)
-                              .shadow(color: Color.gray.opacity(0.5), radius: 3, x: 0, y: 2)
-                              .frame(height: 80)
-                  
-                  
-                  VStack(alignment: .leading, spacing: 5) {
-                      HStack {
-                          Button(action: {
-                              deleteIncome()
-                          }) {
-                              Image(systemName: iconName)
-                                  .font(.system(size: 20))
-                                  .foregroundColor(.red)
-                                  .scaledToFit()
-                          }
-                          .disabled(deleteIncomeViewModel.isDeleting)
-                          .padding(.leading, 20)
-                          
-                          VStack(alignment: .leading, spacing: 5) {
-                              HStack {
-                                  Image(systemName: image)
-                                      .resizable()
-                                      .foregroundColor(.blue)
-                                      .frame(width: 30, height: 30)
-                                      .scaledToFit()
-                                          
-                                  
-                                  Text(incomeDetails)
-                                      .font(.system(size: 15))
-                                  
-                                  Spacer()
-                                  
-                                  Text(String(format: "%.2f", incomeAmount))
-                                      .font(.system(size: 15))
-                                      .padding(.trailing, 20)
-                                      .frame(maxWidth: .infinity, alignment: .trailing)
-                              }
-                          }
-                      }
-                      
-                      HStack {
-                          
-                          Spacer()
-                          
-                          Text(incomeDate)
-                              .font(.system(size: 13))
-                              .padding(.trailing, 20)
-                              .frame(maxWidth: .infinity, alignment: .trailing)
-                              .foregroundColor(Color(red: 0.2, green: 0.2, blue: 0.2))
-                      }
-                      
-          //            Rectangle()
-          //                .frame(height: 1)
-          //                .padding(.leading, 20)
-          //                .padding(.trailing, 20)
-          //                .foregroundColor(.blue)
-                      
-                  }
-                  .padding(.top, 10)
-              
-                          
-                      }
-                      .padding(.horizontal, 10)
-                      .padding(.vertical, 5)
-
-       
+        ZStack {
+            RoundedRectangle(cornerRadius: 2)
+                .foregroundColor(.white)
+                .shadow(color: Color.gray.opacity(0.5), radius: 3, x: 0, y: 2)
+                .frame(height: 80)
+            
+            
+            VStack(alignment: .leading, spacing: 5) {
+                HStack {
+                    Button(action: {
+                        deleteIncome()
+                    }) {
+                        Image(systemName: iconName)
+                            .font(.system(size: 20))
+                            .foregroundColor(.red)
+                            .scaledToFit()
+                    }
+                    .disabled(deleteIncomeViewModel.isDeleting)
+                    .padding(.leading, 20)
+                    
+                    VStack(alignment: .leading, spacing: 5) {
+                        HStack {
+                            Image(systemName: image)
+                                .resizable()
+                                .foregroundColor(.blue)
+                                .frame(width: 30, height: 30)
+                                .scaledToFit()
+                            
+                            
+                            Text(incomeDetails)
+                                .font(.system(size: 15))
+                            
+                            Spacer()
+                            
+                            Text(String(format: "%.2f", incomeAmount))
+                                .font(.system(size: 15))
+                                //.padding(.trailing, 20)
+                                .frame(maxWidth: .infinity, alignment: .trailing)
+                            
+                            Text("LKR")
+                                .font(.system(size: 10))
+                                .padding(.trailing, 20)
+                                .padding(.top, 5)
+                        }
+                    }
+                }
+                
+                HStack {
+                    
+                    Spacer()
+                    
+                    Text(incomeDate)
+                        .font(.system(size: 13))
+                        .padding(.trailing, 20)
+                        .frame(maxWidth: .infinity, alignment: .trailing)
+                        .foregroundColor(Color(red: 0.2, green: 0.2, blue: 0.2))
+                }
+                
+                //            Rectangle()
+                //                .frame(height: 1)
+                //                .padding(.leading, 20)
+                //                .padding(.trailing, 20)
+                //                .foregroundColor(.blue)
+                
+            }
+            .padding(.top, 10)
+            
+            
+        }
+        .padding(.horizontal, 10)
+        .padding(.vertical, 5)
+        
+        
         
     }
     
@@ -457,78 +467,87 @@ struct SavingView: View {
     var body: some View {
         
         
-              
         
-        VStack{
-            
-            ZStack {
-                        RoundedRectangle(cornerRadius: 10)
-                            .foregroundColor(.white)
-                            .shadow(color: Color.gray.opacity(0.5), radius: 3, x: 0, y: 2)
-                            .frame(height: 200)
-                            .offset(y: 120)
-                
-                
-                HStack(alignment: .center) {
-                    
+                VStack{
+        
+                    ZStack {
+                                RoundedRectangle(cornerRadius: 2)
+                                    .foregroundColor(.white)
+                                    .shadow(color: Color.gray.opacity(0.5), radius: 3, x: 0, y: 2)
+                                    .frame(height: 200)
+                                    .offset(y: 120)
+        
+                        HStack{
+                            Image("Savings")
+                                .resizable()
+                                .foregroundColor(.blue)
+                                .frame(width: 60, height: 60)
+                                .scaledToFit()
+                                .offset(y: 60)
+                        }
+        
+        
+        
+                        HStack(alignment: .center) {
+        
+                            Button(action: {
+                                deleteAndRefresh()
+                            }) {
+                                Image(systemName: "minus.circle.fill")
+                                    .font(.system(size: 20))
+                                    .foregroundColor(.red)
+                                    .scaledToFit()
+                            }
+                            .padding(.leading, 20)
+        
+        
+        
+//                            Text("Savings")
+//                                .font(.system(size: 30))
+        
+        
+                            Text(String(format: "%.2f", getSavingViewModel.sumOfSavingsAmount))
+                                .font(.system(size: 30))
+                                //.padding(.trailing, 20)
+                                .frame(maxWidth: .infinity, alignment: .trailing)
+                            
+                            Text("LKR")
+                                .font(.system(size: 10))
+                                .padding(.trailing, 20)
+                                .padding(.top, 12)
+                                
+                        }
+                        .offset(y: 120)
+        //                .padding(.top, 10)
+        
+        
+                            }
+                            .padding(.horizontal, 10)
+                            .padding(.vertical, 5)
+        
+        
+                    Spacer()
+                    NavigationLink(
+                        destination: AddSavingView(),
+                        isActive: $isSavingVisible
+                    ) {
+        
+                    }
+                    .hidden()
+        
                     Button(action: {
-                        deleteAndRefresh()
+        
+                        isSavingVisible = true
                     }) {
-                        Image(systemName: "minus.circle.fill")
-                            .font(.system(size: 20))
-                            .foregroundColor(.red)
-                            .scaledToFit()
+                        Image(systemName: "plus.circle")
+                            .font(.system(size: 40))
+                            .foregroundColor(.blue)
                     }
-                    .padding(.leading, 20)
-                    
-                    
-                    Image(systemName: "dollarsign.circle")
-                        .resizable()
-                        .foregroundColor(.blue)
-                        .frame(width: 30, height: 30)
-                        .scaledToFit()
-                    
-                    
-                    Text("Savings")
-                        .font(.system(size: 30))
-                    
-                    
-                    Text(String(format: "%.2f", getSavingViewModel.sumOfSavingsAmount))
-                        .font(.system(size: 30))
-                        .padding(.trailing, 20)
-                        .frame(maxWidth: .infinity, alignment: .trailing)
+                    .padding(.bottom, 20)
+                    .padding(.trailing, 20)
+        
+        
                 }
-                .offset(y: 120)
-//                .padding(.top, 10)
-            
-                        
-                    }
-                    .padding(.horizontal, 10)
-                    .padding(.vertical, 5)
-
-            
-            Spacer()
-            NavigationLink(
-                destination: AddSavingView(),
-                isActive: $isSavingVisible
-            ) {
-                
-            }
-            .hidden()
-            
-            Button(action: {
-                
-                isSavingVisible = true
-            }) {
-                Image(systemName: "plus.circle")
-                    .font(.system(size: 40))
-                    .foregroundColor(.blue)
-            }
-            .padding(.bottom, 20)
-            .padding(.trailing, 20)
-            
-            
-        }
         .onAppear {
             getSavingViewModel.fetchSavingsData()
         }

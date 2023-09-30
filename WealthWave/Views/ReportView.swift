@@ -110,6 +110,9 @@ struct ReportView: View {
                         .padding(.trailing, 20)
                         .frame(maxWidth: .infinity, alignment: .trailing)
                 }
+                
+      
+                
             }
             .padding(.top, 10)
             
@@ -194,8 +197,15 @@ struct ReportListView: View {
             VStack {
                 Text(String(format: "%.2f", expenseAmount))
                     .font(.system(size: 15))
-                    .padding(.trailing, 20)
+                    //.padding(.trailing, 20)
                     .frame(maxWidth: .infinity, alignment: .trailing)
+            }
+            
+            VStack{
+                Text("LKR")
+                    .font(.system(size: 10))
+                    .padding(.trailing, 20)
+                    .padding(.top, 5)
             }
         }
         .padding(.top, 10)

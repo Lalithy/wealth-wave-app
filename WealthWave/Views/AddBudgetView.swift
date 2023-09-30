@@ -73,7 +73,7 @@ struct AddBudgetView: View {
                 TextField("Amount", text: Binding(
                     get: { budgetAmount },
                     set: { newValue in
-                        if newValue.count <= 25 {
+                        if newValue.count <= 10 {
                             budgetAmount = newValue.filter { "0123456789.".contains($0) }
                         }
                     }

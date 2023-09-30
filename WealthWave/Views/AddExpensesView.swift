@@ -94,7 +94,7 @@ struct FiledInputView: View {
             TextField("Amount", text: Binding(
                 get: { expenseAmount },
                 set: { newValue in
-                    if newValue.count <= 25 {
+                    if newValue.count <= 10 {
                         expenseAmount = newValue.filter { "0123456789.".contains($0) }
                     }
                 }

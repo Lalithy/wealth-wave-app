@@ -14,7 +14,7 @@ struct ChartsView: View {
         UISegmentedControl.appearance().setTitleTextAttributes([.font : UIFont.preferredFont(forTextStyle: .headline)], for: .normal)
     }
     
-    @State private var selectedSide: SideOfTheForce = .chart
+    @State private var selectedSide: SideOfTheForce = .statistics
     
     var body: some View {
         
