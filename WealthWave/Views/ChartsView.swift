@@ -106,7 +106,7 @@ struct BackgroundView: View {
                             .foregroundStyle(by: .value("Month", dataSeries.month))
                             .symbol(by: .value("Month", dataSeries.month))
                         }
-                        .frame(height:150)
+                        .frame(height:200)
                         .padding(.leading, 20)
                         .padding(.trailing, 20)
                     }
