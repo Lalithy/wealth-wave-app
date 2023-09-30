@@ -31,3 +31,19 @@ struct ChartExpensesCategoryResponse: Decodable {
     let timestamp: String
 }
 
+struct ChartStatisticsResponse: Codable {
+    let message: String
+    let details: [ChartStatisticsDetail]
+    let status, timestamp: String
+}
+
+struct ChartStatisticsDetail: Codable {
+    let month: String
+    let statistics: [Statistic]
+}
+
+struct Statistic: Codable {
+    let name: String
+    let totalValue: Double
+}
+

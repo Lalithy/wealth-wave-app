@@ -74,6 +74,7 @@ struct BackgroundView: View {
     @State private var viewAppeared = false
     @StateObject var userChartExpensesList: ChartsViewModel = ChartsViewModel()
     @StateObject var userChartExpensesCategoryList: ChartsExpensesCategoryViewModel = ChartsExpensesCategoryViewModel()
+    @StateObject var userChartStatistics: ChartStatisticsViewModel = ChartStatisticsViewModel()
     
     var body: some View {
         
@@ -83,6 +84,33 @@ struct BackgroundView: View {
         VStack{
             if selectedSide == .statistics {
                 ScrollView {
+                    
+                    
+                    VStack(alignment: .leading, spacing: 10) {
+                        
+                        Text("Last Six Month Statistics")
+                            .fontWeight(.semibold)
+                            .font(.footnote)
+                            .foregroundColor(.secondary)
+                            .font(.system(size: 25))
+                            .padding(.leading, 20)
+                        
+                        Chart (userChartStatistics.chartStatistics,id: \.month) { dataSeries in
+                            
+                            ForEach(dataSeries.statistics, id: \.name) { data in
+                                
+                                LineMark(x: .value("Month", data.name),
+                                         y: .value("Total Value", data.totalValue))
+                                
+                            }
+                            .foregroundStyle(by: .value("Month", dataSeries.month))
+                            .symbol(by: .value("Month", dataSeries.month))
+                        }
+                        .frame(height:150)
+                        .padding(.leading, 20)
+                        .padding(.trailing, 20)
+                    }
+                    
                     VStack (alignment: .leading, spacing: 10){
                         Text(backgroundName)
                             .fontWeight(.semibold)
@@ -107,30 +135,6 @@ struct BackgroundView: View {
                         
                         .chartLegend(position: .bottom, alignment: selectedSide == .statistics ? .leading: .center, spacing: 25)
                         .frame(height:250)
-                        .padding(.leading, 20)
-                        .padding(.trailing, 20)
-                    }
-                    
-                    VStack(alignment: .leading, spacing: 10) {
-                        
-                        Text(backgroundName)
-                            .fontWeight(.semibold)
-                            .font(.footnote)
-                            .foregroundColor(.secondary)
-                            .font(.system(size: 25))
-                            .padding(.leading, 20)
-                        
-                        Chart {
-                            ForEach(userChartExpensesList.chartExpenses,id: \.month) { expenses in
-                                
-                                LineMark(x: .value("Month", expenses.month),
-                                         y: .value("Expense", expenses.expenseTotal)
-                                )
-                                .foregroundStyle(.green)
-                                
-                            }
-                        }
-                        .frame(height:150)
                         .padding(.leading, 20)
                         .padding(.trailing, 20)
                     }

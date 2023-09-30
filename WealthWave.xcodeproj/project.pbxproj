@@ -21,6 +21,7 @@
 		92395DCB2AC764160073D0AD /* ChartsExpensesCategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92395DCA2AC764160073D0AD /* ChartsExpensesCategoryViewModel.swift */; };
 		924D0F172AC69836007A1E03 /* DeleteIncomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 924D0F162AC69836007A1E03 /* DeleteIncomeViewModel.swift */; };
 		924D0F192AC69910007A1E03 /* IncomeDeleteModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 924D0F182AC69910007A1E03 /* IncomeDeleteModel.swift */; };
+		924FE5B12AC8A063009B8117 /* ChartStatisticsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 924FE5B02AC8A063009B8117 /* ChartStatisticsViewModel.swift */; };
 		92565FBE2AC3287100E79B03 /* DeleteExpensesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92565FBD2AC3287100E79B03 /* DeleteExpensesViewModel.swift */; };
 		92565FC02AC349B800E79B03 /* ExpenseDeleteModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92565FBF2AC349B800E79B03 /* ExpenseDeleteModel.swift */; };
 		92716E3E2AB9B9D200B9A468 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92716E3D2AB9B9D200B9A468 /* DashboardView.swift */; };
@@ -72,6 +73,7 @@
 		92395DCA2AC764160073D0AD /* ChartsExpensesCategoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartsExpensesCategoryViewModel.swift; sourceTree = "<group>"; };
 		924D0F162AC69836007A1E03 /* DeleteIncomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteIncomeViewModel.swift; sourceTree = "<group>"; };
 		924D0F182AC69910007A1E03 /* IncomeDeleteModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomeDeleteModel.swift; sourceTree = "<group>"; };
+		924FE5B02AC8A063009B8117 /* ChartStatisticsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartStatisticsViewModel.swift; sourceTree = "<group>"; };
 		92565FBD2AC3287100E79B03 /* DeleteExpensesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteExpensesViewModel.swift; sourceTree = "<group>"; };
 		92565FBF2AC349B800E79B03 /* ExpenseDeleteModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseDeleteModel.swift; sourceTree = "<group>"; };
 		92716E3D2AB9B9D200B9A468 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
@@ -140,6 +142,7 @@
 				924D0F162AC69836007A1E03 /* DeleteIncomeViewModel.swift */,
 				92395DC82AC7639E0073D0AD /* ChartsViewModel.swift */,
 				92395DCA2AC764160073D0AD /* ChartsExpensesCategoryViewModel.swift */,
+				924FE5B02AC8A063009B8117 /* ChartStatisticsViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -296,6 +299,7 @@
 				9228FDB92AADC24600CE8E8D /* ContentView.swift in Sources */,
 				9295CD532ABCC10F00259DB8 /* AddSavingView.swift in Sources */,
 				923839322AC4ABD700F3B4D6 /* GetReportViewModel.swift in Sources */,
+				924FE5B12AC8A063009B8117 /* ChartStatisticsViewModel.swift in Sources */,
 				92DF58152ABF57030060E428 /* GetSavingViewModel.swift in Sources */,
 				924D0F192AC69910007A1E03 /* IncomeDeleteModel.swift in Sources */,
 				92565FBE2AC3287100E79B03 /* DeleteExpensesViewModel.swift in Sources */,
