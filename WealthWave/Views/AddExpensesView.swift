@@ -211,13 +211,13 @@ struct FiledInputView: View {
         
         .toolbar {
             ToolbarItemGroup(placement: .keyboard) {
-           
-                    Spacer()
-                    Button("Done") {
-                        focusedField = .expenseAmount
-                        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-                    }
-                    .focused($focusedField, equals: .expenseAmount)
+                
+                Spacer()
+                Button("Done") {
+                    focusedField = .expenseAmount
+                    UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                }
+                .focused($focusedField, equals: .expenseAmount)
                 
             }
         }

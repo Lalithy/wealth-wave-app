@@ -59,7 +59,7 @@ struct AddIncomeView: View {
                     .cornerRadius(15)
                     .padding(.horizontal, 100)
                 
-
+                
                 TextField("Amount", text: Binding(
                     get: { incomeAmount },
                     set: { newValue in
@@ -103,7 +103,7 @@ struct AddIncomeView: View {
                 }
                 
                 Button(action: {
-
+                    
                     addIncomeVM.saveIncome(
                         incomeDetails: incomeDetails,
                         incomeAmount: Double(incomeAmount) ?? 0.0,
@@ -114,7 +114,7 @@ struct AddIncomeView: View {
                         alertMessage = addIncomeVM.responseMessage
                         showAlert  = true
                     }
-  
+                    
                 }) {
                     Text("Save")
                         .foregroundColor(.white)
@@ -144,13 +144,13 @@ struct AddIncomeView: View {
         
         .toolbar {
             ToolbarItemGroup(placement: .keyboard) {
-              
-                    Spacer()
-                    Button("Done") {
-                        focusedField = .incomeAmount
-                        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-                    }
-                    .focused($focusedField, equals: .incomeAmount)
+                
+                Spacer()
+                Button("Done") {
+                    focusedField = .incomeAmount
+                    UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                }
+                .focused($focusedField, equals: .incomeAmount)
                 
             }
         }

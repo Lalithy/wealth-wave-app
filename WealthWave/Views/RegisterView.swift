@@ -28,7 +28,7 @@ struct RegisterView: View {
     
     
     let gradientButton = Gradient(colors: [Color("ButtonColourTop"), Color("ButtonColourMiddle"), Color("ButtonColourEnd")])
-    //let gradientBackground = Gradient(colors: [Color("BackgroundTop"), Color("BackgroundMiddle"), Color("BackgroundEnd")])
+    
     
     var body: some View {
         
@@ -70,25 +70,6 @@ struct RegisterView: View {
             .padding(.bottom, 20)
             
             
-//            TextField("Enter Password", text: Binding(
-//                get: { self.password },
-//                set: { newValue in
-//                    if newValue.count <= 10 {
-//                        self.password = newValue
-//                    }
-//                }
-//            ))
-//            .padding()
-//            .disableAutocorrection(true)
-//            .autocapitalization(.none)
-//            .frame(width: 300)
-//            .background(Color.black.opacity(0.1))
-//            .cornerRadius(15)
-//            .padding()
-//            .focused($focusedField, equals: .password)
-//            .onSubmit {
-//                focusedField = .confirmPassword
-//            }
             
             ZStack(alignment: .trailing) {
                 if isPasswordVisible {
@@ -106,7 +87,6 @@ struct RegisterView: View {
                     .frame(width: 300)
                     .background(Color.black.opacity(0.1))
                     .cornerRadius(15)
-                    //.padding()
                     .padding(.bottom, 20)
                     .focused($focusedField, equals: .password)
                     .onSubmit {
@@ -126,7 +106,6 @@ struct RegisterView: View {
                     .frame(width: 300)
                     .background(Color.black.opacity(0.1))
                     .cornerRadius(15)
-                    //.padding()
                     .padding(.bottom, 20)
                     .focused($focusedField, equals: .password)
                     .onSubmit {
@@ -153,22 +132,6 @@ struct RegisterView: View {
                     .padding(.bottom, 5)
             }
             
-//            TextField("Confirm Password", text: Binding(
-//                get: { self.confirmPassword },
-//                set: { newValue in
-//                    if newValue.count <= 10 {
-//                        self.confirmPassword = newValue
-//                    }
-//                }
-//            ))
-//            .padding()
-//            .disableAutocorrection(true)
-//            .autocapitalization(.none)
-//            .frame(width: 300)
-//            .background(Color.black.opacity(0.1))
-//            .cornerRadius(15)
-//            .padding(.bottom, 50)
-//            .focused($focusedField, equals: .confirmPassword)
             
             
             ZStack(alignment: .trailing) {
@@ -187,7 +150,6 @@ struct RegisterView: View {
                     .frame(width: 300)
                     .background(Color.black.opacity(0.1))
                     .cornerRadius(15)
-                   // .padding()
                     .padding(.bottom, 20)
                     .focused($focusedField, equals: .confirmPassword)
                     
@@ -205,7 +167,6 @@ struct RegisterView: View {
                     .frame(width: 300)
                     .background(Color.black.opacity(0.1))
                     .cornerRadius(15)
-                    //.padding()
                     .padding(.bottom, 20)
                     .focused($focusedField, equals: .confirmPassword)
                     
@@ -264,12 +225,12 @@ struct RegisterView: View {
             Spacer()
             
         }
-        //.background(LinearGradient(gradient: gradientBackground, startPoint: .top, endPoint: .bottom))
-            .onAppear {
-                DispatchQueue.main.async {
-                    focusedField = .email
-                }
+        
+        .onAppear {
+            DispatchQueue.main.async {
+                focusedField = .email
             }
+        }
         
         
     }
