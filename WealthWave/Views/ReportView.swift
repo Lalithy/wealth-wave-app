@@ -41,9 +41,9 @@ struct ReportView: View {
                         }
                     }
                     .padding()
-                    .frame(height: 50)
+                    //.frame(height: 55)
                     .clipped()
-                    .frame(width: 200, height: 35)
+                    .frame(width: 300, height: 40)
                     .background(Color.black.opacity(0.1))
                     .cornerRadius(5)
                     .foregroundColor(Color.black)

@@ -74,6 +74,7 @@ struct AddSavingView: View {
                 .background(Color.black.opacity(0.1))
                 .cornerRadius(15)
                 .keyboardType(.decimalPad)
+                .padding(.bottom,20)
                 .focused($focusedField, equals: .savingsAmount)
                 
                 

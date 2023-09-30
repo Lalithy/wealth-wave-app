@@ -166,6 +166,7 @@ struct LoginView: View {
                     .frame(width: 300, height: 50)
                     .bold()
                     .background(LinearGradient(gradient: gradientButton, startPoint: .leading, endPoint: .trailing))
+                    //.background(Color("ButtonColourEnd"))
                     .cornerRadius(10)
                     .padding(.bottom, 40)
             }

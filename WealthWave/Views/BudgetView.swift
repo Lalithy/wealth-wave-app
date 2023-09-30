@@ -78,69 +78,78 @@ struct SetBudgetView: View {
     
     var body: some View {
         
-        VStack(alignment: .leading, spacing: 5) {
-            HStack {
-                
-                VStack(alignment: .leading, spacing: 5) {
-                    HStack {
-                        Image(image)
-                            .resizable()
-                            .frame(width: 30, height: 30)
-                            .scaledToFit()
+        ZStack {
+                    RoundedRectangle(cornerRadius: 10)
+                        .foregroundColor(.white)
+                        .shadow(color: Color.gray.opacity(0.5), radius: 3, x: 0, y: 2)
+                        .frame(height: 80)
                         
-                        Text(budgetCategoryName)
-                            .font(.system(size: 15))
-                        
-                        Spacer()
-                        
-                        Text(String(format: "%.2f", expense))
-                            .font(.system(size: 15))
-                            .frame(maxWidth: .infinity, alignment: .trailing)
+
+            VStack(alignment: .leading, spacing: 5) {
+                HStack {
+                    
+                    VStack(alignment: .leading, spacing: 5) {
+                        HStack {
+                            Image(image)
+                                .resizable()
+                                .frame(width: 30, height: 30)
+                                .scaledToFit()
+                            
+                            Text(budgetCategoryName)
+                                .font(.system(size: 15))
+                            
+                            Spacer()
+                            
+                            Text(String(format: "%.2f", expense))
+                                .font(.system(size: 15))
+                                .frame(maxWidth: .infinity, alignment: .trailing)
+                        }
                     }
                 }
-            }
-            
-            HStack {
-                Text("Budget :")
-                    .font(.system(size: 13))
                 
-                Text(String(format: "%.2f", estimatedBudget))
-                    .font(.system(size: 13))
-                    .padding(.leading, 20)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                
-                Spacer()
-                
-                Text("Remaining :")
-                    .font(.system(size: 13))
-                
-                Text(String(format: "%.2f", remainingBudget))
-                    .font(.system(size: 13))
-                    .frame(maxWidth: .infinity, alignment: .trailing)
-            }
-            .foregroundColor(.secondary)
-  
-            ZStack(alignment: .leading) {
-                            Rectangle()
-                                .frame(width: 350, height: 8)
-                                .foregroundColor(.gray)
-                            Rectangle()
-                                .frame(width: CGFloat(min(expense, estimatedBudget)) / CGFloat(estimatedBudget) * 350, height: 8)
-                                .foregroundColor(expense > estimatedBudget ? Color("Personal Spending") : Color("Insurance"))
-                        }
-                        .padding(.bottom, 10)
+                HStack {
+                    Text("Budget :")
+                        .font(.system(size: 13))
+                    
+                    Text(String(format: "%.2f", estimatedBudget))
+                        .font(.system(size: 13))
+                        .padding(.leading, 20)
                         .frame(maxWidth: .infinity, alignment: .leading)
-            
-//            Rectangle()
-//                .frame(height: 1)
-//                .foregroundColor(.blue)
-            
-        }
-        .padding(.top, 10)
-        .padding(.leading,20)
-        .padding(.trailing,20)
-        
-
+                    
+                    Spacer()
+                    
+                    Text("Remaining :")
+                        .font(.system(size: 13))
+                    
+                    Text(String(format: "%.2f", remainingBudget))
+                        .font(.system(size: 13))
+                        .frame(maxWidth: .infinity, alignment: .trailing)
+                }
+                .foregroundColor(.secondary)
+      
+                ZStack(alignment: .leading) {
+                                Rectangle()
+                                    .frame(width: 350, height: 8)
+                                    .foregroundColor(.gray)
+                                Rectangle()
+                                    .frame(width: CGFloat(min(expense, estimatedBudget)) / CGFloat(estimatedBudget) * 350, height: 8)
+                                    .foregroundColor(expense > estimatedBudget ? Color("Personal Spending") : Color("Insurance"))
+                            }
+                            .padding(.bottom, 10)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                
+    //            Rectangle()
+    //                .frame(height: 1)
+    //                .foregroundColor(.blue)
+                
+            }
+            .padding(.top, 10)
+            .padding(.leading,10)
+            .padding(.trailing,10)
+                    
+                }
+                .padding(.horizontal, 10)
+                .padding(.vertical, 5)
         
     }
     
