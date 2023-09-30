@@ -10,8 +10,8 @@ import Charts
 
 struct ChartsView: View {
     
-   
-
+    
+    
     init(){
         UISegmentedControl.appearance().setTitleTextAttributes([.font : UIFont.preferredFont(forTextStyle: .headline)], for: .normal)
         
@@ -22,7 +22,7 @@ struct ChartsView: View {
     
     @StateObject var userChartExpensesList: ChartsViewModel = ChartsViewModel()
     @StateObject var userChartExpensesCategoryList: ChartsExpensesCategoryViewModel = ChartsExpensesCategoryViewModel()
-  
+    
     var body: some View {
         
         VStack {
@@ -36,7 +36,7 @@ struct ChartsView: View {
             .padding()
             Spacer()
             ChosenBackgroundView(selectedSide: selectedSide)
-                
+            
             Spacer()
         }
         
@@ -77,7 +77,10 @@ struct BackgroundView: View {
     
     var body: some View {
         
-     
+        
+        
+        
+        VStack{
             if selectedSide == .statistics {
                 ScrollView {
                     VStack (alignment: .leading, spacing: 10){
@@ -134,7 +137,7 @@ struct BackgroundView: View {
                     .padding(.top, 40)
                 }
             }
-
+            
             else {
                 
                 ScrollView {
@@ -198,11 +201,17 @@ struct BackgroundView: View {
                 
             }
         }
+        .onAppear(){
+            userChartExpensesCategoryList.fetchChartExpensesCategoryList()
+        }
         
-       
         
+    }
     
-
+    
+    
+    
+    
     func getWidth(width: CGFloat, value: CGFloat)->CGFloat {
         
         let temp = value / 100
@@ -215,16 +224,24 @@ struct DrawShape : View {
     
     var center : CGPoint
     var index : Int
-    
+    @StateObject var userChartExpensesCategoryList: ChartsExpensesCategoryViewModel = ChartsExpensesCategoryViewModel()
     var chartExpensesCategoryList: ChartsExpensesCategoryViewModel
     
     var body: some View {
         
-        Path {path in
-            path.move(to: self.center)
-            path.addArc(center: self.center, radius: 180, startAngle: .init(degrees: self.from()), endAngle: .init(degrees: self.to()), clockwise: false)
+        VStack{
+            
+            Path {path in
+                path.move(to: self.center)
+                path.addArc(center: self.center, radius: 180, startAngle: .init(degrees: self.from()), endAngle: .init(degrees: self.to()), clockwise: false)
+            }
+            .fill(Color(chartExpensesCategoryList.chartExpensesCategory[index].budgetCategory))
         }
-        .fill(Color(chartExpensesCategoryList.chartExpensesCategory[index].budgetCategory))
+        .onAppear(){
+            userChartExpensesCategoryList.fetchChartExpensesCategoryList()
+        }
+        
+        
     }
     
     func from()->Double {
