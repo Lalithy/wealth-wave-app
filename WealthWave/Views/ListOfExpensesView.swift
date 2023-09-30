@@ -10,9 +10,7 @@ import SwiftUI
 struct ListOfExpensesView: View {
     
     @StateObject var listOfExpensesVM: ListOfExpensesViewModel = ListOfExpensesViewModel()
-
     
-    //let gradientScreen = Gradient(colors: [Color("ScreenColorTop"), Color("ScreenColorMiddle"), Color("ScreenColorEnd")])
     
     
     var body: some View {
@@ -25,19 +23,19 @@ struct ListOfExpensesView: View {
                 Spacer()
             }
             
-//            if listOfExpensesVM.isLoading {
-//                ProgressView()
-//            } else {
-                ScrollView {
-                    ForEach(listOfExpensesVM.budgetCategories, id: \.budgetCategoryId) { category in
-                        ExpenseItemView(image: category.budgetCategoryName, buttonText: category.budgetCategoryName, budgetCategoryId: category.budgetCategoryId)
-                    }
-                    Spacer()
+            //            if listOfExpensesVM.isLoading {
+            //                ProgressView()
+            //            } else {
+            ScrollView {
+                ForEach(listOfExpensesVM.budgetCategories, id: \.budgetCategoryId) { category in
+                    ExpenseItemView(image: category.budgetCategoryName, buttonText: category.budgetCategoryName, budgetCategoryId: category.budgetCategoryId)
                 }
-//            }
+                Spacer()
+            }
+            //            }
         }
         .padding()
-       // .background(LinearGradient(gradient: gradientScreen, startPoint: .top, endPoint: .bottom))
+        
         .onAppear {
             listOfExpensesVM.fetchBudgetCategories()
         }
@@ -61,11 +59,11 @@ struct ExpenseItemView: View {
         
         
         ZStack {
-                    RoundedRectangle(cornerRadius: 2)
-                        .foregroundColor(.white)
-                        .shadow(color: Color.gray.opacity(0.5), radius: 3, x: 0, y: 2)
-                        .frame(height: 80)
-                        
+            RoundedRectangle(cornerRadius: 2)
+                .foregroundColor(.white)
+                .shadow(color: Color.gray.opacity(0.5), radius: 3, x: 0, y: 2)
+                .frame(height: 80)
+            
             HStack {
                 Image(image)
                     .resizable()
@@ -87,12 +85,12 @@ struct ExpenseItemView: View {
                 
                 Spacer()
             }
-  
-                    
-                }
-                .padding(.horizontal, 10)
-                .padding(.vertical, 5)
+            
+            
+        }
+        .padding(.horizontal, 10)
+        .padding(.vertical, 5)
         
-      
+        
     }
 }

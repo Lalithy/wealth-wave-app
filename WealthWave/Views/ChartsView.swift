@@ -10,12 +10,19 @@ import Charts
 
 struct ChartsView: View {
     
+   
+
     init(){
         UISegmentedControl.appearance().setTitleTextAttributes([.font : UIFont.preferredFont(forTextStyle: .headline)], for: .normal)
+        
+        
     }
     
-    @State private var selectedSide: SideOfTheForce = .statistics
+    @State private var selectedSide: SideOfTheForce = .chart
     
+    @StateObject var userChartExpensesList: ChartsViewModel = ChartsViewModel()
+    @StateObject var userChartExpensesCategoryList: ChartsExpensesCategoryViewModel = ChartsExpensesCategoryViewModel()
+  
     var body: some View {
         
         VStack {
@@ -29,6 +36,7 @@ struct ChartsView: View {
             .padding()
             Spacer()
             ChosenBackgroundView(selectedSide: selectedSide)
+                
             Spacer()
         }
         
@@ -57,136 +65,144 @@ struct ChosenBackgroundView: View {
     }
 }
 
+
+
 struct BackgroundView: View {
     
     var backgroundName : String
     var selectedSide : SideOfTheForce
-    
+    @State private var viewAppeared = false
     @StateObject var userChartExpensesList: ChartsViewModel = ChartsViewModel()
     @StateObject var userChartExpensesCategoryList: ChartsExpensesCategoryViewModel = ChartsExpensesCategoryViewModel()
     
     var body: some View {
         
-        
-        if selectedSide == .statistics {
-            ScrollView {
-                VStack (alignment: .leading, spacing: 10){
-                    Text(backgroundName)
-                        .fontWeight(.semibold)
-                        .font(.footnote)
-                        .foregroundColor(.secondary)
-                        .font(.system(size: 25))
-                        .padding(.leading, 20)
-                    
-                    
-                    Chart {
-                        ForEach(userChartExpensesList.chartExpenses, id: \.month) { expenses in
-                            
-                            BarMark(
-                                x: .value("Month", expenses.month),
-                                y: .value("Expense", expenses.expenseTotal)
-                            )
-                            .cornerRadius(8)
-                            .foregroundStyle(by: .value("Month", expenses.month))
-                            
-                        }
-                    }
-                    
-                    .chartLegend(position: .bottom, alignment: selectedSide == .statistics ? .leading: .center, spacing: 25)
-                    .frame(height:250)
-                    .padding(.leading, 20)
-                    .padding(.trailing, 20)
-                }
-                
-                VStack(alignment: .leading, spacing: 10) {
-                    
-                    Text(backgroundName)
-                        .fontWeight(.semibold)
-                        .font(.footnote)
-                        .foregroundColor(.secondary)
-                        .font(.system(size: 25))
-                        .padding(.leading, 20)
-                    
-                    Chart {
-                        ForEach(userChartExpensesList.chartExpenses,id: \.month) { expenses in
-                            
-                            LineMark(x: .value("Month", expenses.month),
-                                     y: .value("Expense", expenses.expenseTotal)
-                            )
-                            .foregroundStyle(.green)
-                            
-                        }
-                    }
-                    .frame(height:150)
-                    .padding(.leading, 20)
-                    .padding(.trailing, 20)
-                }
-                .padding(.top, 40)
-            }
-        } else {
-            
-            ScrollView {
-                
-                Text ("Expense Dashboard")
-                    .font(.system(size: 25))
-                    .bold()
-                
-                VStack {
-                    
-                    GeometryReader {g in
+     
+            if selectedSide == .statistics {
+                ScrollView {
+                    VStack (alignment: .leading, spacing: 10){
+                        Text(backgroundName)
+                            .fontWeight(.semibold)
+                            .font(.footnote)
+                            .foregroundColor(.secondary)
+                            .font(.system(size: 25))
+                            .padding(.leading, 20)
                         
-                        ZStack {
-                            
-                            ForEach(0..<userChartExpensesCategoryList.chartExpensesCategory.count, id: \.self){i in
-                                DrawShape(center: CGPoint(x: g.frame(in: .global).width / 2, y: g.frame(in: .global).height / 2), index: i, chartExpensesCategoryList: userChartExpensesCategoryList)
+                        
+                        Chart {
+                            ForEach(userChartExpensesList.chartExpenses, id: \.month) { expenses in
+                                
+                                BarMark(
+                                    x: .value("Month", expenses.month),
+                                    y: .value("Expense", expenses.expenseTotal)
+                                )
+                                .cornerRadius(8)
+                                .foregroundStyle(by: .value("Month", expenses.month))
+                                
                             }
                         }
+                        
+                        .chartLegend(position: .bottom, alignment: selectedSide == .statistics ? .leading: .center, spacing: 25)
+                        .frame(height:250)
+                        .padding(.leading, 20)
+                        .padding(.trailing, 20)
                     }
-                    .frame(height: 360)
-                    .padding()
-                    .clipShape(Circle())
-                    .shadow(radius: 5)
+                    
+                    VStack(alignment: .leading, spacing: 10) {
+                        
+                        Text(backgroundName)
+                            .fontWeight(.semibold)
+                            .font(.footnote)
+                            .foregroundColor(.secondary)
+                            .font(.system(size: 25))
+                            .padding(.leading, 20)
+                        
+                        Chart {
+                            ForEach(userChartExpensesList.chartExpenses,id: \.month) { expenses in
+                                
+                                LineMark(x: .value("Month", expenses.month),
+                                         y: .value("Expense", expenses.expenseTotal)
+                                )
+                                .foregroundStyle(.green)
+                                
+                            }
+                        }
+                        .frame(height:150)
+                        .padding(.leading, 20)
+                        .padding(.trailing, 20)
+                    }
+                    .padding(.top, 40)
+                }
+            }
+
+            else {
+                
+                ScrollView {
+                    
+                    Text ("Expense Dashboard")
+                        .font(.system(size: 25))
+                        .bold()
                     
                     VStack {
                         
-                        ForEach(userChartExpensesCategoryList.chartExpensesCategory,id: \.budgetCategory) { i in
+                        GeometryReader {g in
                             
-                            HStack {
+                            ZStack {
                                 
-                                Text(i.budgetCategory)
-                                    .frame(width: 150, alignment: .leading)
+                                ForEach(0..<userChartExpensesCategoryList.chartExpensesCategory.count, id: \.self){i in
+                                    DrawShape(center: CGPoint(x: g.frame(in: .global).width / 2, y: g.frame(in: .global).height / 2), index: i, chartExpensesCategoryList: userChartExpensesCategoryList)
+                                }
+                            }
+                        }
+                        .frame(height: 360)
+                        .padding()
+                        .clipShape(Circle())
+                        .shadow(radius: 5)
+                        
+                        VStack {
+                            
+                            ForEach(userChartExpensesCategoryList.chartExpensesCategory,id: \.budgetCategory) { i in
                                 
-                                GeometryReader {g in
-                                    HStack {
+                                HStack {
+                                    
+                                    Text(i.budgetCategory)
+                                        .frame(width: 150, alignment: .leading)
+                                    
+                                    GeometryReader {g in
+                                        HStack {
+                                            
+                                            Spacer(minLength: 0)
+                                            
+                                            
+                                            Rectangle()
+                                                .fill(Color(i.budgetCategory))
+                                                .frame(width: self.getWidth(width: g.frame(in: .global).width, value: i.expensePercentage), height: 10)
+                                            
+                                            Text(String(format: "%.2f", i.expensePercentage)+" %")
+                                                .fontWeight(.bold)
+                                                .padding(.leading, 6)
+                                        }
                                         
-                                        Spacer(minLength: 0)
-                                        
-                                        
-                                        Rectangle()
-                                            .fill(Color(i.budgetCategory))
-                                            .frame(width: self.getWidth(width: g.frame(in: .global).width, value: i.expensePercentage), height: 10)
-                                        
-                                        Text(String(format: "%.2f", i.expensePercentage)+" %")
-                                            .fontWeight(.bold)
-                                            .padding(.leading, 6)
                                     }
                                     
                                 }
-                                
+                                .padding(.top, 6)
                             }
-                            .padding(.top, 6)
                         }
+                        .padding()
+                        Spacer()
+                        
                     }
-                    .padding()
-                    Spacer()
-                    
+                    .edgesIgnoringSafeArea(.top)
                 }
-                .edgesIgnoringSafeArea(.top)
+                
             }
-            
         }
-    }
+        
+       
+        
     
+
     func getWidth(width: CGFloat, value: CGFloat)->CGFloat {
         
         let temp = value / 100
@@ -216,7 +232,7 @@ struct DrawShape : View {
         if index == 0 {
             return 0
         } else {
-            var temp : Double = 1
+            var temp : Double = 0
             
             for i in 0...index-1{
                 temp += Double(chartExpensesCategoryList.chartExpensesCategory[i].expensePercentage / 100) * 360

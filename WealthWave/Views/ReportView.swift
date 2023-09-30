@@ -129,16 +129,7 @@ struct ReportView: View {
             }
             
             Spacer()
-            
-//            Button(action: {
-//
-//            }) {
-//                Image(systemName: "arrow.down.circle")
-//                    .font(.system(size: 40))
-//                    .foregroundColor(.blue)
-//            }
-//            .padding(.bottom, 20)
-//            .padding(.trailing, 20)
+
         }
         .onAppear {
             if let monthNumber = reportViewModel.getMonthNumber(from: selectedMonth) {
@@ -146,20 +137,7 @@ struct ReportView: View {
                 reportViewModel.fetchReportData(month: monthNumber)
             }
         }
-        //                                        .alert(isPresented: $showAlert) {
-        //
-        //
-        //                                            Alert(
-        //                                                title: Text("Record not found"),
-        //                                                message: Text("The requested records could not be found."),
-        //                                                dismissButton: .default(Text("OK")) {
-        //
-        //                                                    //reportViewModel.reportData = []
-        //
-        //                                                }
-        //
-        //                                            )
-        //                                        }
+       
         
     }
 }
@@ -197,7 +175,6 @@ struct ReportListView: View {
             VStack {
                 Text(String(format: "%.2f", expenseAmount))
                     .font(.system(size: 15))
-                    //.padding(.trailing, 20)
                     .frame(maxWidth: .infinity, alignment: .trailing)
             }
             
