@@ -22,7 +22,7 @@ struct DashboardView: View {
         .background(LinearGradient(gradient: gradientScreen, startPoint: .top, endPoint: .bottom))
         .navigationBarBackButtonHidden(true)
         .navigationBarItems(trailing:
-                                NavigationLink(destination: Preview()) {
+                                NavigationLink(destination: LoginView()) {
             Image(systemName: "arrow.right.circle")
                 .font(.system(size: 20))
                 .padding(.trailing, 20)
